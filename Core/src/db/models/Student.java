@@ -1,0 +1,218 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package db.models;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.database.SqlConnection;
+
+/**
+ *
+ * @author Ja
+ */
+public class Student {
+
+    private int id;
+    private String imie;
+    private String nazwisko;
+    private String email;
+    private int indeks;
+
+    public Student(int k_id, String k_imie, String k_nazwisko, String k_email, int k_indeks) {
+        this.id = k_id;
+        this.imie = k_imie;
+        this.nazwisko = k_nazwisko;
+        this.email = k_email;
+        this.indeks = k_indeks;
+    }
+
+    private Student() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getImie() {
+        return imie;
+    }
+
+    public void setImie(String imie) {
+        this.imie = imie;
+    }
+
+    public String getNazwisko() {
+        return nazwisko;
+    }
+
+    public void setNazwisko(String nazwisko) {
+        this.nazwisko = nazwisko;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getIndeks() {
+        return indeks;
+    }
+
+    public void setIndeks(int indeks) {
+        this.indeks = indeks;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" + "id=" + id + ", imie=" + imie + ", nazwisko=" + nazwisko + ", email=" + email + ", indeks=" + indeks + '}';
+    }
+
+    public static List<Student> getAll() {
+        List<Student> students = new ArrayList<Student>();
+        Statement stat = null;
+        try {
+            Connection conn = SqlConnection.getInstance().getSqlConnection();
+            stat = conn.createStatement();
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "SELECT * FROM student ORDER BY nazwisko");
+            ResultSet resultSet = prepStmt.executeQuery();
+            while (resultSet.next()) {
+                Student student = new Student(resultSet.getInt("id"), resultSet.getString("imie"), resultSet.getString("nazwisko"), resultSet.getString("email"), resultSet.getInt("indeks"));
+                students.add(student);
+            }
+        } catch (SQLException e) {
+            System.err.println("Problem z otwarciem polaczenia");
+            e.printStackTrace();
+        }
+        return students;
+    }
+
+    public static Student getById(Integer studentId) {
+        Student student = new Student();
+        Statement stat = null;
+        try {
+            Connection conn = SqlConnection.getInstance().getSqlConnection();
+            stat = conn.createStatement();
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "SELECT * FROM student WHERE id = ?");
+            prepStmt.setInt(1, studentId);
+            ResultSet resultSet = prepStmt.executeQuery();
+            while (resultSet.next()) {
+                student = new Student(resultSet.getInt("id"), resultSet.getString("imie"), resultSet.getString("nazwisko"), resultSet.getString("email"), resultSet.getInt("indeks"));
+            }
+        } catch (SQLException e) {
+            System.err.println("Problem z otwarciem polaczenia");
+            e.printStackTrace();
+        }
+        return student;
+    }
+
+    public static void add(String imie, String nazwisko, String email, int indeksNr) {
+        Statement stat = null;
+        try {
+            Connection conn = SqlConnection.getInstance().getSqlConnection();
+            stat = conn.createStatement();
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "INSERT INTO student values (?, ?, ?, ?, ?)");
+            prepStmt.setString(2, imie);
+            prepStmt.setString(3, nazwisko);
+            prepStmt.setString(4, email);
+            prepStmt.setInt(5, indeksNr);
+            prepStmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Problem z otwarciem polaczenia");
+            e.printStackTrace();
+        }
+    }
+
+    public static void edit(Student student) {
+        Statement stat = null;
+        try {
+            Connection conn = SqlConnection.getInstance().getSqlConnection();
+            stat = conn.createStatement();
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "UPDATE student SET imie = ?, nazwisko = ?, email = ?, indeks = ? WHERE id = ?");
+            prepStmt.setInt(5, student.getId());
+            prepStmt.setString(1, student.getImie());
+            prepStmt.setString(2, student.getNazwisko());
+            prepStmt.setString(3, student.getEmail());
+            prepStmt.setInt(4, student.getIndeks());
+            prepStmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Problem z otwarciem polaczenia");
+            e.printStackTrace();
+        }
+    }
+
+    public static void delete(int id) {
+        Statement stat = null;
+        try {
+            Connection conn = SqlConnection.getInstance().getSqlConnection();
+            stat = conn.createStatement();
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "DELETE FROM student WHERE id = ?");
+            prepStmt.setInt(1, id);
+            prepStmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Problem z otwarciem polaczenia");
+            e.printStackTrace();
+        }
+    }
+
+    public static void delete(String imie, String nazwisko, String email, int indeksNr) {
+        Statement stat = null;
+        try {
+            Connection conn = SqlConnection.getInstance().getSqlConnection();
+            stat = conn.createStatement();
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "DELETE FROM student WHERE imie = ? AND nazwisko = ? AND email = ? AND indeks = ?");
+            prepStmt.setString(1, imie);
+            prepStmt.setString(2, nazwisko);
+            prepStmt.setString(3, email);
+            prepStmt.setInt(4, indeksNr);
+            prepStmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Problem z otwarciem polaczenia");
+            e.printStackTrace();
+        }
+    }
+
+    public static List<Student> getByGroup(int id) {
+        try {
+            Connection conn = SqlConnection.getInstance().getSqlConnection();
+            Statement st = conn.createStatement();
+
+            List<Student> students = new ArrayList<Student>();
+
+            ResultSet rs = st.executeQuery("select S.id,S.imie,S.nazwisko,S.email,S.indeks from student as S join grupa_student as G on S.id = G.id_student where G.id_grupa_cwiczeniowa=" + id);
+            while (rs.next()) {
+                students.add(new Student(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5)));
+            }
+            st.close();
+            return students;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+}
