@@ -26,11 +26,9 @@ import org.officelaf.ribbon.menu.MailAction;
 import org.officelaf.ribbon.menu.PDFAction;
 import org.officelaf.ribbon.obecnosc.SprawdzObecnoscAction;
 import org.officelaf.ribbon.obecnosc.UsunObecnoscAction;
-import org.officelaf.ribbon.oceny.DodajGrupeOcenAction;
 import org.officelaf.ribbon.oceny.DodajSlupekAction;
 import org.officelaf.ribbon.oceny.PodsumowanieAction;
 import org.officelaf.ribbon.oceny.PokazTabeleOcenAction;
-import org.officelaf.ribbon.oceny.UsunGrupeOcenAction;
 import org.officelaf.ribbon.oceny.UsunSlupekAction;
 import org.officelaf.ribbon.plan.DodajTerminAction;
 import org.officelaf.ribbon.plan.PokazPlanAction;
@@ -72,8 +70,8 @@ public class MainRibbon extends JRibbon {
         IcoWrapperResizableIcon pdf_ico = null;
         IcoWrapperResizableIcon mail_ico = null;
         try {
-            pdf_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/pdf.ico"), new Dimension(32, 32));
-            mail_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/mail.ico"), new Dimension(32, 32));
+            pdf_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/pdf.ico"), new Dimension(32, 32));
+            mail_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/mail.ico"), new Dimension(32, 32));
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
@@ -134,9 +132,9 @@ public class MainRibbon extends JRibbon {
         IcoWrapperResizableIcon table_minus_ico = null;
 
         try {
-            table_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/table.ico"), new Dimension(32, 32));
-            table_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/table_plus.ico"), new Dimension(32, 32));
-            table_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/table_minus.ico"), new Dimension(32, 32));
+            table_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/table.ico"), new Dimension(32, 32));
+            table_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/table_plus.ico"), new Dimension(32, 32));
+            table_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/table_minus.ico"), new Dimension(32, 32));
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
@@ -167,9 +165,9 @@ public class MainRibbon extends JRibbon {
         IcoWrapperResizableIcon per1_ico = null;
         IcoWrapperResizableIcon per2_ico = null;
         try {
-            per_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/per.ico"), new Dimension(32, 32));
-            per1_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/per1.ico"), new Dimension(32, 32));
-            per2_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/per2.ico"), new Dimension(32, 32));
+            per_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/per.ico"), new Dimension(32, 32));
+            per1_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/per1.ico"), new Dimension(32, 32));
+            per2_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/per2.ico"), new Dimension(32, 32));
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
@@ -202,9 +200,9 @@ public class MainRibbon extends JRibbon {
         IcoWrapperResizableIcon table_minus_ico = null;
 
         try {
-            table_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/subject.ico"), new Dimension(32, 32));
-            table_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/subject_plus.ico"), new Dimension(32, 32));
-            table_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/subject_minus.ico"), new Dimension(32, 32));
+            table_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/subject.ico"), new Dimension(32, 32));
+            table_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/subject_plus.ico"), new Dimension(32, 32));
+            table_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/subject_minus.ico"), new Dimension(32, 32));
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
@@ -236,9 +234,9 @@ public class MainRibbon extends JRibbon {
         IcoWrapperResizableIcon group_minus_ico = null;
 
         try {
-            group_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/group.ico"), new Dimension(32, 32));
-            group_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/group_plus.ico"), new Dimension(32, 32));
-            group_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/group_minus.ico"), new Dimension(32, 32));
+            group_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/group.ico"), new Dimension(32, 32));
+            group_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/group_plus.ico"), new Dimension(32, 32));
+            group_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/group_minus.ico"), new Dimension(32, 32));
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
@@ -272,11 +270,11 @@ public class MainRibbon extends JRibbon {
         IcoWrapperResizableIcon student_delete_ico = null;
 
         try {
-            student_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/student.ico"), new Dimension(32, 32));
-            student_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/student_plus.ico"), new Dimension(32, 32));
-            student_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/student_minus.ico"), new Dimension(32, 32));
-            student_add_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/student_add.ico"), new Dimension(32, 32));
-            student_delete_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/student_delete.ico"), new Dimension(32, 32));
+            student_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/student.ico"), new Dimension(32, 32));
+            student_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/student_plus.ico"), new Dimension(32, 32));
+            student_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/student_minus.ico"), new Dimension(32, 32));
+            student_add_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/student_add.ico"), new Dimension(32, 32));
+            student_delete_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/student_delete.ico"), new Dimension(32, 32));
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
@@ -318,12 +316,12 @@ public class MainRibbon extends JRibbon {
         IcoWrapperResizableIcon notes_last_ico = null;
 
         try {
-            notes_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/notes.ico"), new Dimension(32, 32));
-            notes_group_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/notes_group_plus.ico"), new Dimension(32, 32));
-            notes_group_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/notes_group_minus.ico"), new Dimension(32, 32));
-            notes_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/notes_plus.ico"), new Dimension(32, 32));
-            notes_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/notes_minus.ico"), new Dimension(32, 32));
-            notes_last_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/notes_last.ico"), new Dimension(32, 32));
+            notes_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/notes.ico"), new Dimension(32, 32));
+            notes_group_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/notes_group_plus.ico"), new Dimension(32, 32));
+            notes_group_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/notes_group_minus.ico"), new Dimension(32, 32));
+            notes_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/notes_plus.ico"), new Dimension(32, 32));
+            notes_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/notes_minus.ico"), new Dimension(32, 32));
+            notes_last_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/notes_last.ico"), new Dimension(32, 32));
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
@@ -357,8 +355,8 @@ public class MainRibbon extends JRibbon {
         IcoWrapperResizableIcon presence_minus_ico = null;
 
         try {
-            presence_table_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/presence.ico"), new Dimension(32, 32));
-            presence_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./last_ant/src/org/officelaf/icons/images/presence_minus.ico"), new Dimension(32, 32));
+            presence_table_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/presence.ico"), new Dimension(32, 32));
+            presence_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/presence_minus.ico"), new Dimension(32, 32));
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         }
