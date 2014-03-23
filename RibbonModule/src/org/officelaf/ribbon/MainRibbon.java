@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import org.jvnet.flamingo.common.RichTooltip;
 import org.officelaf.ribbon.grupy_cwiczeniowe.DodajGrupeAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.PokazGrupyAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.UsunGrupeAction;
@@ -56,47 +57,21 @@ public class MainRibbon extends JRibbon {
         RibbonTask homeTask = new RibbonTask("Narzędzia głowne", createHomeBands());
         RibbonTask subTask = new RibbonTask("Zarządzanie przedmiotami", createSubBands());
         RibbonTask peopleTask = new RibbonTask("Zarządzanie grupami", createPeopleBands());
+        RibbonTask mailTask = new RibbonTask("Skrzynka pocztowa", createPeopleBands());
         
         addTask(homeTask);
         addTask(peopleTask);
         addTask(subTask);
+        addTask(mailTask);
         
         createApplicationMenu();
     }
 
     private void createApplicationMenu() {
-        RibbonApplicationMenu appMenu = new RibbonApplicationMenu();
         
-        IcoWrapperResizableIcon pdf_ico = null;
-        IcoWrapperResizableIcon mail_ico = null;
-        try {
-            pdf_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/pdf.ico"), new Dimension(32, 32));
-            mail_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/mail.ico"), new Dimension(32, 32));
-        } catch (MalformedURLException ex) {
-            Exceptions.printStackTrace(ex);
-        }
-
-        appMenu.addMenuEntry(new PrimaryMenuEntry(JCommandButton.CommandButtonKind.ACTION_ONLY, "Drukuj", ActionUtil.lookupIcon(SystemAction.get(PrintAction.class)),SystemAction.get(PrintAction.class)));
-        appMenu.addMenuEntry(new PrimaryMenuEntry(JCommandButton.CommandButtonKind.ACTION_ONLY, "Ustawienia strony", ActionUtil.lookupIcon(SystemAction.get(PageSetupAction.class)),SystemAction.get(PageSetupAction.class)));
-        appMenu.addMenuEntry(new PrimaryMenuEntry(JCommandButton.CommandButtonKind.ACTION_ONLY, "Eksport do PDF", pdf_ico, new PDFAction()));
-        appMenu.addMenuEntry(new PrimaryMenuEntry(JCommandButton.CommandButtonKind.ACTION_ONLY, "Wyślij maila", mail_ico, new MailAction()));
+        RibbonApplicationMenu menu = new RibbonApplicationMenu();
         
-        
-        appMenu.addFooterEntry(new FooterMenuEntry(new AbstractAction(NbBundle.getMessage(MainRibbon.class, "OPTIONS")) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                OptionsDisplayer.getDefault().open();
-            }
-        }));
-
-        appMenu.addFooterEntry(new FooterMenuEntry(new AbstractAction(NbBundle.getMessage(MainRibbon.class, "EXIT")) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LifecycleManager.getDefault().exit();
-            }
-        }));
-
-        setApplicationMenu(appMenu);
+        setApplicationMenu(new RibbonApplicationMenu());
     }
     
     private AbstractRibbonBand[] createSubBands(){
@@ -116,10 +91,11 @@ public class MainRibbon extends JRibbon {
     
     private AbstractRibbonBand[] createHomeBands() {
 
-        AbstractRibbonBand[] bands = new AbstractRibbonBand[3];
+        AbstractRibbonBand[] bands = new AbstractRibbonBand[4];
         bands[0] = createPlansBand(); //Opcje planu zajec
         bands[1] = createNotesBand();
         bands[2] = createPresenceBand();
+        bands[3] = createExportBand();
         return bands;
     }
 
@@ -366,6 +342,36 @@ public class MainRibbon extends JRibbon {
                 RibbonElementPriority.TOP);
         band.addCommandButton(
                 new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Usuń ocebność", "Usuwa zaznaczony słupek obecności", presence_minus_ico, null, new UsunObecnoscAction()),
+                RibbonElementPriority.TOP);
+
+        band.setResizePolicies(Arrays.<RibbonBandResizePolicy>asList(
+                new Mid2Mid(band.getControlPanel()),
+                new Mid2Mid(band.getControlPanel()),
+                new Mid2Low(band.getControlPanel())
+        ));
+        return band;
+    }
+
+    private AbstractRibbonBand[] createMailBands() {
+        AbstractRibbonBand[] bands = new AbstractRibbonBand[1];
+        bands[0] = new JRibbonBand("Test", null);
+        return bands;
+    }
+    
+    private JRibbonBand createExportBand() {
+        JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "EXPORT_BAND"),
+                new EmptyResizableIcon(16));
+        
+        IcoWrapperResizableIcon pdf_ico = null;
+        
+        try {
+            pdf_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/pdf.ico"), new Dimension(32, 32));
+        } catch (MalformedURLException ex) {
+            Exceptions.printStackTrace(ex);
+        }
+
+        band.addCommandButton(
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Eksport do PDF", "Eksportuje widok do PDF", pdf_ico, null, new PokazPlanAction()),
                 RibbonElementPriority.TOP);
 
         band.setResizePolicies(Arrays.<RibbonBandResizePolicy>asList(
