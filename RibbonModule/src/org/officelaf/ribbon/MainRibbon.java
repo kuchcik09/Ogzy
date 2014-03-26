@@ -7,24 +7,15 @@ import org.jvnet.flamingo.ribbon.*;
 import org.jvnet.flamingo.ribbon.resize.CoreRibbonResizePolicies.Mid2Low;
 import org.jvnet.flamingo.ribbon.resize.CoreRibbonResizePolicies.Mid2Mid;
 import org.jvnet.flamingo.ribbon.resize.RibbonBandResizePolicy;
-import org.netbeans.api.options.OptionsDisplayer;
-import org.openide.LifecycleManager;
-import org.openide.actions.*;
 import org.openide.util.NbBundle;
-import org.openide.util.actions.SystemAction;
-
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
-import org.jvnet.flamingo.common.RichTooltip;
+import org.jvnet.flamingo.ribbon.ui.appmenu.BasicRibbonApplicationMenuButtonUI;
 import org.officelaf.ribbon.grupy_cwiczeniowe.DodajGrupeAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.PokazGrupyAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.UsunGrupeAction;
-import org.officelaf.ribbon.menu.MailAction;
-import org.officelaf.ribbon.menu.PDFAction;
 import org.officelaf.ribbon.obecnosc.SprawdzObecnoscAction;
 import org.officelaf.ribbon.obecnosc.UsunObecnoscAction;
 import org.officelaf.ribbon.oceny.DodajSlupekAction;
@@ -68,9 +59,6 @@ public class MainRibbon extends JRibbon {
     }
 
     private void createApplicationMenu() {
-        
-        RibbonApplicationMenu menu = new RibbonApplicationMenu();
-        
         setApplicationMenu(new RibbonApplicationMenu());
     }
     

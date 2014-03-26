@@ -13,6 +13,9 @@ import org.jvnet.flamingo.ribbon.ui.appmenu.JRibbonApplicationMenuButton;
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
+import org.gui.AboutPanel;
+import org.gui.MainTopComponent;
+import org.openide.windows.TopComponent;
 
 public class OfficeRibbonApplicationMenuButtonUI extends BasicRibbonApplicationMenuButtonUI {
 
@@ -29,41 +32,14 @@ public class OfficeRibbonApplicationMenuButtonUI extends BasicRibbonApplicationM
 
             @Override
             public JPopupPanel getPopupPanel(final JCommandButton commandButton) {
-                if (appMenuButton.getParent() instanceof JRibbon) {
-                    final JRibbon ribbon = (JRibbon) appMenuButton.getParent();
-                    RibbonApplicationMenu ribbonMenu = ribbon.getApplicationMenu();
-                    final OfficeRibbonApplicationMenuPopupPanel menuPopupPanel = new OfficeRibbonApplicationMenuPopupPanel(
-                            appMenuButton, ribbonMenu);
-                    menuPopupPanel.setCustomizer(new JPopupPanel.PopupPanelCustomizer() {
-
-                        @Override
-                        public Rectangle getScreenBounds() {
-                            int x = ribbon.getLocationOnScreen().x;
-                            int y = commandButton.getLocationOnScreen().y
-                                    + commandButton.getSize().height / 2
-                                    + 2;
-
-                            // make sure that the menu popup stays
-                            // in bounds
-                            Rectangle scrBounds = commandButton.getGraphicsConfiguration().getBounds();
-                            int pw = menuPopupPanel.getPreferredSize().width;
-                            if ((x + pw) > (scrBounds.x + scrBounds.width)) {
-                                x = scrBounds.x + scrBounds.width - pw;
-                            }
-                            int ph = menuPopupPanel.getPreferredSize().height;
-                            if ((y + ph) > (scrBounds.y + scrBounds.height)) {
-                                y = scrBounds.y + scrBounds.height - ph;
-                            }
-
-                            return new Rectangle(
-                                    x,
-                                    y,
-                                    menuPopupPanel.getPreferredSize().width,
-                                    menuPopupPanel.getPreferredSize().height);
-                        }
-                    });
-                    return menuPopupPanel;
-                }
+                
+                TopComponent top = TopComponent.getRegistry().getActivated();
+                
+                AboutPanel about_panel = new AboutPanel();
+                
+                Object[] close_button = {"Wróć do programu"}; 
+                
+                JOptionPane.showOptionDialog(top, about_panel, "O Aplikacji...", JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, close_button, close_button[0]);
                 return null;
             }
         });
