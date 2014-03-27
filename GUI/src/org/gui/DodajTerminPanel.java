@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.gui;
 
 import db.models.GrupaCwiczeniowa;
@@ -20,8 +19,8 @@ public class DodajTerminPanel extends javax.swing.JPanel {
     /**
      * Creates new form DodajTerminPanel
      */
-    List<GrupaCwiczeniowa> grupy = new ArrayList();
-    
+    List<GrupaCwiczeniowa> grupy = new ArrayList<GrupaCwiczeniowa>();
+
     public DodajTerminPanel() {
         initComponents();
         activateList();
@@ -82,25 +81,26 @@ public class DodajTerminPanel extends javax.swing.JPanel {
 
     private void activateList() {
         grupy = GrupaCwiczeniowa.getAll();
-        DefaultListModel model = new DefaultListModel();
-        
-        for(GrupaCwiczeniowa gr : grupy){
-            model.addElement(gr.getPrzedmiot().getNazwa()+ " - "+ gr.getNazwa());
+        DefaultListModel<String> model = new DefaultListModel<String>();
+
+        for (GrupaCwiczeniowa gr : grupy) {
+            model.addElement(gr.getPrzedmiot().getNazwa() + " - " + gr.getNazwa());
         }
-        
+
         groupList.setModel(model);
-        
+
     }
-    
-    public int getSelectedIndexList(){
+
+    public int getSelectedIndexList() {
         return this.groupList.getSelectedIndex();
     }
-    
-    public GrupaCwiczeniowa getSelectedGroup(){
-        if(groupList.getSelectedIndex() == -1)
+
+    public GrupaCwiczeniowa getSelectedGroup() {
+        if (groupList.getSelectedIndex() == -1) {
             return null;
-        else
+        } else {
             return grupy.get(groupList.getSelectedIndex());
+        }
     }
-    
+
 }

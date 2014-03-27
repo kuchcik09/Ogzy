@@ -139,6 +139,8 @@ public class GrupaCwiczeniowa {
                 rs.next();
 
                 GrupaOcen go = GrupaOcen.getGrupaOcen(rs.getInt(1));
+                
+                st.close();
 
                 GrupaCwiczeniowa grupaCw = new GrupaCwiczeniowa(resultSet.getInt(1), resultSet.getString(2),
                         new Przedmiot(resultSet.getInt(3), resultSet.getString(4), go,
@@ -175,12 +177,12 @@ public class GrupaCwiczeniowa {
             conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
                     "SELECT G.id, G.nazwa, P.id, P.nazwa, P.typ_oceniania, P.rok_akademicki_start, "
-                    + "P.semestr FROM grupa_cwiczeniowa as G join przedmioty as P on G.id_przedmiot=P.id WHERE g.id NOT IN (SELECT id_grupa_cwiczeniowa FROM grupa_student WHERE id_student = ?)");
+                    + "P.semestr FROM grupa_cwiczeniowa AS G JOIN przedmioty AS P ON G.id_przedmiot=P.id WHERE g.id NOT IN (SELECT id_grupa_cwiczeniowa FROM grupa_student WHERE id_student = ?)");
             prepStmt.setInt(1, studentId);
             ResultSet resultSet = prepStmt.executeQuery();
             while (resultSet.next()) {
                 Statement st = conn.createStatement();
-                ResultSet rs = st.executeQuery("select G.id from przedmioty as P join grupa_ocen as G on G.id=P.id_grupa_ocen where P.id=" + resultSet.getInt(3));
+                ResultSet rs = st.executeQuery("SELECT G.id FROM przedmioty AS P JOIN grupa_ocen AS G ON G.id=P.id_grupa_ocen WHERE P.id=" + resultSet.getInt(3));
                 rs.next();
 
                 GrupaOcen go = GrupaOcen.getGrupaOcen(rs.getInt(1));
@@ -237,7 +239,7 @@ public class GrupaCwiczeniowa {
         try {
             conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "UPDATE grupa_cwiczeniowa SET nazwa = ?,id_przedmiot = ? WHERE id = ?");
+                    "UPDATE grupa_cwiczeniowa SET nazwa = ?, id_przedmiot = ? WHERE id = ?");
             prepStmt.setInt(3, grupaCw.getId());
             prepStmt.setString(1, grupaCw.getNazwa());
             prepStmt.setInt(2, grupaCw.getPrzedmiot().getId());

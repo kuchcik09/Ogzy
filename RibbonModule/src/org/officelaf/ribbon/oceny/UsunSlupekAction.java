@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import org.gui.oceny.NotesTableTopComponent;
 import org.gui.oceny.UsunSlupek;
 import org.openide.windows.WindowManager;

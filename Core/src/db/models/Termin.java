@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package db.models;
 
 import java.sql.Connection;
@@ -22,14 +21,13 @@ import org.database.SqlConnection;
  * @author Mariushrek
  * @edited Michał
  */
-
-
 public class Termin {
-    
+
     public enum DZIEN_TYG {
-    Poniedzialek, Wtorek, Sroda, Czwartek, Piatek, Sobota, Niedziela
+
+        Poniedzialek, Wtorek, Sroda, Czwartek, Piatek, Sobota, Niedziela
     }
-    
+
     private int id;
     private GrupaCwiczeniowa grupa;
     private DZIEN_TYG dzien_tygodnia;
@@ -43,7 +41,7 @@ public class Termin {
         this.godzina_start = godzina_start;
         this.godzina_stop = godzina_stop;
     }
-    
+
     /**
      * @return the id
      */
@@ -113,21 +111,20 @@ public class Termin {
     public void setGodzina_stop(String godzina_stop) {
         this.godzina_stop = godzina_stop;
     }
-    
-    public static LinkedList<Termin> getAllTerms(){
+
+    public static LinkedList<Termin> getAllTerms() {
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
+            conn = SqlConnection.getInstance().getSqlConnection();
             Statement st = conn.createStatement();
-            
-            ResultSet rs = st.executeQuery("select T.id,T.id_grupa_cwiczeniowa,T.dzien_tygodnia,T.godzina_start,"+
-                    "T.godzina_stop,G.id_przedmiot,G.nazwa from terminy as T join grupa_cwiczeniowa as G on "+
-                    "T.id_grupa_cwiczeniowa=G.id");
-            
+            ResultSet rs = st.executeQuery("SELECT T.id,T.id_grupa_cwiczeniowa,T.dzien_tygodnia,T.godzina_start,"
+                    + "T.godzina_stop,G.id_przedmiot,G.nazwa FROM terminy AS T JOIN grupa_cwiczeniowa AS G ON "
+                    + "T.id_grupa_cwiczeniowa=G.id");
             LinkedList<Termin> terminy = new LinkedList<Termin>();
-            while(rs.next()){
+            while (rs.next()) {
                 String start = rs.getString(4);
                 String stop = rs.getString(5);
-                
+
                 terminy.addLast(new Termin(rs.getInt(1),
                         new GrupaCwiczeniowa(rs.getInt(2), rs.getString(7), Przedmiot.getPrzedmiot(rs.getInt(6))),
                         Termin.DZIEN_TYG.values()[rs.getInt(3)], start,
@@ -135,61 +132,93 @@ public class Termin {
             }
             st.close();
             return terminy;
-            
         } catch (SQLException ex) {
             Logger.getLogger(db.models.Termin.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
-             
-        return null;    
+
+        return null;
     }
-    
-    public static void dodajTermin(Termin term){
+
+    public static void dodajTermin(Termin term) {
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
+            conn = SqlConnection.getInstance().getSqlConnection();
             Statement st = conn.createStatement();
-            st.executeUpdate("insert into terminy(id_grupa_cwiczeniowa,dzien_tygodnia,godzina_start,godzina_stop)"
-                    + " values("+term.getGrupa().getId()+","+term.dzien_tygodnia.ordinal()+",'"+term.godzina_start+"','"+term.godzina_stop+"')");
+            st.executeUpdate("INSERT INTO terminy(id_grupa_cwiczeniowa,dzien_tygodnia,godzina_start,godzina_stop)"
+                    + " VALUES(" + term.getGrupa().getId() + "," + term.dzien_tygodnia.ordinal() + ",'" + term.godzina_start + "','" + term.godzina_stop + "')");
             st.close();
         } catch (SQLException ex) {
             Logger.getLogger(Termin.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
-        
+
     }
-    
-    public static void usunTermin(DZIEN_TYG tyg, String godzina_start, String godzina_stop){
+
+    public static void usunTermin(DZIEN_TYG tyg, String godzina_start, String godzina_stop) {
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
+            conn = SqlConnection.getInstance().getSqlConnection();
             Statement st = conn.createStatement();
-            
-            st.executeUpdate("delete from terminy where dzien_tygodnia="+tyg.ordinal()+" and godzina_start ='"
-                    + godzina_start+"' and godzina_stop ='"+godzina_stop+"'");
+            st.executeUpdate("DELETE FROM terminy where dzien_tygodnia=" + tyg.ordinal() + " AND godzina_start ='"
+                    + godzina_start + "' AND godzina_stop ='" + godzina_stop + "'");
             st.close();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Termin.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
-        
+
     }
-    
-    public static List<Termin> getByGroup(int id){
+
+    public static List<Termin> getByGroup(int id) {
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
+            conn = SqlConnection.getInstance().getSqlConnection();
             Statement st = conn.createStatement();
-            
-            ResultSet rs = st.executeQuery("select dzien_tygodnia, godzina_start, godzina_stop from terminy where id_grupa_cwiczeniowa="+id);
+            ResultSet rs = st.executeQuery("SELECT dzien_tygodnia, godzina_start, godzina_stop FROM terminy WHERE id_grupa_cwiczeniowa=" + id);
             List<Termin> terms = new ArrayList<Termin>();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 terms.add(new Termin(0, null, DZIEN_TYG.values()[rs.getInt(1)], rs.getString(2), rs.getString(3)));
             }
             st.close();
             return terms;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Termin.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
-        
+
         return null;
     }
-    
+
 }

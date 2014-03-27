@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package db.models;
 
 import java.sql.Connection;
@@ -22,8 +21,8 @@ import org.database.SqlConnection;
  *
  * @author Mariushrek
  */
-
 public class Przedmiot {
+
     private int id; // PrimaryID, AI
     private String nazwa;
     private GrupaOcen grupaOcen;
@@ -39,201 +38,265 @@ public class Przedmiot {
         this.rok_akademicki_start = rok_akademicki_start;
         this.semestr = semestr;
     }
-    
-    public int getId() { return this.id; }
-    public String getNazwa() { return this.nazwa; }
-    public GrupaOcen getGrupaOcen() { return this.grupaOcen; }
-    public TYP_OCENIANIA getTypOceniania() { return this.typ_oceniania; }
-    public int getRokAkademicki() { return this.rok_akademicki_start; }
-    public SEMESTR getSemestr() { return this.semestr; }
-    
-    public void setId(int f_id) { this.id = f_id; }
-    public void setNazwa(String f_nazwa) { this.nazwa = f_nazwa;} 
-    public void setGrupaOcen(GrupaOcen f_g) { this.grupaOcen = f_g; }
-    public void setTypOceniania(TYP_OCENIANIA f_typ) { this.typ_oceniania = f_typ; }
-    public void setRokAkademicki(int f_rok) { this.rok_akademicki_start = f_rok; }
-    public void setSemestr(SEMESTR f_sem) { this.semestr = f_sem; }
-    
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getNazwa() {
+        return this.nazwa;
+    }
+
+    public GrupaOcen getGrupaOcen() {
+        return this.grupaOcen;
+    }
+
+    public TYP_OCENIANIA getTypOceniania() {
+        return this.typ_oceniania;
+    }
+
+    public int getRokAkademicki() {
+        return this.rok_akademicki_start;
+    }
+
+    public SEMESTR getSemestr() {
+        return this.semestr;
+    }
+
+    public void setId(int f_id) {
+        this.id = f_id;
+    }
+
+    public void setNazwa(String f_nazwa) {
+        this.nazwa = f_nazwa;
+    }
+
+    public void setGrupaOcen(GrupaOcen f_g) {
+        this.grupaOcen = f_g;
+    }
+
+    public void setTypOceniania(TYP_OCENIANIA f_typ) {
+        this.typ_oceniania = f_typ;
+    }
+
+    public void setRokAkademicki(int f_rok) {
+        this.rok_akademicki_start = f_rok;
+    }
+
+    public void setSemestr(SEMESTR f_sem) {
+        this.semestr = f_sem;
+    }
+
     public static List<Przedmiot> getAllPrzedmioty() {
+        List<Przedmiot> przedmioty = new ArrayList<Przedmiot>();
+        Connection conn = null;
         try {
-            List<Przedmiot> przedmioty = new ArrayList<Przedmiot>();
-            Statement stat = null;
-            
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
-            stat = conn.createStatement();
-            PreparedStatement prepStmt = null;
-            
-                prepStmt  = conn.prepareStatement(
-                        "SELECT P.id AS p_id, P.nazwa AS p_nazwa, G.id AS g_id, G.sub_id AS g_sub_id, G.nazwa AS g_nazwa, G.waga AS g_waga, P.typ_oceniania AS p_typ_oceniania, P.rok_akademicki_start AS p_rok_akademicki, P.semestr AS p_semestr FROM przedmioty as P join grupa_ocen as G on P.id_grupa_ocen=G.id ORDER BY P.rok_akademicki_start DESC, P.id ASC");
-            
+            conn = SqlConnection.getInstance().getSqlConnection();
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "SELECT P.id AS p_id, P.nazwa AS p_nazwa, G.id AS g_id, G.sub_id AS g_sub_id, G.nazwa AS g_nazwa, G.waga AS g_waga, P.typ_oceniania AS p_typ_oceniania, P.rok_akademicki_start AS p_rok_akademicki, P.semestr AS p_semestr FROM przedmioty as P join grupa_ocen as G on P.id_grupa_ocen=G.id ORDER BY P.rok_akademicki_start DESC, P.id ASC");
             ResultSet resultSet = prepStmt.executeQuery();
             while (resultSet.next()) {
                 Przedmiot jeden_przedmiot = new Przedmiot(resultSet.getInt("p_id"), resultSet.getString("p_nazwa"),
                         new GrupaOcen(resultSet.getInt("g_id"), resultSet.getInt("g_sub_id"), resultSet.getString("g_nazwa"), resultSet.getFloat("g_waga")),
                         TYP_OCENIANIA.values()[resultSet.getInt("p_typ_oceniania")], resultSet.getInt("p_rok_akademicki"), SEMESTR.values()[resultSet.getInt("p_semestr")]);
-                
+
                 przedmioty.add(jeden_przedmiot);
             }
             return przedmioty;
         } catch (SQLException ex) {
             Logger.getLogger(Przedmiot.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
     }
+
     /**
-     * Metoda zwracajaca liste wszystkich przedmiotow
-     *  jezeli m_rok_akademicki = 0 - zwraca wszystko z bazy danych
-     *  jezeli m_rok_akademicki != 0 - zwraca przedmioty dla danego roku
-     * 
+     * Metoda zwracajaca liste wszystkich przedmiotow jezeli m_rok_akademicki =
+     * 0 - zwraca wszystko z bazy danych jezeli m_rok_akademicki != 0 - zwraca
+     * przedmioty dla danego roku
+     *
      * @param m_rok_akademicki
      * @return List<Przedmiot>
      */
     public static List<Przedmiot> getPrzedmioty(int m_rok_akademicki) {
+        List<Przedmiot> przedmioty = new ArrayList<Przedmiot>();
+        Connection conn = null;
         try {
-            List<Przedmiot> przedmioty = new ArrayList<Przedmiot>();
-            Statement stat = null;
-            
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
-            stat = conn.createStatement();
+            conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = null;
-            if(m_rok_akademicki == 0) {
-                prepStmt  = conn.prepareStatement(
+            if (m_rok_akademicki == 0) {
+                prepStmt = conn.prepareStatement(
                         "SELECT P.id AS p_id, P.nazwa AS p_nazwa, G.id AS g_id, G.sub_id AS g_sub_id, G.nazwa AS g_nazwa, G.waga AS g_waga, P.typ_oceniania AS p_typ_oceniania, P.rok_akademicki_start AS p_rok_akademicki, P.semestr AS p_semestr FROM przedmioty as P join grupa_ocen as G on P.id_grupa_ocen=G.id ORDER BY P.rok_akademicki_start DESC, P.id ASC");
             } else {
-                prepStmt  = conn.prepareStatement(
-                        "SELECT P.id AS p_id, P.nazwa AS p_nazwa, G.id AS g_id, G.sub_id AS g_sub_id, G.nazwa AS g_nazwa, G.waga AS g_waga, P.typ_oceniania AS p_typ_oceniania, P.rok_akademicki_start AS p_rok_akademicki, P.semestr AS p_semestr FROM przedmioty as P join grupa_ocen as G on P.id_grupa_ocen=G.id WHERE P.rok_akademicki_start >= " + m_rok_akademicki+ " ORDER BY P.rok_akademicki_start DESC, P.id ASC");                
+                prepStmt = conn.prepareStatement(
+                        "SELECT P.id AS p_id, P.nazwa AS p_nazwa, G.id AS g_id, G.sub_id AS g_sub_id, G.nazwa AS g_nazwa, G.waga AS g_waga, P.typ_oceniania AS p_typ_oceniania, P.rok_akademicki_start AS p_rok_akademicki, P.semestr AS p_semestr FROM przedmioty as P join grupa_ocen as G on P.id_grupa_ocen=G.id WHERE P.rok_akademicki_start >= " + m_rok_akademicki + " ORDER BY P.rok_akademicki_start DESC, P.id ASC");
             }
             ResultSet resultSet = prepStmt.executeQuery();
             while (resultSet.next()) {
                 Przedmiot jeden_przedmiot = new Przedmiot(resultSet.getInt("p_id"), resultSet.getString("p_nazwa"),
                         new GrupaOcen(resultSet.getInt("g_id"), resultSet.getInt("g_sub_id"), resultSet.getString("g_nazwa"), resultSet.getFloat("g_waga")),
                         TYP_OCENIANIA.values()[resultSet.getInt("p_typ_oceniania")], resultSet.getInt("p_rok_akademicki"), SEMESTR.values()[resultSet.getInt("p_semestr")]);
-                
                 przedmioty.add(jeden_przedmiot);
             }
             return przedmioty;
         } catch (SQLException ex) {
             Logger.getLogger(Przedmiot.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
     }
-    
-        public static List<Przedmiot> getCurrentYearPrzedmioty() {
+
+    public static List<Przedmiot> getCurrentYearPrzedmioty() {
+        List<Przedmiot> przedmioty = new ArrayList<Przedmiot>();
+        Connection conn = null;
         try {
-            List<Przedmiot> przedmioty = new ArrayList<Przedmiot>();
-            Statement stat = null;
-            
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
-            stat = conn.createStatement();
+            conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = null;
-            
-                prepStmt  = conn.prepareStatement(
-                        "SELECT P.id AS p_id, P.nazwa AS p_nazwa, G.id AS g_id, G.sub_id AS g_sub_id, G.nazwa AS g_nazwa, G.waga AS g_waga, P.typ_oceniania AS p_typ_oceniania, P.rok_akademicki_start AS p_rok_akademicki, P.semestr AS p_semestr FROM przedmioty as P join grupa_ocen as G on P.id_grupa_ocen=G.id ORDER BY P.rok_akademicki_start DESC, P.id ASC WHERE rok_akademicki_start = " + StartRokuAkademickiego());
-            
+            prepStmt = conn.prepareStatement(
+                    "SELECT P.id AS p_id, P.nazwa AS p_nazwa, G.id AS g_id, G.sub_id AS g_sub_id, G.nazwa AS g_nazwa, G.waga AS g_waga, P.typ_oceniania AS p_typ_oceniania, P.rok_akademicki_start AS p_rok_akademicki, P.semestr AS p_semestr FROM przedmioty as P join grupa_ocen as G on P.id_grupa_ocen=G.id ORDER BY P.rok_akademicki_start DESC, P.id ASC WHERE rok_akademicki_start = " + startRokuAkademickiego());
             ResultSet resultSet = prepStmt.executeQuery();
             while (resultSet.next()) {
                 Przedmiot jeden_przedmiot = new Przedmiot(resultSet.getInt("p_id"), resultSet.getString("p_nazwa"),
                         new GrupaOcen(resultSet.getInt("g_id"), resultSet.getInt("g_sub_id"), resultSet.getString("g_nazwa"), resultSet.getFloat("g_waga")),
                         TYP_OCENIANIA.values()[resultSet.getInt("p_typ_oceniania")], resultSet.getInt("p_rok_akademicki"), SEMESTR.values()[resultSet.getInt("p_semestr")]);
-                
+
                 przedmioty.add(jeden_przedmiot);
             }
             return przedmioty;
         } catch (SQLException ex) {
             Logger.getLogger(Przedmiot.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
     }
-        
-        
+
     /**
      * Metoda zwracajaca liste przedmiotow dla danego dnia tygodnia
+     *
      * @param m_rok_akademicki
      * @param m_dzien
      * @return List<Przedmiot>
-     * @throws SQLException 
+     * @throws SQLException
      */
     public static List<Przedmiot> getPrzedmioty(int m_rok_akademicki, Termin.DZIEN_TYG m_dzien) throws SQLException {
         List<Przedmiot> przedmioty = new ArrayList<Przedmiot>();
-        Statement stat = null;
-        
-         Connection conn = SqlConnection.getInstance().getSqlConnection();
-            stat = conn.createStatement();
+        Connection conn = null;
+        try {
+            conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = null;
-                if(m_rok_akademicki == 0) {
-                    prepStmt = conn.prepareStatement(
-                    "SELECT DISTINCT PRZ.nazwa AS Przedmiot, GRU.nazwa AS Grupa, TER.godzina_start AS Godzina_Start, TER.godzina_stop AS Godzina_stop " +
-                    "FROM przedmioty AS PRZ JOIN terminy AS TER JOIN grupa_cwiczeniowa AS GRU " +
-                    "ON PRZ.id = GRU.id_przedmiot AND TER.id_grupa_cwiczeniowa = GRU.id " +
-                    "WHERE TER.dzien_tygodnia = "+ m_dzien.name());
-                } else {
-                    prepStmt = conn.prepareStatement(
-                    "SELECT DISTINCT PRZ.nazwa AS Przedmiot, GRU.nazwa AS Grupa, TER.godzina_start AS Godzina_Start, TER.godzina_stop AS Godzina_stop " +
-                    "FROM przedmioty AS PRZ JOIN terminy AS TER JOIN grupa_cwiczeniowa AS GRU " +
-                    "ON PRZ.id = GRU.id_przedmiot AND TER.id_grupa_cwiczeniowa = GRU.id " +
-                    "WHERE TER.dzien_tygodnia = "+ m_dzien.name() + " AND PRZ.rok_akademicki_start = " + m_rok_akademicki);                    
-                }
-                    
+            if (m_rok_akademicki == 0) {
+                prepStmt = conn.prepareStatement(
+                        "SELECT DISTINCT PRZ.nazwa AS Przedmiot, GRU.nazwa AS Grupa, TER.godzina_start AS Godzina_Start, TER.godzina_stop AS Godzina_stop "
+                        + "FROM przedmioty AS PRZ JOIN terminy AS TER JOIN grupa_cwiczeniowa AS GRU "
+                        + "ON PRZ.id = GRU.id_przedmiot AND TER.id_grupa_cwiczeniowa = GRU.id "
+                        + "WHERE TER.dzien_tygodnia = " + m_dzien.name());
+            } else {
+                prepStmt = conn.prepareStatement(
+                        "SELECT DISTINCT PRZ.nazwa AS Przedmiot, GRU.nazwa AS Grupa, TER.godzina_start AS Godzina_Start, TER.godzina_stop AS Godzina_stop "
+                        + "FROM przedmioty AS PRZ JOIN terminy AS TER JOIN grupa_cwiczeniowa AS GRU "
+                        + "ON PRZ.id = GRU.id_przedmiot AND TER.id_grupa_cwiczeniowa = GRU.id "
+                        + "WHERE TER.dzien_tygodnia = " + m_dzien.name() + " AND PRZ.rok_akademicki_start = " + m_rok_akademicki);
+            }
+
             ResultSet resultSet = prepStmt.executeQuery();
             while (resultSet.next()) {
                 /*Przedmiot jeden_przedmiot = new Przedmiot();
-                jeden_przedmiot.setId(resultSet.getInt("id"));
-                jeden_przedmiot.setNazwa(resultSet.getString("nazwa"));
-                jeden_przedmiot.setGrupaOcen(resultSet.getInt("id_grupa_ocen"));
-                jeden_przedmiot.setTypOceniania(TYP_OCENIANIA.valueOf(resultSet.getString("typ_oceniania")));
-                jeden_przedmiot.setRokAkademicki(resultSet.getInt("rok_akademicki_start"));
-                jeden_przedmiot.setSemestr(SEMESTR.valueOf(resultSet.getString("semestr")));
-                przedmioty.add(jeden_przedmiot);*/
+                 jeden_przedmiot.setId(resultSet.getInt("id"));
+                 jeden_przedmiot.setNazwa(resultSet.getString("nazwa"));
+                 jeden_przedmiot.setGrupaOcen(resultSet.getInt("id_grupa_ocen"));
+                 jeden_przedmiot.setTypOceniania(TYP_OCENIANIA.valueOf(resultSet.getString("typ_oceniania")));
+                 jeden_przedmiot.setRokAkademicki(resultSet.getInt("rok_akademicki_start"));
+                 jeden_przedmiot.setSemestr(SEMESTR.valueOf(resultSet.getString("semestr")));
+                 przedmioty.add(jeden_przedmiot);*/
             }
-        
+        } catch (Exception e) {
+
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
+        }
+
         return przedmioty;
-    }  
+    }
+
     /**
      * Metoda zwracajaca przedmioty dla danego studenta
+     *
      * @param m_rok_akademicki
      * @param m_student
-     * @return 
+     * @return
      */
     public static List<Przedmiot> getPrzedmioty(int m_rok_akademicki, Student m_student) {
         /*
-        SELECT DISTINCT PRZ.nazwa AS Przedmiot, GRU.nazwa AS Grupa, TER.dzien_tygodnia AS Dzien_Tygodnia, TER.godzina_start AS Godzina_Start, TER.godzina_stop AS Godzina_stop, PRZ.rok_akademicki_start AS Rok_Akademicki
-FROM przedmioty AS PRZ 
- JOIN terminy AS TER 
- JOIN grupa_cwiczeniowa AS GRU 
- JOIN grupa_student AS GS 
- JOIN student AS ST
-	ON PRZ.id = GRU.id_przedmiot 
-	AND TER.id_grupa_cwiczeniowa = GRU.id 
-	AND GRU.id = GS.id_grupa_cwiczeniowa
-WHERE ST.id = 1
-        */
+         SELECT DISTINCT PRZ.nazwa AS Przedmiot, GRU.nazwa AS Grupa, TER.dzien_tygodnia AS Dzien_Tygodnia, TER.godzina_start AS Godzina_Start, TER.godzina_stop AS Godzina_stop, PRZ.rok_akademicki_start AS Rok_Akademicki
+         FROM przedmioty AS PRZ 
+         JOIN terminy AS TER 
+         JOIN grupa_cwiczeniowa AS GRU 
+         JOIN grupa_student AS GS 
+         JOIN student AS ST
+         ON PRZ.id = GRU.id_przedmiot 
+         AND TER.id_grupa_cwiczeniowa = GRU.id 
+         AND GRU.id = GS.id_grupa_cwiczeniowa
+         WHERE ST.id = 1
+         */
         return null;
     }
-    
-    public static Przedmiot getPrzedmiot(int id){
+
+    public static Przedmiot getPrzedmiot(int id) {
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
+            conn = SqlConnection.getInstance().getSqlConnection();
             Statement st = conn.createStatement();
-            
             ResultSet rs = st.executeQuery("select id,id_grupa_ocen,nazwa,typ_oceniania,rok_akademicki_start,semestr"
-                    + " from przedmioty where id="+id);
-            
+                    + " from przedmioty where id=" + id);
             rs.next();
             Przedmiot pr = new Przedmiot(rs.getInt(1), rs.getString(3), GrupaOcen.getGrupaOcen(rs.getInt(2)), TYP_OCENIANIA.values()[rs.getInt(4)], rs.getInt(5), SEMESTR.values()[rs.getInt(6)]);
             st.close();
             return pr;
-            
         } catch (SQLException ex) {
             Logger.getLogger(Przedmiot.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
-       
         return null;
     }
-    
-    public static boolean addPrzedmiot(String m_nazwa, GrupaOcen m_grupa_ocen, TYP_OCENIANIA m_typ_oceniania, int m_rok_aka, SEMESTR m_semestr ) {
-         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
-            Statement st = conn.createStatement();
+
+    public static boolean addPrzedmiot(String m_nazwa, GrupaOcen m_grupa_ocen, TYP_OCENIANIA m_typ_oceniania, int m_rok_aka, SEMESTR m_semestr) {
+        Connection conn = null;
+        try {
+            conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
                     "INSERT INTO przedmioty(id_grupa_ocen, nazwa, typ_oceniania, rok_akademicki_start, semestr) VALUES (?, ?, ?, ?, ?)");
             prepStmt.setInt(1, m_grupa_ocen.getId());
@@ -246,15 +309,22 @@ WHERE ST.id = 1
         } catch (SQLException ex) {
             System.err.println("Klasa Przedmiot, Metoda addPrzedmiot - problem z dodaniem elementu");
             Logger.getLogger(Oceny.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
-         return false;
+        return false;
     }
-    
+
     public static void delPrzedmiot(int id) {
-        Statement stat = null;
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
-            stat = conn.createStatement();
+            conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
                     "DELETE FROM przedmioty WHERE id = ?");
             prepStmt.setInt(1, id);
@@ -262,14 +332,21 @@ WHERE ST.id = 1
         } catch (SQLException e) {
             System.err.println("Przedmiot -> delPrzedmiot(int) -> problem z usunieciem przedmiotu");
             e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
     }
-    
+
     public static void updatePrzedmiot(Przedmiot przedmiot) {
-        Statement stat = null;
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
-            stat = conn.createStatement();
+            conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
                     "UPDATE przedmioty SET id_grupa_ocen=?, nazwa=?, typ_oceniania=?, rok_akademicki_start=?, semestr=? WHERE id = ?");
             prepStmt.setInt(1, przedmiot.getGrupaOcen().getId());
@@ -282,20 +359,29 @@ WHERE ST.id = 1
         } catch (SQLException e) {
             System.err.println("Przedmiot -> delPrzedmiot(int) -> problem z usunieciem przedmiotu");
             e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
     }
+
     @Override
     public String toString() {
         //tymczasowe rozwiązanie dla celu uzupełniania comboboxa grup cwiczeniowych
         return nazwa;
     }
-    
-    private static int StartRokuAkademickiego() {
-         int year = Calendar.getInstance().get(Calendar.YEAR);
+
+    private static int startRokuAkademickiego() {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH);
-        if(month < 9) {
+        if (month < 9) {
             year--;
-        }      
+        }
         return year;
     }
 }

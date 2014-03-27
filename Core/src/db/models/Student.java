@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package db.models;
 
 import java.sql.Connection;
@@ -16,10 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.database.SqlConnection;
 
-/**
- *
- * @author Ja
- */
 public class Student {
 
     private int id;
@@ -87,10 +78,9 @@ public class Student {
 
     public static List<Student> getAll() {
         List<Student> students = new ArrayList<Student>();
-        Statement stat = null;
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
-            stat = conn.createStatement();
+            conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
                     "SELECT * FROM student ORDER BY nazwisko");
             ResultSet resultSet = prepStmt.executeQuery();
@@ -101,16 +91,23 @@ public class Student {
         } catch (SQLException e) {
             System.err.println("Problem z otwarciem polaczenia");
             e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
         return students;
     }
 
     public static Student getById(Integer studentId) {
         Student student = new Student();
-        Statement stat = null;
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
-            stat = conn.createStatement();
+            conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
                     "SELECT * FROM student WHERE id = ?");
             prepStmt.setInt(1, studentId);
@@ -121,15 +118,22 @@ public class Student {
         } catch (SQLException e) {
             System.err.println("Problem z otwarciem polaczenia");
             e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
         return student;
     }
 
     public static void add(String imie, String nazwisko, String email, int indeksNr) {
-        Statement stat = null;
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
-            stat = conn.createStatement();
+            conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
                     "INSERT INTO student values (?, ?, ?, ?, ?)");
             prepStmt.setString(2, imie);
@@ -140,14 +144,21 @@ public class Student {
         } catch (SQLException e) {
             System.err.println("Problem z otwarciem polaczenia");
             e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
     }
 
     public static void edit(Student student) {
-        Statement stat = null;
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
-            stat = conn.createStatement();
+            conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
                     "UPDATE student SET imie = ?, nazwisko = ?, email = ?, indeks = ? WHERE id = ?");
             prepStmt.setInt(5, student.getId());
@@ -159,14 +170,21 @@ public class Student {
         } catch (SQLException e) {
             System.err.println("Problem z otwarciem polaczenia");
             e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
     }
 
     public static void delete(int id) {
-        Statement stat = null;
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
-            stat = conn.createStatement();
+            conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
                     "DELETE FROM student WHERE id = ?");
             prepStmt.setInt(1, id);
@@ -174,14 +192,21 @@ public class Student {
         } catch (SQLException e) {
             System.err.println("Problem z otwarciem polaczenia");
             e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
     }
 
     public static void delete(String imie, String nazwisko, String email, int indeksNr) {
-        Statement stat = null;
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
-            stat = conn.createStatement();
+            conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
                     "DELETE FROM student WHERE imie = ? AND nazwisko = ? AND email = ? AND indeks = ?");
             prepStmt.setString(1, imie);
@@ -192,27 +217,40 @@ public class Student {
         } catch (SQLException e) {
             System.err.println("Problem z otwarciem polaczenia");
             e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
     }
 
     public static List<Student> getByGroup(int id) {
+        Connection conn = null;
         try {
-            Connection conn = SqlConnection.getInstance().getSqlConnection();
+            conn = SqlConnection.getInstance().getSqlConnection();
             Statement st = conn.createStatement();
-
             List<Student> students = new ArrayList<Student>();
-
-            ResultSet rs = st.executeQuery("select S.id,S.imie,S.nazwisko,S.email,S.indeks from student as S join grupa_student as G on S.id = G.id_student where G.id_grupa_cwiczeniowa=" + id);
+            ResultSet rs = st.executeQuery("SELECT S.id,S.imie,S.nazwisko,S.email,S.indeks FROM student as S JOIN grupa_student as G ON S.id = G.id_student WHERE G.id_grupa_cwiczeniowa=" + id);
             while (rs.next()) {
                 students.add(new Student(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5)));
             }
             st.close();
             return students;
-
         } catch (SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
         }
-
         return null;
     }
 }
