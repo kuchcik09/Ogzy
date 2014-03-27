@@ -9,10 +9,8 @@ import org.jvnet.flamingo.ribbon.resize.CoreRibbonResizePolicies.Mid2Mid;
 import org.jvnet.flamingo.ribbon.resize.RibbonBandResizePolicy;
 import org.openide.util.NbBundle;
 import java.awt.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Arrays;
-import org.jvnet.flamingo.ribbon.ui.appmenu.BasicRibbonApplicationMenuButtonUI;
+import org.officelaf.OfficeRibbonApplicationMenuButtonUI;
 import org.officelaf.ribbon.grupy_cwiczeniowe.DodajGrupeAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.PokazGrupyAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.UsunGrupeAction;
@@ -36,15 +34,73 @@ import org.officelaf.ribbon.studenci.OdepnijStudentaAction;
 import org.officelaf.ribbon.studenci.PodepnijStudentaAction;
 import org.officelaf.ribbon.studenci.PokazListeAction;
 import org.officelaf.ribbon.studenci.UsunStudentaAction;
-import org.openide.util.Exceptions;
 
 public class MainRibbon extends JRibbon {
-
+    
+    /**
+     * Icons:
+     */
+    private IcoWrapperResizableIcon table_ico = null;
+    private IcoWrapperResizableIcon table_plus_ico = null;
+    private IcoWrapperResizableIcon table_minus_ico = null;
+    private IcoWrapperResizableIcon percent_ico = null;
+    private IcoWrapperResizableIcon percent_plus_ico = null;
+    private IcoWrapperResizableIcon percent_minus_ico = null;
+    private IcoWrapperResizableIcon subject_ico = null;
+    private IcoWrapperResizableIcon subject_plus_ico = null;
+    private IcoWrapperResizableIcon subject_minus_ico = null;
+    private IcoWrapperResizableIcon group_ico = null;
+    private IcoWrapperResizableIcon group_plus_ico = null;
+    private IcoWrapperResizableIcon group_minus_ico = null;
+    private IcoWrapperResizableIcon student_ico = null;
+    private IcoWrapperResizableIcon student_plus_ico = null;
+    private IcoWrapperResizableIcon student_minus_ico = null;
+    private IcoWrapperResizableIcon student_add_ico = null;
+    private IcoWrapperResizableIcon student_delete_ico = null;
+    private IcoWrapperResizableIcon notes_ico = null;
+    private IcoWrapperResizableIcon notes_plus_ico = null;
+    private IcoWrapperResizableIcon notes_minus_ico = null;
+    private IcoWrapperResizableIcon notes_last_ico = null;
+    private IcoWrapperResizableIcon presence_table_ico = null;
+    private IcoWrapperResizableIcon presence_minus_ico = null;
+    private IcoWrapperResizableIcon pdf_ico = null;
+    
     public MainRibbon() {
+
     }
-
+    
+    private void initIcons(){
+        
+        table_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/table.ico"), new Dimension(32, 32));
+        table_plus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/table_plus.ico"), new Dimension(32, 32));
+        table_minus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/table_minus.ico"), new Dimension(32, 32));
+        percent_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/percent.ico"), new Dimension(32, 32));
+        percent_plus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/percent_plus.ico"), new Dimension(32, 32));
+        percent_minus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/percent_minus.ico"), new Dimension(32, 32));
+        subject_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/subject.ico"), new Dimension(32, 32));
+        subject_plus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/subject_plus.ico"), new Dimension(32, 32));
+        subject_minus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/subject_minus.ico"), new Dimension(32, 32));
+        group_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/group.ico"), new Dimension(32, 32));
+        group_plus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/group_plus.ico"), new Dimension(32, 32));
+        group_minus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/group_minus.ico"), new Dimension(32, 32));
+        student_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/student.ico"), new Dimension(32, 32));
+        student_plus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/student_plus.ico"), new Dimension(32, 32));
+        student_minus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/student_minus.ico"), new Dimension(32, 32));
+        student_add_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/student_add.ico"), new Dimension(32, 32));
+        student_delete_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/student_delete.ico"), new Dimension(32, 32));
+        notes_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/notes.ico"), new Dimension(32, 32));
+        notes_plus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/notes_plus.ico"), new Dimension(32, 32));
+        notes_minus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/notes_minus.ico"), new Dimension(32, 32));
+        notes_last_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/notes_last.ico"), new Dimension(32, 32));
+        presence_table_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/presence.ico"), new Dimension(32, 32));
+        presence_minus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/presence_minus.ico"), new Dimension(32, 32));
+        pdf_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/pdf.ico"), new Dimension(32, 32));
+    }
+    
     public void setup() {
-
+        
+        initIcons();
+        
         RibbonTask homeTask = new RibbonTask("Narzędzia głowne", createHomeBands());
         RibbonTask subTask = new RibbonTask("Zarządzanie przedmiotami", createSubBands());
         RibbonTask peopleTask = new RibbonTask("Zarządzanie grupami", createPeopleBands());
@@ -91,18 +147,6 @@ public class MainRibbon extends JRibbon {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "PLAN_BAND"),
                 new EmptyResizableIcon(16));
         
-        IcoWrapperResizableIcon table_ico = null;
-        IcoWrapperResizableIcon table_plus_ico = null;
-        IcoWrapperResizableIcon table_minus_ico = null;
-
-        try {
-            table_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/table.ico"), new Dimension(32, 32));
-            table_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/table_plus.ico"), new Dimension(32, 32));
-            table_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/table_minus.ico"), new Dimension(32, 32));
-        } catch (MalformedURLException ex) {
-            Exceptions.printStackTrace(ex);
-        }
-
         band.addCommandButton(
                 new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Pokaż plan", "Ukazuje plan zajęć w tabeli", table_ico, null, new PokazPlanAction()),
                 RibbonElementPriority.TOP);
@@ -125,25 +169,14 @@ public class MainRibbon extends JRibbon {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "SCHEME_BAND"),
                 new EmptyResizableIcon(16));
         
-        IcoWrapperResizableIcon per_ico = null;
-        IcoWrapperResizableIcon per1_ico = null;
-        IcoWrapperResizableIcon per2_ico = null;
-        try {
-            per_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/per.ico"), new Dimension(32, 32));
-            per1_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/per1.ico"), new Dimension(32, 32));
-            per2_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/per2.ico"), new Dimension(32, 32));
-        } catch (MalformedURLException ex) {
-            Exceptions.printStackTrace(ex);
-        }
-        
         band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Pokaż schematy", "Ukazuje schematy w liście", per_ico, null, new PokazSchematyAction()),
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Pokaż schematy", "Ukazuje schematy w liście", percent_ico, null, new PokazSchematyAction()),
                 RibbonElementPriority.TOP);
         band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Dodaj schemat", "Dodaje schemat do bazy", per1_ico, null, new DodajSchematAction()),
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Dodaj schemat", "Dodaje schemat do bazy", percent_plus_ico, null, new DodajSchematAction()),
                 RibbonElementPriority.TOP);
         band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Usuń schemat", "Usuwa schemat z bazy", per2_ico, null, new UsunSchematAction()),
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Usuń schemat", "Usuwa schemat z bazy", percent_minus_ico, null, new UsunSchematAction()),
                 RibbonElementPriority.TOP);
         
         band.setResizePolicies(Arrays.<RibbonBandResizePolicy>asList(
@@ -159,26 +192,14 @@ public class MainRibbon extends JRibbon {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "SUBJECT_BAND"),
                 new EmptyResizableIcon(16));
 
-        IcoWrapperResizableIcon table_ico = null;
-        IcoWrapperResizableIcon table_plus_ico = null;
-        IcoWrapperResizableIcon table_minus_ico = null;
-
-        try {
-            table_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/subject.ico"), new Dimension(32, 32));
-            table_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/subject_plus.ico"), new Dimension(32, 32));
-            table_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/subject_minus.ico"), new Dimension(32, 32));
-        } catch (MalformedURLException ex) {
-            Exceptions.printStackTrace(ex);
-        }
-
         band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Pokaż przedmioty", "Ukazuje przedmioty w tabeli", table_ico, null, new PokazPrzedmiotyAction()),
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Pokaż przedmioty", "Ukazuje przedmioty w tabeli", subject_ico, null, new PokazPrzedmiotyAction()),
                 RibbonElementPriority.TOP);
         band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Dodaj przedmiot", "Dodaje przedmioty do bazy", table_plus_ico, null, new DodajPrzedmiotAction()),
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Dodaj przedmiot", "Dodaje przedmioty do bazy", subject_plus_ico, null, new DodajPrzedmiotAction()),
                 RibbonElementPriority.TOP);
         band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Usuń przedmiot", "Usuwa przedmioty z bazy", table_minus_ico, null, new UsunPrzedmiotAction()),
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Usuń przedmiot", "Usuwa przedmioty z bazy", subject_minus_ico, null, new UsunPrzedmiotAction()),
                 RibbonElementPriority.TOP);
 
         band.setResizePolicies(Arrays.<RibbonBandResizePolicy>asList(
@@ -192,18 +213,6 @@ public class MainRibbon extends JRibbon {
     private JRibbonBand createGroupsBand() {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "GROUP_BAND"),
                 new EmptyResizableIcon(16));
-
-        IcoWrapperResizableIcon group_ico = null;
-        IcoWrapperResizableIcon group_plus_ico = null;
-        IcoWrapperResizableIcon group_minus_ico = null;
-
-        try {
-            group_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/group.ico"), new Dimension(32, 32));
-            group_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/group_plus.ico"), new Dimension(32, 32));
-            group_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/group_minus.ico"), new Dimension(32, 32));
-        } catch (MalformedURLException ex) {
-            Exceptions.printStackTrace(ex);
-        }
 
         band.addCommandButton(
                 new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Pokaż grupy", "Ukazuje grupę w nowym oknie", group_ico, null, new PokazGrupyAction()),
@@ -226,22 +235,6 @@ public class MainRibbon extends JRibbon {
     private JRibbonBand createStudentsBand() {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "STUDENTS_BAND"),
                 new EmptyResizableIcon(16));
-
-        IcoWrapperResizableIcon student_ico = null;
-        IcoWrapperResizableIcon student_plus_ico = null;
-        IcoWrapperResizableIcon student_minus_ico = null;
-        IcoWrapperResizableIcon student_add_ico = null;
-        IcoWrapperResizableIcon student_delete_ico = null;
-
-        try {
-            student_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/student.ico"), new Dimension(32, 32));
-            student_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/student_plus.ico"), new Dimension(32, 32));
-            student_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/student_minus.ico"), new Dimension(32, 32));
-            student_add_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/student_add.ico"), new Dimension(32, 32));
-            student_delete_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/student_delete.ico"), new Dimension(32, 32));
-        } catch (MalformedURLException ex) {
-            Exceptions.printStackTrace(ex);
-        }
 
         band.addCommandButton(
                 new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Pokaż listę", "Ukazuje wszystkich studentów w nowym oknie", student_ico, null, new PokazListeAction()),
@@ -272,24 +265,6 @@ public class MainRibbon extends JRibbon {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "NOTES_BAND"),
                 new EmptyResizableIcon(16));
 
-        IcoWrapperResizableIcon notes_ico = null;
-        IcoWrapperResizableIcon notes_group_plus_ico = null;
-        IcoWrapperResizableIcon notes_group_minus_ico = null;
-        IcoWrapperResizableIcon notes_plus_ico = null;
-        IcoWrapperResizableIcon notes_minus_ico = null;
-        IcoWrapperResizableIcon notes_last_ico = null;
-
-        try {
-            notes_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/notes.ico"), new Dimension(32, 32));
-            notes_group_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/notes_group_plus.ico"), new Dimension(32, 32));
-            notes_group_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/notes_group_minus.ico"), new Dimension(32, 32));
-            notes_plus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/notes_plus.ico"), new Dimension(32, 32));
-            notes_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/notes_minus.ico"), new Dimension(32, 32));
-            notes_last_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/notes_last.ico"), new Dimension(32, 32));
-        } catch (MalformedURLException ex) {
-            Exceptions.printStackTrace(ex);
-        }
-
         band.addCommandButton(
                 new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Pokaż tabele", "Ukazuje tabele wszystkich ocen w grupie", notes_ico, null, new PokazTabeleOcenAction()),
                 RibbonElementPriority.TOP);
@@ -314,16 +289,6 @@ public class MainRibbon extends JRibbon {
     private JRibbonBand createPresenceBand() {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "PRESENCE_BAND"),
                 new EmptyResizableIcon(16));
-
-        IcoWrapperResizableIcon presence_table_ico = null;
-        IcoWrapperResizableIcon presence_minus_ico = null;
-
-        try {
-            presence_table_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/presence.ico"), new Dimension(32, 32));
-            presence_minus_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/presence_minus.ico"), new Dimension(32, 32));
-        } catch (MalformedURLException ex) {
-            Exceptions.printStackTrace(ex);
-        }
 
         band.addCommandButton(
                 new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Sprawdź ocebność", "Dodaje słupek obecności z dzisiejszą datą", presence_table_ico, null, new SprawdzObecnoscAction()),
@@ -350,14 +315,6 @@ public class MainRibbon extends JRibbon {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "EXPORT_BAND"),
                 new EmptyResizableIcon(16));
         
-        IcoWrapperResizableIcon pdf_ico = null;
-        
-        try {
-            pdf_ico = IcoWrapperResizableIcon.getIcon(new URL(new URL("file:"), "./RibbonModule/src/org/officelaf/icons/images/pdf.ico"), new Dimension(32, 32));
-        } catch (MalformedURLException ex) {
-            Exceptions.printStackTrace(ex);
-        }
-
         band.addCommandButton(
                 new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Eksport do PDF", "Eksportuje widok do PDF", pdf_ico, null, new PokazPlanAction()),
                 RibbonElementPriority.TOP);

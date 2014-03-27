@@ -25,11 +25,6 @@ public class Installer extends ModuleInstall {
 
     enum Laf {
         WINDOWS("windows", "org.officelaf.OfficeWindowsLookAndFeel"),
-        //LINUX("linux",     "org.officelaf.OfficeNimbusLookAndFeel"),
-        LINUX("linux",     "org.officelaf.OfficeMetalLookAndFeel"),
-        //LINUX("linux",     "org.officelaf.OfficeGTKLookAndFeel"),
-        MAC("mac os x",    "org.officelaf.OfficeAquaLookAndFeel"),
-        //MAC("mac os x",    "org.officelaf.OfficeMetalLookAndFeel"),
         DEFAULT("default", null);
 
         private String osName;
