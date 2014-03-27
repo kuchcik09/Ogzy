@@ -210,13 +210,16 @@ public class Przedmiot {
                         "SELECT DISTINCT PRZ.nazwa AS Przedmiot, GRU.nazwa AS Grupa, TER.godzina_start AS Godzina_Start, TER.godzina_stop AS Godzina_stop "
                         + "FROM przedmioty AS PRZ JOIN terminy AS TER JOIN grupa_cwiczeniowa AS GRU "
                         + "ON PRZ.id = GRU.id_przedmiot AND TER.id_grupa_cwiczeniowa = GRU.id "
-                        + "WHERE TER.dzien_tygodnia = " + m_dzien.name());
+                        + "WHERE TER.dzien_tygodnia = ?");
+                prepStmt.setString(1, m_dzien.name());
             } else {
                 prepStmt = conn.prepareStatement(
                         "SELECT DISTINCT PRZ.nazwa AS Przedmiot, GRU.nazwa AS Grupa, TER.godzina_start AS Godzina_Start, TER.godzina_stop AS Godzina_stop "
                         + "FROM przedmioty AS PRZ JOIN terminy AS TER JOIN grupa_cwiczeniowa AS GRU "
                         + "ON PRZ.id = GRU.id_przedmiot AND TER.id_grupa_cwiczeniowa = GRU.id "
-                        + "WHERE TER.dzien_tygodnia = " + m_dzien.name() + " AND PRZ.rok_akademicki_start = " + m_rok_akademicki);
+                        + "WHERE TER.dzien_tygodnia = ? AND PRZ.rok_akademicki_start = ?");
+                prepStmt.setString(1, m_dzien.name());
+                prepStmt.setInt(2, m_rok_akademicki);
             }
 
             ResultSet resultSet = prepStmt.executeQuery();
@@ -230,6 +233,7 @@ public class Przedmiot {
                  jeden_przedmiot.setSemestr(SEMESTR.valueOf(resultSet.getString("semestr")));
                  przedmioty.add(jeden_przedmiot);*/
             }
+            prepStmt.close();
         } catch (Exception e) {
 
         } finally {
@@ -241,7 +245,6 @@ public class Przedmiot {
                 }
             }
         }
-
         return przedmioty;
     }
 

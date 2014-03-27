@@ -76,10 +76,12 @@ public class Obecnosc {
         Connection conn = null;
         try {
             conn = SqlConnection.getInstance().getSqlConnection();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT data FROM obecnosc WHERE data='" + today + "' AND id_termin=" + termin.getId());
+            PreparedStatement prepStmt = conn.prepareStatement("SELECT data FROM obecnosc WHERE data = ? AND id_termin = ?");
+            prepStmt.setString(1, today);
+            prepStmt.setInt(2, termin.getId());
+            ResultSet rs = prepStmt.executeQuery();
             boolean val = rs.next();
-            st.close();
+            prepStmt.close();
             return val;
         } catch (SQLException ex) {
             Logger.getLogger(Obecnosc.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,17 +97,22 @@ public class Obecnosc {
         return false;
     }
 
-    public static void check(Student get, int idTerminu, String data, boolean valueAt) {
+    public static void check(Student student, int idTerminu, String data, boolean valueAt) {
         Connection conn = null;
         try {
             conn = SqlConnection.getInstance().getSqlConnection();
-            Statement st = conn.createStatement();
+            String query;
             if (valueAt) {
-                st.executeUpdate("UPDATE obecnosc SET obecnosc=1 WHERE id_termin=" + idTerminu + " AND id_student=" + get.getId() + " AND data='" + data + "'");
+                query = "UPDATE obecnosc SET obecnosc=1 WHERE id_termin = ? AND id_student = ? AND data = ?";
             } else {
-                st.executeUpdate("UPDATE obecnosc SET obecnosc=0 WHERE id_termin=" + idTerminu + " AND id_student=" + get.getId() + " AND data='" + data + "'");
+                query = "UPDATE obecnosc SET obecnosc=0 WHERE id_termin = ? AND id_student = ? AND data = ?";
             }
-            st.close();
+            PreparedStatement prepStmt = conn.prepareStatement(query);
+            prepStmt.setInt(1, idTerminu);
+            prepStmt.setInt(2, student.getId());
+            prepStmt.setString(3, data);
+            prepStmt.executeUpdate();
+            prepStmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Obecnosc.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -172,12 +179,14 @@ public class Obecnosc {
         Connection conn = null;
         try {
             conn = SqlConnection.getInstance().getSqlConnection();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT O.id AS Oid, O.obecnosc AS Oobecnosc, "
+            PreparedStatement prepStmt = conn.prepareStatement("SELECT O.id AS Oid, O.obecnosc AS Oobecnosc, "
                     + "S.id AS Sid, S.imie AS Simie, S.nazwisko AS Snazwisko, S.email AS Semail, S.indeks AS Sindeks "
                     + "FROM obecnosc AS O JOIN student AS S "
                     + "ON S.id=O.id_student "
-                    + "WHERE id_termin=" + termin.getId() + " AND data =" + data);
+                    + "WHERE id_termin = ? AND data = ?");
+            prepStmt.setInt(1, termin.getId());
+            prepStmt.setString(2, data);
+            ResultSet rs = prepStmt.executeQuery();
             while (rs.next()) {
                 Obecnosc obecnosc = new Obecnosc(rs.getInt("Oid"),
                         termin,
@@ -186,6 +195,7 @@ public class Obecnosc {
                         rs.getBoolean("Oobecnosc"));
                 obecnosci.add(obecnosc);
             }
+            prepStmt.close();
             return obecnosci;
         } catch (SQLException ex) {
             System.err.println("Klasa Obecnosc, Funkcja getObecnosci(Termin,Date) - problem z pobraniem elementu");
@@ -252,13 +262,18 @@ public class Obecnosc {
         Connection conn = null;
         try {
             conn = SqlConnection.getInstance().getSqlConnection();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT id, data, obecnosc FROM obecnosc WHERE id_termin=" + termin.getId() + " AND id_student=" + student.getId() + " AND data=" + data);
-            return new Obecnosc(rs.getInt("id"),
+            PreparedStatement prepStmt = conn.prepareStatement("SELECT id, data, obecnosc FROM obecnosc WHERE id_termin = ? AND id_student = ? AND data = ?");
+            ResultSet rs = prepStmt.executeQuery();
+            prepStmt.setInt(1, termin.getId());
+            prepStmt.setInt(2, student.getId());
+            prepStmt.setDate(3, data);
+            Obecnosc obecnosc = new Obecnosc(rs.getInt("id"),
                     termin,
                     student,
                     rs.getString("data"),
                     rs.getBoolean("obecnosc"));
+            prepStmt.close();
+            return obecnosc;
         } catch (SQLException ex) {
             System.err.println("Klasa Obecnosc, Funkcja getObecnosci(Termin, Student, Date) - problem z pobraniem elementu");
             Logger.getLogger(Oceny.class.getName()).log(Level.SEVERE, null, ex);
@@ -400,6 +415,9 @@ public class Obecnosc {
 
     /**
      * Metoda usuwajaca obecnosc po jej ID
+     *
+     * @param id_terminu
+     * @param data
      *
      */
     public static void deleteObecnosc(int id_terminu, String data) {

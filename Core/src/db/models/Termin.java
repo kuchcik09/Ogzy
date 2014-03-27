@@ -6,6 +6,7 @@
 package db.models;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -173,11 +174,12 @@ public class Termin {
         Connection conn = null;
         try {
             conn = SqlConnection.getInstance().getSqlConnection();
-            Statement st = conn.createStatement();
-            st.executeUpdate("DELETE FROM terminy where dzien_tygodnia=" + tyg.ordinal() + " AND godzina_start ='"
-                    + godzina_start + "' AND godzina_stop ='" + godzina_stop + "'");
-            st.close();
-
+            PreparedStatement prepStmt = conn.prepareStatement("DELETE FROM terminy where dzien_tygodnia = ? AND godzina_start = ? AND godzina_stop = ?");
+            prepStmt.setInt(1, tyg.ordinal());
+            prepStmt.setString(2, godzina_start);
+            prepStmt.setString(3, godzina_stop);
+            prepStmt.executeUpdate();
+            prepStmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Termin.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
