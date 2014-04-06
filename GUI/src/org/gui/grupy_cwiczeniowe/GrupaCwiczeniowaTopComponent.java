@@ -10,6 +10,7 @@ import db.models.GrupaOcen;
 import db.models.Student;
 import db.models.Termin;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.netbeans.api.settings.ConvertAsProperties;
@@ -73,6 +74,7 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
         typ_oceniania = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         schemat_oceniania = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         GroupName.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(GroupName, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.GroupName.text")); // NOI18N
@@ -167,6 +169,13 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
 
         org.openide.awt.Mnemonics.setLocalizedText(schemat_oceniania, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.schemat_oceniania.text")); // NOI18N
 
+        org.openide.awt.Mnemonics.setLocalizedText(jButton1, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.jButton1.text")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -194,53 +203,68 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(schemat_oceniania)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(GroupName)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(SubjectName))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(typ_oceniania))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(schemat_oceniania))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(GroupName)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(SubjectName))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(typ_oceniania))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(schemat_oceniania))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        PodepnijStudentaPanel panel = new PodepnijStudentaPanel(grupa);
+        JOptionPane.showConfirmDialog(this, panel, "Grupa ćwiczeniowa", JOptionPane.CLOSED_OPTION, JOptionPane.PLAIN_MESSAGE);
+        setStudentsTable(grupa);
+        studentsTable.updateUI();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel GroupName;
     private javax.swing.JLabel SubjectName;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -254,74 +278,80 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
     private javax.swing.JTable termsTable;
     private javax.swing.JLabel typ_oceniania;
     // End of variables declaration//GEN-END:variables
-    
+
     private GrupaCwiczeniowa grupa;
-    
+
     @Override
     public void componentOpened() {
         // TODO add custom code on component opening
-        if(this.GroupName.getText().equals("Nazwa grupy")) this.close();
+        if (this.GroupName.getText().equals("Nazwa grupy")) {
+            this.close();
+        }
     }
 
     @Override
     public void componentClosed() {
         // TODO add custom code on component closing
     }
-    
-    public void setStudentsTable(GrupaCwiczeniowa grupa){
-        
+
+    public void setStudentsTable(GrupaCwiczeniowa grupa) {
+
         List<Student> studenci = Student.getByGroup(grupa.getId());
         DefaultTableModel model = (DefaultTableModel) studentsTable.getModel();
-        
-        while(model.getRowCount() > 0) model.removeRow(0);
-        
-        for(Student s: studenci){
-            model.addRow(new Object[]{s.getImie(),s.getNazwisko(),s.getEmail(),s.getIndeks()});
+
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+
+        for (Student s : studenci) {
+            model.addRow(new Object[]{s.getImie(), s.getNazwisko(), s.getEmail(), s.getIndeks()});
         }
         studentsTable.setModel(model);
     }
-    
-    public String getGroupName(){
+
+    public String getGroupName() {
         return this.GroupName.getText();
     }
-    
-    public void setTermsTable(GrupaCwiczeniowa grupa){
+
+    public void setTermsTable(GrupaCwiczeniowa grupa) {
         List<Termin> terms = Termin.getByGroup(grupa.getId());
         DefaultTableModel model = (DefaultTableModel) termsTable.getModel();
 
-        while(model.getRowCount() > 0) model.removeRow(0);
-        
-        for(Termin t: terms){
-            model.addRow(new Object[]{t.getDzien_tygodnia().toString(),t.getGodzina_start()+" - "+t.getGodzina_stop()});
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+
+        for (Termin t : terms) {
+            model.addRow(new Object[]{t.getDzien_tygodnia().toString(), t.getGodzina_start() + " - " + t.getGodzina_stop()});
         }
         termsTable.setModel(model);
-        
+
     }
-    
-    public void setGroup(GrupaCwiczeniowa grupa){
+
+    public void setGroup(GrupaCwiczeniowa grupa) {
         this.grupa = grupa;
         this.GroupName.setText(grupa.getNazwa());
         this.SubjectName.setText(grupa.getPrzedmiot().getNazwa());
         this.typ_oceniania.setText(grupa.getPrzedmiot().getTypOceniania().toString());
-        String schemat_oceniania = "<html>"+grupa.getPrzedmiot().getGrupaOcen().getNazwa()+"<br>";
-        for(GrupaOcen g: GrupaOcen.getAllGrupaOcen(grupa.getPrzedmiot().getGrupaOcen().getId())) {
+        String schemat_oceniania = "<html>" + grupa.getPrzedmiot().getGrupaOcen().getNazwa() + "<br>";
+        for (GrupaOcen g : GrupaOcen.getAllGrupaOcen(grupa.getPrzedmiot().getGrupaOcen().getId())) {
             schemat_oceniania += " &nbsp;&nbsp;&nbsp; - " + g.getNazwa() + "<br>";
         }
         schemat_oceniania += "</html>";
         this.schemat_oceniania.setText(schemat_oceniania);
-        setDisplayName(grupa.getNazwa()+" - "+grupa.getPrzedmiot().getNazwa() + " - Panel Główny");
+        setDisplayName(grupa.getNazwa() + " - " + grupa.getPrzedmiot().getNazwa() + " - Panel Główny");
         setStudentsTable(grupa);
         setTermsTable(grupa);
     }
-    
-    public JTable getTable(){
+
+    public JTable getTable() {
         return termsTable;
     }
-    
-    public DefaultTableModel getTableModel(){
+
+    public DefaultTableModel getTableModel() {
         return (DefaultTableModel) termsTable.getModel();
     }
-    
+
     void writeProperties(java.util.Properties p) {
         // better to version settings since initial version as advocated at
         // http://wiki.apidesign.org/wiki/PropertyFiles
@@ -347,5 +377,5 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
     public void setGrupa(GrupaCwiczeniowa grupa) {
         this.grupa = grupa;
     }
-   
+
 }

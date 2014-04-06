@@ -38,6 +38,7 @@ public class OcenyModel extends DefaultTableModel {
         dataVector = new Vector<Row>();
     }
 
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         return ((Row) dataVector.get(rowIndex)).getRow(columnIndex);
     }

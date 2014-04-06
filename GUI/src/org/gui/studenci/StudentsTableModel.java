@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.gui.studenci;
 
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import org.gui.Row;
 
-/**
- *
- * @author Ja
- */
 public class StudentsTableModel extends DefaultTableModel {
 
     public StudentsTableModel() {
@@ -25,6 +16,7 @@ public class StudentsTableModel extends DefaultTableModel {
         dataVector = new Vector<Row>();
     }
 
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         return ((Row) dataVector.get(rowIndex)).getRow(columnIndex);
     }

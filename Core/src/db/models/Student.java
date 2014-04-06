@@ -73,7 +73,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" + "id=" + id + ", imie=" + imie + ", nazwisko=" + nazwisko + ", email=" + email + ", indeks=" + indeks + '}';
+        return getImie() + " " + getNazwisko();
     }
 
     public static List<Student> getAll() {
@@ -235,6 +235,32 @@ public class Student {
             Statement st = conn.createStatement();
             List<Student> students = new ArrayList<Student>();
             ResultSet rs = st.executeQuery("SELECT S.id,S.imie,S.nazwisko,S.email,S.indeks FROM student as S JOIN grupa_student as G ON S.id = G.id_student WHERE G.id_grupa_cwiczeniowa=" + id);
+            while (rs.next()) {
+                students.add(new Student(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5)));
+            }
+            st.close();
+            return students;
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    public static List<Student> getAllWithoutGroup(int id) {
+        Connection conn = null;
+        try {
+            conn = SqlConnection.getInstance().getSqlConnection();
+            Statement st = conn.createStatement();
+            List<Student> students = new ArrayList<Student>();
+            ResultSet rs = st.executeQuery("SELECT S.id, S.imie, S.nazwisko, S.email, S.indeks FROM student as S  WHERE s.id NOT IN (SELECT S.id FROM student as S JOIN grupa_student as G ON S.id = G.id_student WHERE G.id_grupa_cwiczeniowa = " + id + ")");
             while (rs.next()) {
                 students.add(new Student(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5)));
             }

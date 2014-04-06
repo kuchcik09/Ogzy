@@ -7,7 +7,6 @@
 package org.gui.schematy;
 
 import db.models.GrupaOcen;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
