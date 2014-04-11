@@ -67,13 +67,13 @@ public class OfficeRootPaneUI extends BasicRootPaneUI {
      */
     private LayoutManager savedOldLayout;
     /** <code>JRootPane</code> providing the look and feel for. */
-    private JRootPane root;
+    private static JRootPane root;
     /**
      * <code>Cursor</code> used to track the cursor set by the user.
      * This is initially <code>Cursor.DEFAULT_CURSOR</code>.
      */
     private Cursor lastCursor = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
-    private JRibbon ribbon;
+    private static JRibbon ribbon;
 
     public OfficeRootPaneUI(JRootPane root) {
         this.root = root;
@@ -89,7 +89,7 @@ public class OfficeRootPaneUI extends BasicRootPaneUI {
         return new OfficeRootPaneUI((JRootPane) c);
     }
 
-    public JRibbon getRibbon() {
+    public static JRibbon getRibbon() {
         if (ribbon == null) {
             MainRibbon example = new MainRibbon();
             example.setup();
@@ -98,18 +98,18 @@ public class OfficeRootPaneUI extends BasicRootPaneUI {
         return ribbon;
     }
 
-    public void setRibbon(JRibbon ribbon) {
-        JRibbon old = this.ribbon;
+    public static void setRibbon(JRibbon ribbon) {
+        JRibbon old = OfficeRootPaneUI.ribbon;
         if (old != null) {
             root.getLayeredPane().remove(old);
         }
 
-        this.ribbon = ribbon;
-        if (this.ribbon != null) {
+        OfficeRootPaneUI.ribbon = ribbon;
+        if (OfficeRootPaneUI.ribbon != null) {
             boolean isRibbonVisible = NbPreferences.forModule(OfficeLAFPanel.class).getBoolean("ribbonCheck", true);
-            this.ribbon.setVisible(isRibbonVisible);
-            this.ribbon.putClientProperty(JLayeredPane.LAYER_PROPERTY, 0);
-            root.getLayeredPane().add(this.ribbon, 0);
+            OfficeRootPaneUI.ribbon.setVisible(isRibbonVisible);
+            OfficeRootPaneUI.ribbon.putClientProperty(JLayeredPane.LAYER_PROPERTY, 0);
+            root.getLayeredPane().add(OfficeRootPaneUI.ribbon, 0);
         }
     }
 
@@ -298,28 +298,6 @@ public class OfficeRootPaneUI extends BasicRootPaneUI {
         installClientDecorationListeners(root);
         installLayout(root);
 
-        //ImageIcon toolBarIcon = new ImageIcon(OfficeWindowsLookAndFeel.class.getResource("images/exieborder2.png"));
-        //ImageIcon officeButtonIcon = new ImageIcon(OfficeWindowsLookAndFeel.class.getResource("images/exie_officebutton.png"));
-
-//        JLabel label = new JLabel(toolBarIcon);
-//        label.setVerticalAlignment(SwingConstants.TOP);
-//        label.setBounds(officeButtonIcon.getIconWidth() - 2, 3, toolBarIcon.getIconWidth(), toolBarIcon.getIconHeight());
-//        label.setVisible(true);
-//        label.putClientProperty(JLayeredPane.LAYER_PROPERTY, 1);
-//        root.getLayeredPane().add(label, 1);
-
-//        OfficeButton officeButton = getOfficeButton();
-//        officeButton.setBounds(2, 7, officeButtonIcon.getIconWidth(), officeButtonIcon.getIconHeight());
-//        officeButton.setVisible(true);
-//        officeButton.putClientProperty(JLayeredPane.LAYER_PROPERTY, 1);
-//        root.getLayeredPane().add(officeButton, 1);
-//
-////        officeFrameToolBar = new OfficeFrameToolBar();
-//        officeFrameToolBar.setVisible(true);
-//        officeFrameToolBar.putClientProperty(JLayeredPane.LAYER_PROPERTY, 1);
-//        root.getLayeredPane().add(officeFrameToolBar, 1);
-//        root.getLayeredPane().add(getRibbon(), 0);
-
         if (window != null) {
             root.revalidate();
             root.repaint();
@@ -361,45 +339,6 @@ public class OfficeRootPaneUI extends BasicRootPaneUI {
      */
     private OfficeTitlePane createTitlePane(final JRootPane root) {
         OfficeTitlePane retVal = new OfficeTitlePane(root, this);
-
-        boolean isMenuVisible = NbPreferences.forModule(OfficeLAFPanel.class).getBoolean("menuCheck", false);
-        if(!isMenuVisible) {
-            retVal.addMouseListener(new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                    if (e.getButton() == MouseEvent.BUTTON3 && root.getJMenuBar() != null) {
-                        JMenuBar bar = root.getJMenuBar();
-                        final JPopupMenu p = new JPopupMenu();
-
-                        final List<JMenu> menus = new ArrayList<JMenu>();
-                        for (int i = 0; i < bar.getMenuCount(); i++) {
-                            menus.add(bar.getMenu(i));
-                        }
-                        for (JMenu menu : menus) {
-                            p.add(menu);
-                        }
-
-                        p.addPopupMenuListener(new PopupMenuListener() {
-
-                            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                            }
-
-                            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                                for (JMenu menu : menus) {
-                                    root.getJMenuBar().add(menu);
-                                }
-                            }
-
-                            public void popupMenuCanceled(PopupMenuEvent e) {
-                            }
-                        });
-
-                        p.show(e.getComponent(), e.getX(), e.getY());
-                    }
-                }
-            });
-        }
-
-
         return retVal;
     }
 

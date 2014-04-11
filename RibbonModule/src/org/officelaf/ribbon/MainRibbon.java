@@ -10,7 +10,10 @@ import org.jvnet.flamingo.ribbon.resize.RibbonBandResizePolicy;
 import org.openide.util.NbBundle;
 import java.awt.*;
 import java.util.Arrays;
+import org.jvnet.flamingo.common.AbstractCommandButton;
+import org.jvnet.flamingo.ribbon.ui.JBandControlPanel;
 import org.officelaf.OfficeRibbonApplicationMenuButtonUI;
+import org.officelaf.OfficeRootPaneUI;
 import org.officelaf.ribbon.grupy_cwiczeniowe.DodajGrupeAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.PokazGrupyAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.UsunGrupeAction;
@@ -67,6 +70,38 @@ public class MainRibbon extends JRibbon {
     
     public MainRibbon() {
 
+    }
+    
+    public static AbstractCommandButton getRibbonButton(int task_position, int band_position,
+            int group_position, RibbonElementPriority ribbonElementPriority, int button_position){
+
+        JRibbon ribbon = OfficeRootPaneUI.getRibbon();
+        RibbonTask task = ribbon.getTask(task_position);
+        if(task == null){
+            throw new NullPointerException("Task not exist! :"+uiClassID);
+        }
+        JRibbonBand band = (JRibbonBand) task.getBand(band_position);
+        if(band == null){
+            throw new NullPointerException("Band not exist! :"+uiClassID);
+        }
+        JBandControlPanel band_control_panel = band.getControlPanel();
+        java.util.List<JBandControlPanel.ControlPanelGroup> groups_list = band_control_panel.getControlPanelGroups();
+        JBandControlPanel.ControlPanelGroup group = groups_list.get(group_position);
+        
+        if(group == null){
+            throw new NullPointerException("Group not exist! :"+uiClassID);
+        }
+        
+        java.util.List<AbstractCommandButton> buttons_list = group.getRibbonButtons(ribbonElementPriority);
+        
+        AbstractCommandButton button = buttons_list.get(button_position);
+        
+        if(button == null){
+            throw new NullPointerException("Button not exist! :"+uiClassID);
+        }
+        
+        return button;
+        
     }
     
     private void initIcons(){
