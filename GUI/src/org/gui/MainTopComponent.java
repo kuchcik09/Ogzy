@@ -5,8 +5,8 @@
  */
 package org.gui;
 
-import db.models.GrupaCwiczeniowa;
-import db.models.Termin;
+import org.database.models.GrupaCwiczeniowa;
+import org.database.models.Termin;
 import java.sql.Time;
 import java.util.LinkedList;
 import java.util.List;

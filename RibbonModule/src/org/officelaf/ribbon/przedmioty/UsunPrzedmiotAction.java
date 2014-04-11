@@ -6,7 +6,7 @@
 
 package org.officelaf.ribbon.przedmioty;
 
-import db.models.Przedmiot;
+import org.database.models.Przedmiot;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;

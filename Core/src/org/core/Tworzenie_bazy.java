@@ -5,7 +5,7 @@
  */
 
 package org.core;
-import installation.Database_install;
+import org.database.intallation.Database_install;
 /**
  *
  * @author Mariushrek

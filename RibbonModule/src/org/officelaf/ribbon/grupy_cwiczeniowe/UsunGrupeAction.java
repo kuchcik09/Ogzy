@@ -5,7 +5,7 @@
  */
 package org.officelaf.ribbon.grupy_cwiczeniowe;
 
-import db.models.GrupaCwiczeniowa;
+import org.database.models.GrupaCwiczeniowa;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;

@@ -1,5 +1,5 @@
 
-import db.models.GrupaStudent;
+import org.database.models.GrupaStudent;
 import java.util.List;
 import org.testng.annotations.Test;
 

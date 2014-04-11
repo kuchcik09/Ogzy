@@ -5,10 +5,10 @@
  */
 package org.gui.grupy_cwiczeniowe;
 
-import db.models.GrupaCwiczeniowa;
-import db.models.GrupaOcen;
-import db.models.Student;
-import db.models.Termin;
+import org.database.models.GrupaCwiczeniowa;
+import org.database.models.GrupaOcen;
+import org.database.models.Student;
+import org.database.models.Termin;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;

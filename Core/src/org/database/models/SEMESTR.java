@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 
-package db.models;
+package org.database.models;
 
-public enum TYP_OCENIANIA {
-    OCENA, PUNKTY
+/**
+ *
+ * @author Mariushrek
+ */
+public enum SEMESTR {
+    LETNI, ZIMOWY
 }

@@ -1,6 +1,6 @@
 
 import org.testng.annotations.Test;
-import db.models.Student;
+import org.database.models.Student;
 import java.util.List;
 
 /*

@@ -6,7 +6,7 @@
 
 package org.officelaf.ribbon.plan;
 
-import db.models.Termin;
+import org.database.models.Termin;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;

@@ -5,10 +5,10 @@
  */
 package org.gui.oceny;
 
-import db.models.GrupaCwiczeniowa;
-import db.models.GrupaOcen;
-import db.models.Oceny;
-import db.models.Student;
+import org.database.models.GrupaCwiczeniowa;
+import org.database.models.GrupaOcen;
+import org.database.models.Oceny;
+import org.database.models.Student;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;

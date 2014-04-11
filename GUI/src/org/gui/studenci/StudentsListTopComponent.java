@@ -5,7 +5,7 @@
  */
 package org.gui.studenci;
 
-import db.models.Student;
+import org.database.models.Student;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

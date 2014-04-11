@@ -6,7 +6,7 @@
 
 package org.gui.schematy;
 
-import db.models.GrupaOcen;
+import org.database.models.GrupaOcen;
 import java.util.List;
 import javax.swing.DefaultListModel;
 

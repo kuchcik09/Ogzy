@@ -5,11 +5,11 @@
  */
 package org.gui.oceny;
 
-import db.models.GrupaCwiczeniowa;
-import db.models.GrupaOcen;
-import db.models.Oceny;
-import db.models.Student;
-import db.models.TYP_OCENIANIA;
+import org.database.models.GrupaCwiczeniowa;
+import org.database.models.GrupaOcen;
+import org.database.models.Oceny;
+import org.database.models.Student;
+import org.database.models.TYP_OCENIANIA;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

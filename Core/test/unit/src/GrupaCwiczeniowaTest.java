@@ -1,5 +1,5 @@
 
-import db.models.GrupaCwiczeniowa;
+import org.database.models.GrupaCwiczeniowa;
 import java.util.List;
 import org.testng.annotations.Test;
 

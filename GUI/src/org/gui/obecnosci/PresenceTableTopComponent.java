@@ -5,9 +5,9 @@
  */
 package org.gui.obecnosci;
 
-import db.models.Obecnosc;
-import db.models.Student;
-import db.models.Termin;
+import org.database.models.Obecnosc;
+import org.database.models.Student;
+import org.database.models.Termin;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

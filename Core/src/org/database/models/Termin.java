@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package db.models;
+package org.database.models;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -134,7 +134,7 @@ public class Termin {
             st.close();
             return terminy;
         } catch (SQLException ex) {
-            Logger.getLogger(db.models.Termin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(org.database.models.Termin.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (conn != null) {
                 try {

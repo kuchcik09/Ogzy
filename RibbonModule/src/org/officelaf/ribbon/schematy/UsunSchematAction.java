@@ -6,8 +6,8 @@
 
 package org.officelaf.ribbon.schematy;
 
-import db.models.GrupaOcen;
-import db.models.Przedmiot;
+import org.database.models.GrupaOcen;
+import org.database.models.Przedmiot;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;

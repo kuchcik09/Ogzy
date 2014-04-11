@@ -6,8 +6,8 @@
 
 package org.officelaf.ribbon.obecnosc;
 
-import db.models.Obecnosc;
-import db.models.Termin;
+import org.database.models.Obecnosc;
+import org.database.models.Termin;
 import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import javax.swing.AbstractAction;

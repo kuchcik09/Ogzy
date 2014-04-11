@@ -6,11 +6,6 @@
         <group name="Wzorce">
             <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/ribbon/grupy_cwiczeniowe/DodajGrupeAction.java</file>
         </group>
-        <group name="Ogzy">
-            <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/ribbon/grupy_cwiczeniowe/DodajGrupeAction.java</file>
-            <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/ribbon/MainRibbon.java</file>
-            <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/Installer.java</file>
-            <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/OfficeRootPaneUI.java</file>
-        </group>
+        <group name="Ogzy"/>
     </open-files>
 </project-private>

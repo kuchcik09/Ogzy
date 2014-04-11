@@ -1,8 +1,8 @@
 package org.gui.grupy_cwiczeniowe;
 
-import db.models.GrupaCwiczeniowa;
-import db.models.GrupaStudent;
-import db.models.Student;
+import org.database.models.GrupaCwiczeniowa;
+import org.database.models.GrupaStudent;
+import org.database.models.Student;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;

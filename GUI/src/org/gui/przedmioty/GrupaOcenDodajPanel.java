@@ -6,7 +6,7 @@
 
 package org.gui.przedmioty;
 
-import db.models.GrupaOcen;
+import org.database.models.GrupaOcen;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

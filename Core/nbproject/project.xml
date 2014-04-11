@@ -5,24 +5,7 @@
         <data xmlns="http://www.netbeans.org/ns/nb-module-project/3">
             <code-name-base>org.core</code-name-base>
             <suite-component/>
-            <module-dependencies>
-                <dependency>
-                    <code-name-base>installation</code-name-base>
-                    <build-prerequisite/>
-                    <compile-dependency/>
-                    <run-dependency>
-                        <specification-version>1.0</specification-version>
-                    </run-dependency>
-                </dependency>
-                <dependency>
-                    <code-name-base>org.database</code-name-base>
-                    <build-prerequisite/>
-                    <compile-dependency/>
-                    <run-dependency>
-                        <specification-version>1.0</specification-version>
-                    </run-dependency>
-                </dependency>
-            </module-dependencies>
+            <module-dependencies/>
             <test-dependencies>
                 <test-type>
                     <name>unit</name>
@@ -33,9 +16,14 @@
                 </test-type>
             </test-dependencies>
             <public-packages>
-                <package>db.models</package>
                 <package>org.core</package>
+                <package>org.database</package>
+                <package>org.database.models</package>
             </public-packages>
+            <class-path-extension>
+                <runtime-relative-path>ext/sqlite-jdbc-3.7.2.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/sqlite-jdbc-3.7.2.jar</binary-origin>
+            </class-path-extension>
         </data>
     </configuration>
 </project>

@@ -5,7 +5,7 @@
  */
 package org.officelaf.ribbon.studenci;
 
-import db.models.Student;
+import org.database.models.Student;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;

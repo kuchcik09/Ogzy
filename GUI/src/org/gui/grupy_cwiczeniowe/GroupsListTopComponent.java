@@ -5,8 +5,8 @@
  */
 package org.gui.grupy_cwiczeniowe;
 
-import db.models.GrupaCwiczeniowa;
-import db.models.Przedmiot;
+import org.database.models.GrupaCwiczeniowa;
+import org.database.models.Przedmiot;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

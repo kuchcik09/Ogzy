@@ -5,9 +5,9 @@
  */
 package org.gui.studenci;
 
-import db.models.GrupaCwiczeniowa;
-import db.models.GrupaStudent;
-import db.models.Student;
+import org.database.models.GrupaCwiczeniowa;
+import org.database.models.GrupaStudent;
+import org.database.models.Student;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;

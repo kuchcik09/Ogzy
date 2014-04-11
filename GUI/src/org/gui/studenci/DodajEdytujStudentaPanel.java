@@ -5,7 +5,7 @@
  */
 package org.gui.studenci;
 
-import db.models.Student;
+import org.database.models.Student;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.openide.awt.NotificationDisplayer;

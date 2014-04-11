@@ -1,4 +1,4 @@
-package installation;
+package org.database.intallation;
 
 import java.sql.Connection;
 import java.sql.SQLException;

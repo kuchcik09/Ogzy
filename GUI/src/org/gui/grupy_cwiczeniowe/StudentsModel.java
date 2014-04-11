@@ -5,7 +5,7 @@
  */
 package org.gui.grupy_cwiczeniowe;
 
-import db.models.Student;
+import org.database.models.Student;
 import java.util.List;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataListener;

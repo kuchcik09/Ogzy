@@ -5,7 +5,7 @@
  */
 package org.gui.przedmioty;
 
-import db.models.Przedmiot;
+import org.database.models.Przedmiot;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

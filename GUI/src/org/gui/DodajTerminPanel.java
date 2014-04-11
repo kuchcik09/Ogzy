@@ -5,7 +5,7 @@
  */
 package org.gui;
 
-import db.models.GrupaCwiczeniowa;
+import org.database.models.GrupaCwiczeniowa;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;

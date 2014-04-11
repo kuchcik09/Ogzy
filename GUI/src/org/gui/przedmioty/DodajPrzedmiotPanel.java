@@ -6,10 +6,10 @@
 
 package org.gui.przedmioty;
 
-import db.models.GrupaOcen;
-import db.models.Przedmiot;
-import db.models.SEMESTR;
-import db.models.TYP_OCENIANIA;
+import org.database.models.GrupaOcen;
+import org.database.models.Przedmiot;
+import org.database.models.SEMESTR;
+import org.database.models.TYP_OCENIANIA;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;

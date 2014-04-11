@@ -5,9 +5,9 @@
  */
 package org.gui.oceny;
 
-import db.models.GrupaCwiczeniowa;
-import db.models.GrupaOcen;
-import db.models.Przedmiot;
+import org.database.models.GrupaCwiczeniowa;
+import org.database.models.GrupaOcen;
+import org.database.models.Przedmiot;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
