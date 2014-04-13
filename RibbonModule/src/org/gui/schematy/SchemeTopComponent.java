@@ -8,6 +8,7 @@ package org.gui.schematy;
 import org.database.models.GrupaOcen;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -100,5 +101,9 @@ public final class SchemeTopComponent extends TopComponent {
     void readProperties(java.util.Properties p) {
         String version = p.getProperty("version");
         // TODO read your settings according to their version
+    }
+    
+    public JList getSchemeList(){
+        return this.schemeList;
     }
 }

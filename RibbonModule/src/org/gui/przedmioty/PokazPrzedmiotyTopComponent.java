@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.officelaf.listeners.TopComponentsManagerListener;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.windows.TopComponent;
@@ -119,6 +120,11 @@ public final class PokazPrzedmiotyTopComponent extends TopComponent {
         );
 
         tabela_przedmiotow.setModel(new PrzedmiotyTableModel());
+        tabela_przedmiotow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabela_przedmiotowMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabela_przedmiotow);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -157,6 +163,10 @@ public final class PokazPrzedmiotyTopComponent extends TopComponent {
         }
         hideIdColumn();
     }//GEN-LAST:event_archiwalne_przedmiotyActionPerformed
+
+    private void tabela_przedmiotowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela_przedmiotowMouseClicked
+        TopComponentsManagerListener.PokazPrzedmiotyTopComponentActivated(this);
+    }//GEN-LAST:event_tabela_przedmiotowMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox archiwalne_przedmioty;

@@ -19,6 +19,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import org.gui.MainTopComponent;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.officelaf.listeners.TopComponentsManagerListener;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.windows.TopComponent;
@@ -99,10 +100,19 @@ public final class GroupsListTopComponent extends TopComponent {
         setLayout(new java.awt.BorderLayout());
 
         tabelaGrupCwiczeniowych.setModel(new GroupsTableModel());
+        tabelaGrupCwiczeniowych.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaGrupCwiczeniowychMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tabelaGrupCwiczeniowych);
 
         add(jScrollPane2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tabelaGrupCwiczeniowychMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaGrupCwiczeniowychMouseClicked
+        TopComponentsManagerListener.GroupsListTopComponentActivated(this);
+    }//GEN-LAST:event_tabelaGrupCwiczeniowychMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane2;

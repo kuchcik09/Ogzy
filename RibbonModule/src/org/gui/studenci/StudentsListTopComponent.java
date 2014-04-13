@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.officelaf.listeners.TopComponentsManagerListener;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.windows.TopComponent;
@@ -97,10 +98,19 @@ public final class StudentsListTopComponent extends TopComponent {
         setLayout(new java.awt.BorderLayout());
 
         tabelaStudentow.setModel(new StudentsTableModel());
+        tabelaStudentow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaStudentowMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tabelaStudentow);
 
         add(jScrollPane2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tabelaStudentowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaStudentowMouseClicked
+        TopComponentsManagerListener.StudentsListTopComponentActivated(this);
+    }//GEN-LAST:event_tabelaStudentowMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane2;

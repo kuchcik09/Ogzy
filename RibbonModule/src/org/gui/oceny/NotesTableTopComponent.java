@@ -16,6 +16,8 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.officelaf.listeners.TopComponentsManagerListener;
+import org.officelaf.ribbon.BandsButtons;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.windows.TopComponent;
@@ -52,6 +54,11 @@ public final class NotesTableTopComponent extends TopComponent {
     private List<List<Oceny>> oceny_po_kategoriach = null;
     private boolean isEditingCell = true;
     private boolean add_or_edit = false;
+    
+    public JTable getStudentsTable(){
+        return this.students_table;
+    }
+    
     public void setTable(GrupaCwiczeniowa grupa){
         //tu należy uzupełnić o wypełnianie tabeli ocenami
     }
@@ -283,7 +290,8 @@ public final class NotesTableTopComponent extends TopComponent {
     }// </editor-fold>//GEN-END:initComponents
 
     private void students_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_students_tableMouseClicked
-       if(students_table.getSelectedRow()!=-1) {
+       TopComponentsManagerListener.EnableDisableManageColumsButtons(this);
+        if(students_table.getSelectedRow()!=-1) {   
            setStudentsMarks();
        }
     }//GEN-LAST:event_students_tableMouseClicked

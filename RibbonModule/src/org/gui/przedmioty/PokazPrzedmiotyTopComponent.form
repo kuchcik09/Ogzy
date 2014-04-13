@@ -80,6 +80,9 @@
               <Connection code="new PrzedmiotyTableModel()" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabela_przedmiotowMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
