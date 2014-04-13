@@ -118,6 +118,11 @@ public final class PresenceTableTopComponent extends TopComponent {
     private javax.swing.JTable presenceTable;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
+    
+    public String getTitle(){
+        return titleLabel.getText();
+    }
+    
     @Override
     public void componentOpened() {
         if(titleLabel.getText().equals("jLabel1")) this.close();
@@ -205,7 +210,20 @@ public final class PresenceTableTopComponent extends TopComponent {
         setDisplayName(term.getGrupa().getNazwa()+" - "+term.getGrupa().getPrzedmiot().getNazwa()+" - Obecności");
         this.titleLabel.setHorizontalAlignment( SwingConstants.CENTER ); 
         this.titleLabel.setText("Tabela obecności dla: "+term.getGrupa().getNazwa()+" - "+term.getGrupa().getPrzedmiot().getNazwa()+" - "+term.getGodzina_start()+"-"+term.getGodzina_stop());
+        this.groupName = term.getGrupa().getNazwa();
+        this.subjectName = term.getGrupa().getPrzedmiot().getNazwa();
         setTable(term);
+    }
+    
+    private String groupName;
+    private String subjectName;
+    
+    public String getGroupName(){
+        return this.groupName;
+    }
+    
+    public String getSubjectName(){
+        return this.subjectName;
     }
     
     void writeProperties(java.util.Properties p) {

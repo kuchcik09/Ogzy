@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import org.gui.MainTopComponent;
 import org.gui.grupy_cwiczeniowe.GroupsListTopComponent;
 import org.gui.grupy_cwiczeniowe.GrupaCwiczeniowaTopComponent;
+import org.gui.obecnosci.PresenceTableTopComponent;
 import org.gui.oceny.NotesTableTopComponent;
 import org.gui.oceny.OcenyMainTopComponent;
 import org.openide.windows.TopComponent;
@@ -33,6 +34,7 @@ public class PokazTabeleOcenAction extends AbstractAction{
         TopComponent top1 = TopComponent.getRegistry().getActivated();
         MainTopComponent maintop = null;
         GroupsListTopComponent grouptop = null;
+        PresenceTableTopComponent presencetop = null;
         String maintop_value = null;
         String grouptop_value_g = null;
         String grouptop_value_p = null;
@@ -45,9 +47,13 @@ public class PokazTabeleOcenAction extends AbstractAction{
             if(grouptop.getTabelaGrupCwiczeniowych().getSelectedRow() != -1)
                 grouptop_value_g = (String) grouptop.getTabelaGrupCwiczeniowych().getModel().getValueAt(grouptop.getTabelaGrupCwiczeniowych().getSelectedRow(), 1);
                 grouptop_value_p = (String) grouptop.getTabelaGrupCwiczeniowych().getModel().getValueAt(grouptop.getTabelaGrupCwiczeniowych().getSelectedRow(), 2);
+        }else if(top1 instanceof PresenceTableTopComponent){
+            presencetop = (PresenceTableTopComponent)top1;
+            grouptop_value_g = presencetop.getGroupName();
+            grouptop_value_p = presencetop.getSubjectName();
         }
         
-        if(top.isOpened() || (maintop != null && maintop_value !=null) || (grouptop !=null && grouptop_value_g != null)){
+        if(top.isOpened() || (maintop != null && maintop_value !=null) || (grouptop !=null && grouptop_value_g != null) || (presencetop !=null)){
             //W każdym z 3 przypadków można dostać grupę dla której chcemy wyświetlić oceny
             GrupaCwiczeniowa grupa = null;
             
@@ -67,7 +73,7 @@ public class PokazTabeleOcenAction extends AbstractAction{
                 }
             }
             //3. jeśli jest wybrana grupa w liście grupa
-            else if(grouptop !=null && grouptop_value_g != null){
+            else if((grouptop !=null && grouptop_value_g != null) || presencetop !=null){
                 List<GrupaCwiczeniowa> grupy= GrupaCwiczeniowa.getAll();
                 for(GrupaCwiczeniowa g: grupy){
                     if(g.getNazwa().equals(grouptop_value_g) && g.getPrzedmiot().getNazwa().equals(grouptop_value_p)){
@@ -76,6 +82,7 @@ public class PokazTabeleOcenAction extends AbstractAction{
                     }
                 }
             }
+            
             // w tym momencie w obiekt grupa jest uzupełniony
             NotesTableTopComponent notestop = (NotesTableTopComponent) WindowManager.getDefault().findTopComponent("NotesTableTopComponent");
             notestop.setGrupa(grupa); //ustawiam tabele ocen
