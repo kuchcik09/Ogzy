@@ -16,7 +16,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.gui.grupy_cwiczeniowe.GrupaCwiczeniowaTopComponent;
+import org.jvnet.flamingo.ribbon.RibbonElementPriority;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.officelaf.listeners.TopComponentsManagerListener;
+import org.officelaf.ribbon.MainRibbon;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.windows.TopComponent;
@@ -125,31 +128,31 @@ public final class MainTopComponent extends TopComponent {
     }// </editor-fold>//GEN-END:initComponents
 
     private void termsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_termsTableMouseClicked
-        if(evt.getClickCount() == 2){
-            //podwojne
-            DefaultTableModel model = (DefaultTableModel) this.termsTable.getModel();
-            String value = (String)model.getValueAt(this.termsTable.getSelectedRow(), this.termsTable.getSelectedColumn());
-            if(value != null){
-                List<GrupaCwiczeniowa> groups = GrupaCwiczeniowa.getAll();
-                GrupaCwiczeniowa grupa = null;
-                
-                int pauseIndex = value.indexOf("<br>");
-                String grupa_name = value.substring(6,pauseIndex);
-                String przedmiot_name = value.substring(pauseIndex+4,value.length()-7);
-                
-                for(int i=0;i<groups.size();i++){
-                    if(groups.get(i).getNazwa().equals(grupa_name) && groups.get(i).getPrzedmiot().getNazwa().equals(przedmiot_name)){
-                        grupa = groups.get(i);
-                        break;
-                    }
+        DefaultTableModel model = (DefaultTableModel) this.termsTable.getModel();
+        String value = (String)model.getValueAt(this.termsTable.getSelectedRow(), this.termsTable.getSelectedColumn());
+
+        if(value != null && this.termsTable.getSelectedColumn() >0 && evt.getClickCount() == 2){
+            List<GrupaCwiczeniowa> groups = GrupaCwiczeniowa.getAll();
+            GrupaCwiczeniowa grupa = null;
+
+            int pauseIndex = value.indexOf("<br>");
+            String grupa_name = value.substring(6,pauseIndex);
+            String przedmiot_name = value.substring(pauseIndex+4,value.length()-7);
+
+            for(int i=0;i<groups.size();i++){
+                if(groups.get(i).getNazwa().equals(grupa_name) && groups.get(i).getPrzedmiot().getNazwa().equals(przedmiot_name)){
+                    grupa = groups.get(i);
+                    break;
                 }
-                
-                GrupaCwiczeniowaTopComponent top = (GrupaCwiczeniowaTopComponent) WindowManager.getDefault().findTopComponent("GrupaCwiczeniowaTopComponent");
-                top.setGroup(grupa);
-                if(top.isOpened() == false)
-                    top.open();
-                top.requestActive();
             }
+
+            GrupaCwiczeniowaTopComponent top = (GrupaCwiczeniowaTopComponent) WindowManager.getDefault().findTopComponent("GrupaCwiczeniowaTopComponent");
+            top.setGroup(grupa);
+            if(top.isOpened() == false)
+                top.open();
+            top.requestActive();
+        }else{
+            TopComponentsManagerListener.MainTopComponentActivated(this);
         }
         
     }//GEN-LAST:event_termsTableMouseClicked

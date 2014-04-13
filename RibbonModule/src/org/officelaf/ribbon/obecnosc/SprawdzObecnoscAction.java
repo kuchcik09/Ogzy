@@ -6,7 +6,6 @@
 
 package org.officelaf.ribbon.obecnosc;
 
-import org.database.models.GrupaCwiczeniowa;
 import org.database.models.Termin;
 import java.awt.event.ActionEvent;
 import java.util.LinkedList;

@@ -12,8 +12,6 @@ import org.openide.util.NbPreferences;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicRootPaneUI;
@@ -21,8 +19,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 import java.beans.PropertyChangeEvent;
-import java.util.ArrayList;
-import java.util.List;
+import java.beans.PropertyChangeListener;
+import org.openide.windows.WindowManager;
 
 /**
  * User: mikael
@@ -745,7 +743,7 @@ public class OfficeRootPaneUI extends BasicRootPaneUI {
 
         public void mousePressed(MouseEvent ev) {
             JRootPane rootPane = getRootPane();
-
+            
             if (rootPane.getWindowDecorationStyle() == JRootPane.NONE) {
                 return;
             }
@@ -1037,25 +1035,8 @@ public class OfficeRootPaneUI extends BasicRootPaneUI {
         UIManager.setLookAndFeel(new OfficeWindowsLookAndFeel());
 
         JFrame frame = new JFrame("Ogzy");
-        JMenuBar menuBar = new JMenuBar();
-        JMenu file = new JMenu("Plik");
-        file.add(new JMenuItem("Wyjście"));
-        menuBar.add(file);
-        frame.setJMenuBar(menuBar);
-
-        frame.setSize(800, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JPanel contentPane = new JPanel(new BorderLayout());
-        contentPane.setBackground(Color.RED);
-
-        JPanel inner = new JPanel();
-        inner.setBackground(Color.GREEN);
-        contentPane.add(inner, BorderLayout.CENTER);
-
-        frame.setContentPane(contentPane);
-
+        
         frame.setVisible(true);
+        
     }
 }

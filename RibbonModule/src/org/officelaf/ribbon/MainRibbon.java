@@ -9,11 +9,15 @@ import org.jvnet.flamingo.ribbon.resize.CoreRibbonResizePolicies.Mid2Mid;
 import org.jvnet.flamingo.ribbon.resize.RibbonBandResizePolicy;
 import org.openide.util.NbBundle;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Arrays;
+import org.gui.MainTopComponent;
 import org.jvnet.flamingo.common.AbstractCommandButton;
 import org.jvnet.flamingo.ribbon.ui.JBandControlPanel;
 import org.officelaf.OfficeRibbonApplicationMenuButtonUI;
 import org.officelaf.OfficeRootPaneUI;
+import org.officelaf.listeners.TopComponentsManagerListener;
 import org.officelaf.ribbon.grupy_cwiczeniowe.DodajGrupeAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.PokazGrupyAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.UsunGrupeAction;
@@ -37,6 +41,9 @@ import org.officelaf.ribbon.studenci.OdepnijStudentaAction;
 import org.officelaf.ribbon.studenci.PodepnijStudentaAction;
 import org.officelaf.ribbon.studenci.PokazListeAction;
 import org.officelaf.ribbon.studenci.UsunStudentaAction;
+import org.openide.windows.WindowManager;
+import org.openide.windows.WindowSystemEvent;
+import org.openide.windows.WindowSystemListener;
 
 public class MainRibbon extends JRibbon {
     
@@ -147,6 +154,9 @@ public class MainRibbon extends JRibbon {
         addTask(mailTask);
         
         createApplicationMenu();
+        
+        WindowManager.getDefault().getRegistry().addPropertyChangeListener(new TopComponentsManagerListener());
+        
     }
 
     private void createApplicationMenu() {
@@ -182,15 +192,16 @@ public class MainRibbon extends JRibbon {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "PLAN_BAND"),
                 new EmptyResizableIcon(16));
         
-        band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Pokaż plan", "Ukazuje plan zajęć w tabeli", table_ico, null, new PokazPlanAction()),
-                RibbonElementPriority.TOP);
-        band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Dodaj termin", "Dodaje termin do planu zajęć", table_plus_ico, null, new DodajTerminAction()),
-                RibbonElementPriority.TOP);
-        band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Usuń termin", "Usuwa termin z planu zajęć", table_minus_ico, null, new UsunTerminAction()),
-                RibbonElementPriority.TOP);
+        AbstractCommandButton showButton = new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Pokaż plan", "Ukazuje plan zajęć w tabeli", table_ico, null, new PokazPlanAction());
+        AbstractCommandButton addButton = new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Dodaj termin", "Dodaje termin do planu zajęć", table_plus_ico, null, new DodajTerminAction());
+        AbstractCommandButton removeButton = new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Usuń termin", "Usuwa termin z planu zajęć", table_minus_ico, null, new UsunTerminAction());
+        
+        addButton.setEnabled(false);
+        removeButton.setEnabled(false);
+        
+        band.addCommandButton(showButton, RibbonElementPriority.TOP);
+        band.addCommandButton(addButton, RibbonElementPriority.TOP);
+        band.addCommandButton(removeButton, RibbonElementPriority.TOP);
 
         band.setResizePolicies(Arrays.<RibbonBandResizePolicy>asList(
                 new Mid2Mid(band.getControlPanel()),
@@ -299,19 +310,21 @@ public class MainRibbon extends JRibbon {
     private JRibbonBand createNotesBand() {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "NOTES_BAND"),
                 new EmptyResizableIcon(16));
-
-        band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Pokaż tabele", "Ukazuje tabele wszystkich ocen w grupie", notes_ico, null, new PokazTabeleOcenAction()),
-                RibbonElementPriority.TOP);
-        band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Dodaj słupek", "Dodaje słupek ocen do kategorii w grupie ocen", notes_plus_ico, null, new DodajSlupekAction()),
-                RibbonElementPriority.TOP);
-        band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Usuń słupek", "Usuwa słupek ocen z kategorii w grupie ćwiczeniowej", notes_minus_ico, null,new UsunSlupekAction()),
-                RibbonElementPriority.TOP);
-        band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Podsumuj", "Podsumowuje i wylicza oceny końcowe", notes_last_ico, null, new PodsumowanieAction()),
-                RibbonElementPriority.TOP);
+        
+        AbstractCommandButton showButton = new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Pokaż tabele", "Ukazuje tabele wszystkich ocen w grupie", notes_ico, null, new PokazTabeleOcenAction());
+        AbstractCommandButton addButton = new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Dodaj słupek", "Dodaje słupek ocen do kategorii w grupie ocen", notes_plus_ico, null, new DodajSlupekAction());
+        AbstractCommandButton removeButton = new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Usuń słupek", "Usuwa słupek ocen z kategorii w grupie ćwiczeniowej", notes_minus_ico, null,new UsunSlupekAction());
+        AbstractCommandButton sumButton = new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Podsumuj", "Podsumowuje i wylicza oceny końcowe", notes_last_ico, null, new PodsumowanieAction());
+        
+        showButton.setEnabled(false);
+        addButton.setEnabled(false);
+        removeButton.setEnabled(false);
+        sumButton.setEnabled(false);
+        
+        band.addCommandButton(showButton, RibbonElementPriority.TOP);
+        band.addCommandButton(addButton, RibbonElementPriority.TOP);
+        band.addCommandButton(removeButton, RibbonElementPriority.TOP);
+        band.addCommandButton(sumButton, RibbonElementPriority.TOP);
 
         band.setResizePolicies(Arrays.<RibbonBandResizePolicy>asList(
                 new Mid2Mid(band.getControlPanel()),
@@ -324,13 +337,15 @@ public class MainRibbon extends JRibbon {
     private JRibbonBand createPresenceBand() {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "PRESENCE_BAND"),
                 new EmptyResizableIcon(16));
-
-        band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Sprawdź ocebność", "Dodaje słupek obecności z dzisiejszą datą", presence_table_ico, null, new SprawdzObecnoscAction()),
-                RibbonElementPriority.TOP);
-        band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Usuń ocebność", "Usuwa zaznaczony słupek obecności", presence_minus_ico, null, new UsunObecnoscAction()),
-                RibbonElementPriority.TOP);
+        
+        AbstractCommandButton showButton = new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Sprawdź ocebność", "Dodaje słupek obecności z dzisiejszą datą", presence_table_ico, null, new SprawdzObecnoscAction());
+        AbstractCommandButton removeButton = new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Usuń ocebność", "Usuwa zaznaczony słupek obecności", presence_minus_ico, null, new UsunObecnoscAction());
+        
+        showButton.setEnabled(false);
+        removeButton.setEnabled(false);
+        
+        band.addCommandButton(showButton, RibbonElementPriority.TOP);
+        band.addCommandButton(removeButton, RibbonElementPriority.TOP);
 
         band.setResizePolicies(Arrays.<RibbonBandResizePolicy>asList(
                 new Mid2Mid(band.getControlPanel()),
@@ -339,13 +354,7 @@ public class MainRibbon extends JRibbon {
         ));
         return band;
     }
-
-    private AbstractRibbonBand[] createMailBands() {
-        AbstractRibbonBand[] bands = new AbstractRibbonBand[1];
-        bands[0] = new JRibbonBand("Test", null);
-        return bands;
-    }
-    
+ 
     private JRibbonBand createExportBand() {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "EXPORT_BAND"),
                 new EmptyResizableIcon(16));
