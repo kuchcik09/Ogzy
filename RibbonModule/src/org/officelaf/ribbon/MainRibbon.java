@@ -21,6 +21,7 @@ import org.officelaf.listeners.TopComponentsManagerListener;
 import org.officelaf.ribbon.grupy_cwiczeniowe.DodajGrupeAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.PokazGrupyAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.UsunGrupeAction;
+import org.officelaf.ribbon.menu.PDFAction;
 import org.officelaf.ribbon.obecnosc.SprawdzObecnoscAction;
 import org.officelaf.ribbon.obecnosc.UsunObecnoscAction;
 import org.officelaf.ribbon.oceny.DodajSlupekAction;
@@ -360,7 +361,7 @@ public class MainRibbon extends JRibbon {
                 new EmptyResizableIcon(16));
         
         band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Eksport do PDF", "Eksportuje widok do PDF", pdf_ico, null, new PokazPlanAction()),
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Eksport do PDF", "Eksportuje widok do PDF", pdf_ico, null, new PDFAction()),
                 RibbonElementPriority.TOP);
 
         band.setResizePolicies(Arrays.<RibbonBandResizePolicy>asList(
