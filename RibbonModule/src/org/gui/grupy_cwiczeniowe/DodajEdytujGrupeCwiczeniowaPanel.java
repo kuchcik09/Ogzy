@@ -35,7 +35,7 @@ public class DodajEdytujGrupeCwiczeniowaPanel extends javax.swing.JPanel {
     }
 
     private void preparePrzedmiotyComboBox() {
-        List<Przedmiot> listaPrzedmitow = Przedmiot.getPrzedmioty(0);
+        List<Przedmiot> listaPrzedmitow = Przedmiot.getCurrentYearPrzedmioty();
         for (Przedmiot p : listaPrzedmitow) {
             przedmiotyComboBox.addItem(p);
         }
@@ -65,12 +65,6 @@ public class DodajEdytujGrupeCwiczeniowaPanel extends javax.swing.JPanel {
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(DodajEdytujGrupeCwiczeniowaPanel.class, "DodajEdytujGrupeCwiczeniowaPanel.jLabel2.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(DodajEdytujGrupeCwiczeniowaPanel.class, "DodajEdytujGrupeCwiczeniowaPanel.jLabel1.text")); // NOI18N
-
-        przedmiotyComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                przedmiotyComboBoxActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -139,10 +133,6 @@ public class DodajEdytujGrupeCwiczeniowaPanel extends javax.swing.JPanel {
         window.open();
         window.requestActive();
     }
-
-    private void przedmiotyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_przedmiotyComboBoxActionPerformed
-
-    }//GEN-LAST:event_przedmiotyComboBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

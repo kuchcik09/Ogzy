@@ -165,15 +165,13 @@ public class Przedmiot {
         Connection conn = null;
         try {
             conn = SqlConnection.getInstance().getSqlConnection();
-            PreparedStatement prepStmt = null;
-            prepStmt = conn.prepareStatement(
-                    "SELECT P.id AS p_id, P.nazwa AS p_nazwa, G.id AS g_id, G.sub_id AS g_sub_id, G.nazwa AS g_nazwa, G.waga AS g_waga, P.typ_oceniania AS p_typ_oceniania, P.rok_akademicki_start AS p_rok_akademicki, P.semestr AS p_semestr FROM przedmioty as P join grupa_ocen as G on P.id_grupa_ocen=G.id ORDER BY P.rok_akademicki_start DESC, P.id ASC WHERE rok_akademicki_start = " + startRokuAkademickiego());
+            PreparedStatement prepStmt = conn.prepareStatement(
+                        "SELECT P.id AS p_id, P.nazwa AS p_nazwa, G.id AS g_id, G.sub_id AS g_sub_id, G.nazwa AS g_nazwa, G.waga AS g_waga, P.typ_oceniania AS p_typ_oceniania, P.rok_akademicki_start AS p_rok_akademicki, P.semestr AS p_semestr FROM przedmioty as P join grupa_ocen as G on P.id_grupa_ocen=G.id WHERE P.rok_akademicki_start = " + startRokuAkademickiego() + " ORDER BY P.rok_akademicki_start DESC, P.id ASC");
             ResultSet resultSet = prepStmt.executeQuery();
             while (resultSet.next()) {
                 Przedmiot jeden_przedmiot = new Przedmiot(resultSet.getInt("p_id"), resultSet.getString("p_nazwa"),
                         new GrupaOcen(resultSet.getInt("g_id"), resultSet.getInt("g_sub_id"), resultSet.getString("g_nazwa"), resultSet.getFloat("g_waga")),
                         TYP_OCENIANIA.values()[resultSet.getInt("p_typ_oceniania")], resultSet.getInt("p_rok_akademicki"), SEMESTR.values()[resultSet.getInt("p_semestr")]);
-
                 przedmioty.add(jeden_przedmiot);
             }
             return przedmioty;
