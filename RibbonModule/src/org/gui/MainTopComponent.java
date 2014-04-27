@@ -164,7 +164,7 @@ public final class MainTopComponent extends TopComponent {
     @Override
     public void componentOpened() {
         
-        allTerms = Termin.getAllTerms();
+        allTerms = Termin.getAllTermsForYearAndSemester();
         
         DefaultTableModel model = (DefaultTableModel) this.termsTable.getModel();
         

@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -223,4 +224,59 @@ public class Termin {
         return null;
     }
 
+    public static LinkedList<Termin> getAllTermsForYearAndSemester() {
+        Connection conn = null;
+        try {
+            conn = SqlConnection.getInstance().getSqlConnection();
+            Statement st = conn.createStatement();
+            PreparedStatement prepStmt = conn.prepareStatement("SELECT T.id,T.id_grupa_cwiczeniowa,T.dzien_tygodnia,T.godzina_start,"
+                    + "T.godzina_stop,G.id_przedmiot,G.nazwa FROM terminy AS T JOIN grupa_cwiczeniowa AS G JOIN przedmioty AS PRZ ON "
+                    + "T.id_grupa_cwiczeniowa=G.id AND PRZ.id=G.id_przedmiot WHERE PRZ.rok_akademicki_start = ? AND PRZ.semestr = ?");
+            prepStmt.setInt(1, AktualnyRokAkademicki());
+            prepStmt.setInt(2, AktualnySemestr());
+            ResultSet rs = prepStmt.executeQuery();
+            LinkedList<Termin> terminy = new LinkedList<Termin>();
+            while (rs.next()) {
+                String start = rs.getString(4);
+                String stop = rs.getString(5);
+
+                terminy.addLast(new Termin(rs.getInt(1),
+                        new GrupaCwiczeniowa(rs.getInt(2), rs.getString(7), Przedmiot.getPrzedmiot(rs.getInt(6))),
+                        Termin.DZIEN_TYG.values()[rs.getInt(3)], start,
+                        stop));
+            }
+            st.close();
+            return terminy;
+        } catch (SQLException ex) {
+            Logger.getLogger(org.database.models.Termin.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    //ex.printStackTrace();
+                }
+            }
+        }
+
+        return null;
+    }
+    private static int AktualnyRokAkademicki() {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        if (month < 9) {
+            year--;
+        }
+        return year;
+    }
+    private static int AktualnySemestr() {
+        // 0 - letni
+        // 1 - zimowy
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        if((month == 2 && day >=20) || (month == 9 && day<=25) || (month >2 && month < 9)) {
+                return 0;
+        }
+        return 1;
+    }
 }

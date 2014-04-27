@@ -148,7 +148,6 @@ public final class OcenyKoncoweTopComponent extends TopComponent {
             for(int i = 0; i < lista_go.size(); i++) {
                 srednia += lista_ocen.get(i)*lista_go.get(i).getWaga();
             }
-            System.out.println("Srednia wynosi " + srednia);
         return srednia;
     }
     
