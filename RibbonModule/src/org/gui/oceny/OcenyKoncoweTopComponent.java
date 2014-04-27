@@ -92,7 +92,7 @@ public final class OcenyKoncoweTopComponent extends TopComponent {
     private void replaceTable(Student student, float ocena) {
         DefaultTableModel model = (DefaultTableModel) oceny_koncowe.getModel();
         if(grupa.getPrzedmiot().getTypOceniania() == TYP_OCENIANIA.OCENA) {
-            model.addRow(new Object[]{student.getImie(), student.getNazwisko(), student.getIndeks(), ocena_z_punktow(ocena)});
+            model.addRow(new Object[]{student.getImie(), student.getNazwisko(), student.getIndeks(), ocena_z_srednich(ocena)});
         } else {
             model.addRow(new Object[]{student.getImie(), student.getNazwisko(), student.getIndeks(), ocena, ocena_z_punktow(ocena)});
         }        
@@ -100,9 +100,13 @@ public final class OcenyKoncoweTopComponent extends TopComponent {
     
     private void obliczanie_oceny() {
         for(Student s: lista_studentow) {
+            // Wszystkie oceny studenta
             List<Oceny> oceny_studenta = Oceny.getOceny(s, grupa);
+            // Podkategorie dla danego przedmiotu
             List<GrupaOcen>podkategorie = GrupaOcen.getAllGrupaOcen(grupa.getPrzedmiot().getGrupaOcen().getId());
+            // Oceny podzielone juz po kategoriach 
             List<List<Oceny>> oceny_po_kategoriach = new ArrayList<List<Oceny>>(); 
+            // Lista ocen do obliczania sredniej wazonej??
             List<Float> lista_ocen = new ArrayList<Float>();
             for(int i = 0; i < podkategorie.size(); i++) {
                 oceny_po_kategoriach.add(new ArrayList<Oceny>());
@@ -115,7 +119,16 @@ public final class OcenyKoncoweTopComponent extends TopComponent {
                 if(temp.size()==0) {
                     lista_ocen.add((float)0);
                 } else {
-                    lista_ocen.add(srednia_arytmetyczna(temp));
+                    if(grupa.getPrzedmiot().getTypOceniania() == TYP_OCENIANIA.OCENA) {
+                        lista_ocen.add(srednia_arytmetyczna(temp)); 
+                    } else {
+                        float suma_punktow = 0;
+                        for(int o = 0; o < temp.size(); o++) {
+                            suma_punktow += temp.get(o).getWartoscOceny();
+                        }
+                        if(suma_punktow > 100) suma_punktow = 100;
+                        lista_ocen.add(suma_punktow);
+                    }
                 }                
             }
             replaceTable(s, srednia_wazona(podkategorie, lista_ocen));
@@ -132,17 +145,27 @@ public final class OcenyKoncoweTopComponent extends TopComponent {
     
     private float srednia_wazona(List<GrupaOcen> lista_go, List<Float> lista_ocen) {
         float srednia = 0;
-        for(int i = 0; i < lista_go.size(); i++) {
-            srednia += lista_ocen.get(i)*lista_go.get(i).getWaga();
-        }
+            for(int i = 0; i < lista_go.size(); i++) {
+                srednia += lista_ocen.get(i)*lista_go.get(i).getWaga();
+            }
+            System.out.println("Srednia wynosi " + srednia);
         return srednia;
     }
+    
     private float ocena_z_punktow(float punkty) {
         if(punkty > 91 && punkty <=100) return 5;
         if(punkty > 81 && punkty <=90) return (float) 4.5;
         if(punkty > 71 && punkty <=80) return 4;
         if(punkty > 61 && punkty <=70) return (float) 3.5;
         if(punkty > 51 && punkty <=60) return 3;
+        return 2;
+    }
+    private float ocena_z_srednich(float ocena) {
+        if(ocena >= 5 && ocena < 5.5) return 5;
+        if(ocena >= 4.5 && ocena < 5) return (float) 4.5;
+        if(ocena >= 4 && ocena < 4.5) return 4;
+        if(ocena >= 3.5 && ocena < 4) return (float) 3.5;
+        if(ocena >= 3.0 && ocena < 3.5) return 3;
         return 2;
     }
     /**
