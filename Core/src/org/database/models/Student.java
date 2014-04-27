@@ -185,10 +185,26 @@ public class Student {
         Connection conn = null;
         try {
             conn = SqlConnection.getInstance().getSqlConnection();
+            // Usuwanie studenta
             PreparedStatement prepStmt = conn.prepareStatement(
                     "DELETE FROM student WHERE id = ?");
             prepStmt.setInt(1, id);
             prepStmt.execute();
+            // Usuwanie przynaleznosci studentow do grup
+            prepStmt = conn.prepareStatement(
+                    "DELETE FROM grupa_student WHERE id_student = ?");
+            prepStmt.setInt(1, id);
+            prepStmt.execute();
+            // Usuwanie obecnosci studenta
+            prepStmt = conn.prepareStatement(
+                    "DELETE FROM obecnosc WHERE id_student = ?");
+            prepStmt.setInt(1, id);
+            prepStmt.execute();          
+            // Usuwanie ocen studenta
+            prepStmt = conn.prepareStatement(
+                    "DELETE FROM oceny WHERE id_student = ?");
+            prepStmt.setInt(1, id);
+            prepStmt.execute();             
         } catch (SQLException e) {
             System.err.println("Problem z otwarciem polaczenia");
             e.printStackTrace();
@@ -208,12 +224,20 @@ public class Student {
         try {
             conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "DELETE FROM student WHERE imie = ? AND nazwisko = ? AND email = ? AND indeks = ?");
+                    "SELECT id FROM student WHERE imie = ? AND nazwisko = ? AND email = ? AND indeks = ?");
             prepStmt.setString(1, imie);
             prepStmt.setString(2, nazwisko);
             prepStmt.setString(3, email);
             prepStmt.setInt(4, indeksNr);
             prepStmt.execute();
+            ResultSet resultSet = prepStmt.executeQuery();
+            List<Integer> lista = new ArrayList<Integer>();
+            while (resultSet.next()) {
+                lista.add(resultSet.getInt("id"));
+            }
+            for(int i = 0; i < lista.size(); i++) {
+                delete(resultSet.getInt("id"));
+            }
         } catch (SQLException e) {
             System.err.println("Problem z otwarciem polaczenia");
             e.printStackTrace();

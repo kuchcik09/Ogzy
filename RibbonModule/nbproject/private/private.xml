@@ -2,7 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
         <group name="Wzorce">
             <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/ribbon/grupy_cwiczeniowe/DodajGrupeAction.java</file>
         </group>
@@ -14,6 +13,10 @@
             <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/gui/MainTopComponent.java</file>
             <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/ribbon/plan/DodajTerminAction.java</file>
             <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/ribbon/MainRibbon.java</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/Mariusz/Documents/GitHub/Ogzy/RibbonModule/src/org/gui/oceny/OcenyModel.java</file>
+            <file>file:/C:/Users/Mariusz/Documents/GitHub/Ogzy/RibbonModule/src/org/gui/oceny/OcenyKoncoweTopComponent.java</file>
         </group>
     </open-files>
 </project-private>

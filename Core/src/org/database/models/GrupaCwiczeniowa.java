@@ -266,6 +266,18 @@ public class GrupaCwiczeniowa {
                     "DELETE FROM grupa_cwiczeniowa WHERE id = ?");
             prepStmt.setInt(1, id);
             prepStmt.execute();
+            prepStmt = conn.prepareStatement(
+                    "DELETE FROM grupa_student WHERE id_grupa_cwiczeniowa = ?");
+            prepStmt.setInt(1, id);
+            prepStmt.execute();     
+            prepStmt = conn.prepareStatement(
+                    "DELETE FROM oceny WHERE id_grupa_cwiczeniowa = ?");
+            prepStmt.setInt(1, id);
+            prepStmt.execute();                
+                        prepStmt = conn.prepareStatement(
+                    "DELETE FROM terminy WHERE id_grupa_cwiczeniowa = ?");
+            prepStmt.setInt(1, id);
+            prepStmt.execute();    
         } catch (SQLException e) {
             System.err.println("Problem z otwarciem polaczenia");
             e.printStackTrace();

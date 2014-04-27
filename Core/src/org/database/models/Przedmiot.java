@@ -332,6 +332,20 @@ public class Przedmiot {
                     "DELETE FROM przedmioty WHERE id = ?");
             prepStmt.setInt(1, id);
             prepStmt.execute();
+            // Usuwanie podleglych mu grup cwiczeniowych
+            prepStmt = conn.prepareStatement(
+                    "SELECT id FROM grupa_cwiczeniowa WHERE id_przedmiot = ?");
+            prepStmt.setInt(1, id);
+            ResultSet resultSet = prepStmt.executeQuery();
+            List<Integer> lista = new ArrayList<Integer>();
+            while (resultSet.next()) {
+                 lista.add(resultSet.getInt("id"));
+            }
+            for(int i = 0; i < lista.size(); i++) {
+                System.out.println("usuwam grupy cwiczeniowe przedmiotu " + id);
+                GrupaCwiczeniowa.delete(lista.get(i));
+            }
+            
         } catch (SQLException e) {
             System.err.println("Przedmiot -> delPrzedmiot(int) -> problem z usunieciem przedmiotu");
             e.printStackTrace();
