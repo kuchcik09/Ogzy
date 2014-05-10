@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class SqlConnection {
     private Connection conn = null;
-    private String db_name = "ogzy";
+    private final String db_name = "ogzy";
     
     
     private SqlConnection() {
@@ -33,6 +33,7 @@ public class SqlConnection {
      * Zwraca obiekt klasy Connection potrzebny do wykonania zapytan SQL
      *
      * @return obiekt klasy Connection
+     * @throws java.sql.SQLException
      */
     public Connection getSqlConnection() throws SQLException{
          try {
@@ -41,8 +42,8 @@ public class SqlConnection {
             return conn;
          } catch ( ClassNotFoundException e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            return null;
         }
-        return null;
     }
 }
 
