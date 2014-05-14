@@ -9,10 +9,7 @@ import org.jvnet.flamingo.ribbon.resize.CoreRibbonResizePolicies.Mid2Mid;
 import org.jvnet.flamingo.ribbon.resize.RibbonBandResizePolicy;
 import org.openide.util.NbBundle;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.Arrays;
-import org.gui.MainTopComponent;
 import org.jvnet.flamingo.common.AbstractCommandButton;
 import org.jvnet.flamingo.ribbon.ui.JBandControlPanel;
 import org.officelaf.OfficeRibbonApplicationMenuButtonUI;
@@ -43,8 +40,6 @@ import org.officelaf.ribbon.studenci.PodepnijStudentaAction;
 import org.officelaf.ribbon.studenci.PokazListeAction;
 import org.officelaf.ribbon.studenci.UsunStudentaAction;
 import org.openide.windows.WindowManager;
-import org.openide.windows.WindowSystemEvent;
-import org.openide.windows.WindowSystemListener;
 
 public class MainRibbon extends JRibbon {
     

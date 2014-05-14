@@ -5,21 +5,26 @@
  */
 package org.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import org.database.models.GrupaCwiczeniowa;
 import org.database.models.Termin;
 import java.sql.Time;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.gui.grupy_cwiczeniowe.GrupaCwiczeniowaTopComponent;
-import org.jvnet.flamingo.ribbon.RibbonElementPriority;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.officelaf.listeners.TopComponentsManagerListener;
-import org.officelaf.ribbon.MainRibbon;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.windows.TopComponent;
@@ -64,6 +69,28 @@ public final class MainTopComponent extends TopComponent {
         putClientProperty(TopComponent.PROP_MAXIMIZATION_DISABLED, Boolean.TRUE);
         putClientProperty(TopComponent.PROP_UNDOCKING_DISABLED, Boolean.TRUE);
         this.termsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        final MainTopComponent me = this;
+        ListSelectionListener tableListener = new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                TopComponentsManagerListener.MainTopComponentActivated(me);
+            }
+        };
+        this.termsTable.getSelectionModel().addListSelectionListener(tableListener);
+        this.termsTable.getColumnModel().getSelectionModel().addListSelectionListener(tableListener);
+        this.termsTable.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Enter");
+        this.termsTable.getActionMap().put("Enter", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                DefaultTableModel model = (DefaultTableModel) termsTable.getModel();
+                String value = (String)model.getValueAt(termsTable.getSelectedRow(), termsTable.getSelectedColumn());
+
+                if(value != null && termsTable.getSelectedColumn() >0){
+                    openGroupTopComponent(value);
+                }
+            }
+        });
     }
 
     /**
@@ -126,13 +153,9 @@ public final class MainTopComponent extends TopComponent {
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void termsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_termsTableMouseClicked
-        DefaultTableModel model = (DefaultTableModel) this.termsTable.getModel();
-        String value = (String)model.getValueAt(this.termsTable.getSelectedRow(), this.termsTable.getSelectedColumn());
-
-        if(value != null && this.termsTable.getSelectedColumn() >0 && evt.getClickCount() == 2){
-            List<GrupaCwiczeniowa> groups = GrupaCwiczeniowa.getAll();
+    
+    private void openGroupTopComponent(String value){
+        List<GrupaCwiczeniowa> groups = GrupaCwiczeniowa.getAll();
             GrupaCwiczeniowa grupa = null;
 
             int pauseIndex = value.indexOf("<br>");
@@ -151,10 +174,15 @@ public final class MainTopComponent extends TopComponent {
             if(top.isOpened() == false)
                 top.open();
             top.requestActive();
-        }else{
-            TopComponentsManagerListener.MainTopComponentActivated(this);
+    }
+    
+    private void termsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_termsTableMouseClicked
+        DefaultTableModel model = (DefaultTableModel) this.termsTable.getModel();
+        String value = (String)model.getValueAt(this.termsTable.getSelectedRow(), this.termsTable.getSelectedColumn());
+
+        if(value != null && this.termsTable.getSelectedColumn() >0 && evt.getClickCount() == 2){
+            openGroupTopComponent(value);
         }
-        
     }//GEN-LAST:event_termsTableMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
