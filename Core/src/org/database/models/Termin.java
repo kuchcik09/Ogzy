@@ -115,7 +115,7 @@ public class Termin {
             conn = SqlConnection.getInstance().getSqlConnection();
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT T.id,T.id_grupa_cwiczeniowa,T.dzien_tygodnia,T.godzina_start,"
-                    + "T.godzina_stop,G.id_przedmiot,G.nazwa FROM terminy AS T JOIN grupa_cwiczeniowa AS G ON "
+                    + "T.godzina_stop,G.id_przedmiot,G.nazwa, G.color FROM terminy AS T JOIN grupa_cwiczeniowa AS G ON "
                     + "T.id_grupa_cwiczeniowa=G.id");
             LinkedList<Termin> terminy = new LinkedList<Termin>();
             while (rs.next()) {
@@ -123,7 +123,7 @@ public class Termin {
                 String stop = rs.getString(5);
 
                 terminy.addLast(new Termin(rs.getInt(1),
-                        new GrupaCwiczeniowa(rs.getInt(2), rs.getString(7), Przedmiot.getPrzedmiot(rs.getInt(6))),
+                        new GrupaCwiczeniowa(rs.getInt(2), rs.getString(7), Przedmiot.getPrzedmiot(rs.getInt(6)),rs.getString(8)),
                         Termin.DZIEN_TYG.values()[rs.getInt(3)], start,
                         stop));
             }
@@ -225,7 +225,7 @@ public class Termin {
             conn = SqlConnection.getInstance().getSqlConnection();
             Statement st = conn.createStatement();
             PreparedStatement prepStmt = conn.prepareStatement("SELECT T.id,T.id_grupa_cwiczeniowa,T.dzien_tygodnia,T.godzina_start,"
-                    + "T.godzina_stop,G.id_przedmiot,G.nazwa FROM terminy AS T JOIN grupa_cwiczeniowa AS G JOIN przedmioty AS PRZ ON "
+                    + "T.godzina_stop,G.id_przedmiot,G.nazwa, G.color FROM terminy AS T JOIN grupa_cwiczeniowa AS G JOIN przedmioty AS PRZ ON "
                     + "T.id_grupa_cwiczeniowa=G.id AND PRZ.id=G.id_przedmiot WHERE PRZ.rok_akademicki_start = ? AND PRZ.semestr = ?");
             prepStmt.setInt(1, AktualnyRokAkademicki());
             prepStmt.setInt(2, AktualnySemestr());
@@ -236,7 +236,7 @@ public class Termin {
                 String stop = rs.getString(5);
 
                 terminy.addLast(new Termin(rs.getInt(1),
-                        new GrupaCwiczeniowa(rs.getInt(2), rs.getString(7), Przedmiot.getPrzedmiot(rs.getInt(6))),
+                        new GrupaCwiczeniowa(rs.getInt(2), rs.getString(7), Przedmiot.getPrzedmiot(rs.getInt(6)),rs.getString(8)),
                         Termin.DZIEN_TYG.values()[rs.getInt(3)], start,
                         stop));
             }

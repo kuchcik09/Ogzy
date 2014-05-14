@@ -177,7 +177,7 @@ public class Oceny {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT O.id AS Oid, O.wartosc_oceny AS Owo, "
                     + "GO.id AS GOid, GO.sub_id AS GOsub_id, GO.nazwa AS GOnazwa, GO.waga AS GOwaga,"
-                    + "GC.id AS GCid, GC.nazwa AS GCnazwa,"
+                    + "GC.id AS GCid, GC.nazwa AS GCnazwa, GC.color AS GCcolor,"
                     + "P.id AS Pid, P.nazwa AS Pnazwa, P.typ_oceniania AS Ptypoceniania, P.rok_akademicki_start AS Prokakademicki, P.semestr AS Psemestr "
                     + "FROM oceny AS O JOIN grupa_ocen AS GO JOIN grupa_cwiczeniowa AS GC JOIN przedmioty AS P"
                     + "ON O.id_grupa_ocen=GO.id AND O.id_grupa_cwiczeniowa=GC.id AND GC.id_przedmiot=P.id"
@@ -187,7 +187,7 @@ public class Oceny {
                         new GrupaOcen(rs.getInt("GOid"), rs.getInt("GOsub_id"), rs.getString("GOnazwa"), rs.getFloat("GOwaga")),
                         new GrupaCwiczeniowa(rs.getInt("GCid"), rs.getString("GCnazwa"),
                                 new Przedmiot(rs.getInt("Pid"), rs.getString("Pnazwa"), new GrupaOcen(rs.getInt("GOid"), rs.getInt("GOsub_id"), rs.getString("GOnazwa"), rs.getFloat("GOwaga")),
-                                        TYP_OCENIANIA.values()[rs.getInt("Ptypoceniania")], rs.getInt("Prokskademicki"), SEMESTR.values()[rs.getInt("Psemestr")])),
+                                        TYP_OCENIANIA.values()[rs.getInt("Ptypoceniania")], rs.getInt("Prokskademicki"), SEMESTR.values()[rs.getInt("Psemestr")]),rs.getString("GCcolor")),
                         student,
                         rs.getFloat("Owo"));
                 oceny.add(ocena);

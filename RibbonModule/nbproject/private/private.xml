@@ -5,6 +5,10 @@
         <group name="Wzorce">
             <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/ribbon/grupy_cwiczeniowe/DodajGrupeAction.java</file>
         </group>
+        <group>
+            <file>file:/C:/Users/Mariusz/Documents/GitHub/Ogzy/RibbonModule/src/org/gui/oceny/OcenyModel.java</file>
+            <file>file:/C:/Users/Mariusz/Documents/GitHub/Ogzy/RibbonModule/src/org/gui/oceny/OcenyKoncoweTopComponent.java</file>
+        </group>
         <group name="Ogzy">
             <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/Bundle.properties</file>
             <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/listeners/TopComponentsManagerListener.java</file>
@@ -12,11 +16,6 @@
             <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/ribbon/BandsButtons.java</file>
             <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/gui/MainTopComponent.java</file>
             <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/ribbon/plan/DodajTerminAction.java</file>
-            <file>file:/C:/Users/Duży/Documents/GitHub/Ogzy/RibbonModule/src/org/officelaf/ribbon/MainRibbon.java</file>
-        </group>
-        <group>
-            <file>file:/C:/Users/Mariusz/Documents/GitHub/Ogzy/RibbonModule/src/org/gui/oceny/OcenyModel.java</file>
-            <file>file:/C:/Users/Mariusz/Documents/GitHub/Ogzy/RibbonModule/src/org/gui/oceny/OcenyKoncoweTopComponent.java</file>
         </group>
     </open-files>
 </project-private>

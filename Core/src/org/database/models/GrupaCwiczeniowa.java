@@ -18,17 +18,19 @@ public class GrupaCwiczeniowa {
     private int id;
     private String nazwa;
     private Przedmiot przedmiot;
+    private String color;
 
-    public GrupaCwiczeniowa(int id, String nazwa, Przedmiot przedmiot) {
+    public GrupaCwiczeniowa(int id, String nazwa, Przedmiot przedmiot, String color) {
         this.id = id;
         this.nazwa = nazwa;
         this.przedmiot = przedmiot;
+        this.color = color;
     }
 
     public GrupaCwiczeniowa() {
 
     }
-
+    
     /**
      * @return the id
      */
@@ -85,7 +87,7 @@ public class GrupaCwiczeniowa {
 
             PreparedStatement prepStmt = conn.prepareStatement(
                     "SELECT G.id, G.nazwa, P.id, P.nazwa, P.typ_oceniania, P.rok_akademicki_start, "
-                    + "P.semestr FROM grupa_cwiczeniowa as G join przedmioty as P on G.id_przedmiot=P.id");
+                    + "P.semestr, G.color FROM grupa_cwiczeniowa as G join przedmioty as P on G.id_przedmiot=P.id");
             ResultSet resultSet = prepStmt.executeQuery();
             while (resultSet.next()) {
                 Statement st = conn.createStatement();
@@ -99,7 +101,7 @@ public class GrupaCwiczeniowa {
                 GrupaCwiczeniowa grupaCw = new GrupaCwiczeniowa(resultSet.getInt(1), resultSet.getString(2),
                         new Przedmiot(resultSet.getInt(3), resultSet.getString(4), go,
                                 TYP_OCENIANIA.values()[resultSet.getInt(5)], resultSet.getInt(6),
-                                SEMESTR.values()[resultSet.getInt(7)]));
+                                SEMESTR.values()[resultSet.getInt(7)]),resultSet.getString(8));
 
                 grupyCw.add(grupaCw);
             }
@@ -117,7 +119,45 @@ public class GrupaCwiczeniowa {
         }
         return grupyCw;
     }
+    
+    public static GrupaCwiczeniowa get(int id) {
+        Connection conn = null;
+        GrupaCwiczeniowa grupaCw = null;
+        try {
+            conn = SqlConnection.getInstance().getSqlConnection();       
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "SELECT G.id, G.nazwa, P.id, P.nazwa, P.typ_oceniania, P.rok_akademicki_start, "
+                    + "P.semestr, G.color FROM grupa_cwiczeniowa as G join przedmioty as P on G.id_przedmiot=P.id WHERE G.id="+id);
+            ResultSet resultSet = prepStmt.executeQuery();
+            if(resultSet.next()) {
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery("select G.id from przedmioty as P join grupa_ocen as G on G.id=P.id_grupa_ocen where P.id=" + resultSet.getInt(3));
+                rs.next();
 
+                GrupaOcen go = GrupaOcen.getGrupaOcen(rs.getInt(1));
+
+                st.close();
+
+                grupaCw = new GrupaCwiczeniowa(resultSet.getInt(1), resultSet.getString(2),
+                        new Przedmiot(resultSet.getInt(3), resultSet.getString(4), go,
+                                TYP_OCENIANIA.values()[resultSet.getInt(5)], resultSet.getInt(6),
+                                SEMESTR.values()[resultSet.getInt(7)]),resultSet.getString(8));
+            }
+        } catch (SQLException e) {
+            System.err.println("Problem z otwarciem polaczenia");
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    // Logger.getLogger(GrupaCwiczeniowa.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return grupaCw;
+    }
+    
     public static List<GrupaCwiczeniowa> getAllForStudent(Integer studentId) {
         List<GrupaCwiczeniowa> grupyCw = new ArrayList<GrupaCwiczeniowa>();
         Connection conn = null;
@@ -125,7 +165,7 @@ public class GrupaCwiczeniowa {
             conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
                     "SELECT G.id, G.nazwa, P.id, P.nazwa, P.typ_oceniania, P.rok_akademicki_start, "
-                    + "P.semestr FROM grupa_cwiczeniowa as G join przedmioty as P on G.id_przedmiot=P.id WHERE g.id IN (SELECT id_grupa_cwiczeniowa FROM grupa_student WHERE id_student = ?)");
+                    + "P.semestr, G.color FROM grupa_cwiczeniowa as G join przedmioty as P on G.id_przedmiot=P.id WHERE g.id IN (SELECT id_grupa_cwiczeniowa FROM grupa_student WHERE id_student = ?)");
             prepStmt.setInt(1, studentId);
             ResultSet resultSet = prepStmt.executeQuery();
             while (resultSet.next()) {
@@ -140,7 +180,7 @@ public class GrupaCwiczeniowa {
                 GrupaCwiczeniowa grupaCw = new GrupaCwiczeniowa(resultSet.getInt(1), resultSet.getString(2),
                         new Przedmiot(resultSet.getInt(3), resultSet.getString(4), go,
                                 TYP_OCENIANIA.values()[resultSet.getInt(5)], resultSet.getInt(6),
-                                SEMESTR.values()[resultSet.getInt(7)]));
+                                SEMESTR.values()[resultSet.getInt(7)]),resultSet.getString(8));
 
                 grupyCw.add(grupaCw);
             }
@@ -172,7 +212,7 @@ public class GrupaCwiczeniowa {
             conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
                     "SELECT G.id, G.nazwa, P.id, P.nazwa, P.typ_oceniania, P.rok_akademicki_start, "
-                    + "P.semestr FROM grupa_cwiczeniowa AS G JOIN przedmioty AS P ON G.id_przedmiot=P.id WHERE g.id NOT IN (SELECT id_grupa_cwiczeniowa FROM grupa_student WHERE id_student = ?)");
+                    + "P.semestr, G.color FROM grupa_cwiczeniowa AS G JOIN przedmioty AS P ON G.id_przedmiot=P.id WHERE g.id NOT IN (SELECT id_grupa_cwiczeniowa FROM grupa_student WHERE id_student = ?)");
             prepStmt.setInt(1, studentId);
             ResultSet resultSet = prepStmt.executeQuery();
             while (resultSet.next()) {
@@ -187,7 +227,7 @@ public class GrupaCwiczeniowa {
                 GrupaCwiczeniowa grupaCw = new GrupaCwiczeniowa(resultSet.getInt(1), resultSet.getString(2),
                         new Przedmiot(resultSet.getInt(3), resultSet.getString(4), go,
                                 TYP_OCENIANIA.values()[resultSet.getInt(5)], resultSet.getInt(6),
-                                SEMESTR.values()[resultSet.getInt(7)]));
+                                SEMESTR.values()[resultSet.getInt(7)]),resultSet.getString(8));
 
                 grupyCw.add(grupaCw);
             }
@@ -206,14 +246,15 @@ public class GrupaCwiczeniowa {
         return grupyCw;
     }
 
-    public static void add(String nazwa, int przedmiotId) {
+    public static void add(String nazwa, int przedmiotId, String color) {
         Connection conn = null;
         try {
             conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "INSERT INTO grupa_cwiczeniowa values (?, ?, ?)");
+                    "INSERT INTO grupa_cwiczeniowa values (?, ?, ?, ?)");
             prepStmt.setInt(2, przedmiotId);
             prepStmt.setString(3, nazwa);
+            prepStmt.setString(4, color);
             prepStmt.execute();
         } catch (SQLException e) {
             System.err.println("Problem z otwarciem polaczenia");
@@ -285,6 +326,20 @@ public class GrupaCwiczeniowa {
                 }
             }
         }
+    }
+
+    /**
+     * @return the color
+     */
+    public String getColor() {
+        return color;
+    }
+
+    /**
+     * @param color the color to set
+     */
+    public void setColor(String color) {
+        this.color = color;
     }
 
 }

@@ -5,9 +5,11 @@
  */
 package org.gui.grupy_cwiczeniowe;
 
+import java.awt.Color;
 import org.database.models.GrupaCwiczeniowa;
 import org.database.models.Przedmiot;
 import java.util.List;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import org.openide.awt.NotificationDisplayer;
 import org.openide.windows.WindowManager;
@@ -102,7 +104,14 @@ public class DodajEdytujGrupeCwiczeniowaPanel extends javax.swing.JPanel {
 
     public void addGroup() {
         try {
-            GrupaCwiczeniowa.add(nazwaField.getText(), ((Przedmiot) przedmiotyComboBox.getSelectedItem()).getId());
+            Random rand = new Random();
+            Color random = Color.getHSBColor(rand.nextFloat(), 0.15F, 0.9F);
+            String color = Integer.toHexString(random.getRGB());
+            color = color.substring(2, color.length());
+            color = color.toUpperCase();
+            color = "#" + color;
+            
+            GrupaCwiczeniowa.add(nazwaField.getText(), ((Przedmiot) przedmiotyComboBox.getSelectedItem()).getId(),color);
             NotificationDisplayer.getDefault().notify("Dodano grupę ćwiczeniową", new ImageIcon(), "", null, NotificationDisplayer.Priority.LOW, NotificationDisplayer.Category.INFO);
             openGroups();
         } catch (Exception e) {
@@ -111,10 +120,11 @@ public class DodajEdytujGrupeCwiczeniowaPanel extends javax.swing.JPanel {
     }
 
     public void editGroup(int id) {
+        GrupaCwiczeniowa g = GrupaCwiczeniowa.get(id);
         String nazwa = nazwaField.getText();
         Przedmiot przedmiot = (Przedmiot) przedmiotyComboBox.getSelectedItem();
         try {
-            GrupaCwiczeniowa grupaCwiczeniowa = new GrupaCwiczeniowa(id, nazwa, przedmiot);
+            GrupaCwiczeniowa grupaCwiczeniowa = new GrupaCwiczeniowa(id, nazwa, przedmiot,g.getColor());
             GrupaCwiczeniowa.edit(grupaCwiczeniowa);
             NotificationDisplayer.getDefault().notify("Zmieniono dane grupy ćwiczeniowej", new ImageIcon(), "", null, NotificationDisplayer.Priority.LOW, NotificationDisplayer.Category.INFO);
             openGroups();
