@@ -5,10 +5,13 @@
  */
 package org.gui.obecnosci;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import org.database.models.Obecnosc;
 import org.database.models.Student;
 import org.database.models.Termin;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +19,10 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -54,12 +61,51 @@ public final class PresenceTableTopComponent extends TopComponent {
     private List<Student> students = new ArrayList<Student>();
     private int idTerminu = 0;
     private List<String> dates = new ArrayList<String>();
+    private Termin termin;
     
     public PresenceTableTopComponent() {
         initComponents();
         setName(Bundle.CTL_PresenceTableTopComponent());
         setToolTipText(Bundle.HINT_PresenceTableTopComponent());
+        final PresenceTableTopComponent me = this;
+        this.presenceTable.getTableHeader().addMouseListener(new MouseAdapter() {
 
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.getClickCount() == 2){
+                    int column = presenceTable.columnAtPoint(e.getPoint());
+                    String[] values = {"Zmień", "Anuluj"};
+                    JPanel panel = new JPanel();
+                    panel.add(new JLabel("Podaj nową date (dd.MM.yy):"));
+                    JTextField field = new JTextField(10);
+                    panel.add(field);
+                    int result = JOptionPane.showOptionDialog(me, panel, "Zmiana daty", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, values, values[0]);
+                    if(result == JOptionPane.YES_OPTION){
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
+                        Date date = null;
+                        try {
+                            date = sdf.parse(field.getText());
+                        } catch (ParseException ex) {
+                            JOptionPane.showMessageDialog(me, "Niepoprawny format daty!", "Błąd zaminy daty", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                        
+                        for(String d: dates){
+                            if(d.equals(field.getText())){
+                                JOptionPane.showMessageDialog(me, "Data już istnieje!", "Błąd zaminy daty", JOptionPane.ERROR_MESSAGE);
+                                return;
+                            }
+                        }
+                        
+                        List<Obecnosc> presence_to_change = Obecnosc.getObecnosci(termin, dates.get(column-1));
+                        for(Obecnosc o: presence_to_change){
+                            Obecnosc.editObecnosc(o.getId(), sdf.format(date));
+                        }
+                        setTable(termin);
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -146,6 +192,7 @@ public final class PresenceTableTopComponent extends TopComponent {
     }
     
     private void setTable(Termin term){
+        termin = term;
         idTerminu = term.getId();
         students = Student.getByGroup(term.getGrupa().getId());
         

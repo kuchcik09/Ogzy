@@ -390,13 +390,13 @@ public class Obecnosc {
      * @param id
      * @param data
      */
-    public static void editObecnosc(int id, Date data) {
+    public static void editObecnosc(int id, String data) {
         Connection conn = null;
         try {
             conn = SqlConnection.getInstance().getSqlConnection();
             PreparedStatement prepStmt = conn.prepareStatement(
                     "UPDATE obecnosc SET data = ? WHERE id = ?");
-            prepStmt.setDate(1, data);
+            prepStmt.setString(1, data);
             prepStmt.setInt(2, id);
             prepStmt.execute();
         } catch (SQLException ex) {
