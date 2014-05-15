@@ -91,7 +91,7 @@ public final class MainTopComponent extends TopComponent {
                 String value = (String)model.getValueAt(termsTable.getSelectedRow(), termsTable.getSelectedColumn());
 
                 if(value != null && termsTable.getSelectedColumn() >0){
-                    openGroupTopComponent(terms[termsTable.getSelectedRow()][termsTable.getSelectedColumn()]);
+                    openGroupTopComponent(terms[termsTable.getSelectedRow()][termsTable.getSelectedColumn()-1]);
                 }
             }
         });
