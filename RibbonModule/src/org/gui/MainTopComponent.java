@@ -63,6 +63,10 @@ public final class MainTopComponent extends TopComponent {
     private LinkedList<Termin> allTerms;
     private Termin[][] terms = new Termin[7][7];
     
+    public Termin getTerms(int r, int c){
+        return terms[r][c];
+    }
+    
     public MainTopComponent() {
         this.allTerms = new LinkedList<Termin>();
         initComponents();

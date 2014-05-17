@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import org.database.models.Termin;
 import org.gui.MainTopComponent;
 import org.gui.grupy_cwiczeniowe.GroupsListTopComponent;
 import org.gui.grupy_cwiczeniowe.GrupaCwiczeniowaTopComponent;
@@ -35,13 +36,13 @@ public class PokazTabeleOcenAction extends AbstractAction{
         MainTopComponent maintop = null;
         GroupsListTopComponent grouptop = null;
         PresenceTableTopComponent presencetop = null;
-        String maintop_value = null;
+        Termin maintop_value = null;
         String grouptop_value_g = null;
         String grouptop_value_p = null;
         if(top1 instanceof MainTopComponent){
             maintop = (MainTopComponent)top1;
             if(maintop.getTable().getSelectedRow() != -1 && maintop.getTable().getSelectedColumn()>0)
-                maintop_value = (String) maintop.getTableModel().getValueAt(maintop.getTable().getSelectedRow(), maintop.getTable().getSelectedColumn());
+                maintop_value = maintop.getTerms(maintop.getTable().getSelectedRow(), maintop.getTable().getSelectedColumn()-1);
         }else if(top1 instanceof GroupsListTopComponent){
             grouptop = (GroupsListTopComponent) top1;
             if(grouptop.getTabelaGrupCwiczeniowych().getSelectedRow() != -1)
@@ -65,8 +66,8 @@ public class PokazTabeleOcenAction extends AbstractAction{
             else if(maintop != null && maintop_value !=null){
                 List<GrupaCwiczeniowa> grupy= GrupaCwiczeniowa.getAll();
                 for(GrupaCwiczeniowa g: grupy){
-                    if(g.getNazwa().equals(maintop_value.substring(6, maintop_value.indexOf("<br>")))
-                            && g.getPrzedmiot().getNazwa().equals(maintop_value.substring(maintop_value.indexOf("<br>")+4, maintop_value.length()-7))){
+                    if(g.getNazwa().equals(maintop_value.getGrupa().getNazwa())
+                            && g.getPrzedmiot().getNazwa().equals(maintop_value.getGrupa().getPrzedmiot().getNazwa())){
                         grupa = g;
                         break;
                     }
