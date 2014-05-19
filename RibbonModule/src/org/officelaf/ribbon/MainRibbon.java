@@ -1,5 +1,9 @@
 package org.officelaf.ribbon;
 
+import java.awt.*;
+import java.util.Arrays;
+import org.gui.mailer.Settings;
+import org.jvnet.flamingo.common.AbstractCommandButton;
 import org.jvnet.flamingo.common.JCommandButton;
 import org.jvnet.flamingo.common.icon.EmptyResizableIcon;
 import org.jvnet.flamingo.common.icon.IcoWrapperResizableIcon;
@@ -7,10 +11,6 @@ import org.jvnet.flamingo.ribbon.*;
 import org.jvnet.flamingo.ribbon.resize.CoreRibbonResizePolicies.Mid2Low;
 import org.jvnet.flamingo.ribbon.resize.CoreRibbonResizePolicies.Mid2Mid;
 import org.jvnet.flamingo.ribbon.resize.RibbonBandResizePolicy;
-import org.openide.util.NbBundle;
-import java.awt.*;
-import java.util.Arrays;
-import org.jvnet.flamingo.common.AbstractCommandButton;
 import org.jvnet.flamingo.ribbon.ui.JBandControlPanel;
 import org.officelaf.OfficeRibbonApplicationMenuButtonUI;
 import org.officelaf.OfficeRootPaneUI;
@@ -18,6 +18,10 @@ import org.officelaf.listeners.TopComponentsManagerListener;
 import org.officelaf.ribbon.grupy_cwiczeniowe.DodajGrupeAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.PokazGrupyAction;
 import org.officelaf.ribbon.grupy_cwiczeniowe.UsunGrupeAction;
+import org.officelaf.ribbon.mailer.InboxAction;
+import org.officelaf.ribbon.mailer.InboxListAction;
+import org.officelaf.ribbon.mailer.NewMessageAction;
+import org.officelaf.ribbon.mailer.SettingsAction;
 import org.officelaf.ribbon.menu.PDFAction;
 import org.officelaf.ribbon.obecnosc.SprawdzObecnoscAction;
 import org.officelaf.ribbon.obecnosc.UsunObecnoscAction;
@@ -39,6 +43,7 @@ import org.officelaf.ribbon.studenci.OdepnijStudentaAction;
 import org.officelaf.ribbon.studenci.PodepnijStudentaAction;
 import org.officelaf.ribbon.studenci.PokazListeAction;
 import org.officelaf.ribbon.studenci.UsunStudentaAction;
+import org.openide.util.NbBundle;
 import org.openide.windows.WindowManager;
 
 public class MainRibbon extends JRibbon {
@@ -142,7 +147,8 @@ public class MainRibbon extends JRibbon {
         RibbonTask homeTask = new RibbonTask("Narzędzia głowne", createHomeBands());
         RibbonTask subTask = new RibbonTask("Zarządzanie przedmiotami", createSubBands());
         RibbonTask peopleTask = new RibbonTask("Zarządzanie grupami", createPeopleBands());
-        RibbonTask mailTask = new RibbonTask("Skrzynka pocztowa", createPeopleBands());
+        RibbonTask mailTask = new RibbonTask("Skrzynka pocztowa", this.createMailerSettingsBand());
+        //RibbonTask mailTask = new RibbonTask("Skrzynka pocztowa", createPeopleBands());
         
         addTask(homeTask);
         addTask(peopleTask);
@@ -172,6 +178,37 @@ public class MainRibbon extends JRibbon {
         bands[0] = createGroupsBand();//Opcje grup zajęciowych
         bands[1] = createStudentsBand();        
         return bands;
+    }
+    private AbstractRibbonBand[] createMailBands(){
+        AbstractRibbonBand[] bands = new AbstractRibbonBand[1];
+        bands[0] = createMailerSettingsBand();
+        return bands;
+    }
+    private JRibbonBand createMailerSettingsBand() {
+        JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "MAIL_BAND"),
+                new EmptyResizableIcon(16));
+        
+        band.addCommandButton(
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Dodaj nową skrzynkę", "Skrzynka mailowa", student_ico, null, new SettingsAction()),
+                RibbonElementPriority.TOP);
+        
+        band.addCommandButton(new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Lista skrzynek pocztowych", "Skrzynka mailowa", student_ico, null, new InboxListAction()),
+                RibbonElementPriority.TOP);
+        
+        band.addCommandButton(
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Skrzynka pocztowa", "Skrzynka pocztowa", student_ico, null, new InboxAction()),
+                RibbonElementPriority.TOP);
+        
+        band.addCommandButton(
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Nowa wiadomość", "Nowa wiadomość", student_ico, null, new NewMessageAction()),
+                RibbonElementPriority.TOP);
+        
+        band.setResizePolicies(Arrays.<RibbonBandResizePolicy>asList(
+                new Mid2Mid(band.getControlPanel()),
+                new Mid2Mid(band.getControlPanel()),
+                new Mid2Mid(band.getControlPanel())
+        ));
+        return band;
     }
     
     private AbstractRibbonBand[] createHomeBands() {
@@ -274,6 +311,8 @@ public class MainRibbon extends JRibbon {
         return band;
     }
 
+    
+    
     private JRibbonBand createStudentsBand() {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "STUDENTS_BAND"),
                 new EmptyResizableIcon(16));
@@ -350,7 +389,6 @@ public class MainRibbon extends JRibbon {
         ));
         return band;
     }
- 
     private JRibbonBand createExportBand() {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "EXPORT_BAND"),
                 new EmptyResizableIcon(16));
