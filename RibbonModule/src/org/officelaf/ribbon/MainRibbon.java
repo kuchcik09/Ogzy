@@ -75,6 +75,10 @@ public class MainRibbon extends JRibbon {
     private IcoWrapperResizableIcon presence_table_ico = null;
     private IcoWrapperResizableIcon presence_minus_ico = null;
     private IcoWrapperResizableIcon pdf_ico = null;
+    private IcoWrapperResizableIcon mail_plus_ico = null;
+    private IcoWrapperResizableIcon new_mail_ico = null;
+    private IcoWrapperResizableIcon mail_ico = null;
+    private IcoWrapperResizableIcon mail_list_ico = null;
     
     public MainRibbon() {
 
@@ -138,6 +142,10 @@ public class MainRibbon extends JRibbon {
         presence_table_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/presence.ico"), new Dimension(32, 32));
         presence_minus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/presence_minus.ico"), new Dimension(32, 32));
         pdf_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/pdf.ico"), new Dimension(32, 32));
+        mail_plus_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/mail_plus.ico"), new Dimension(32, 32));
+        new_mail_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/new_mail.ico"), new Dimension(32, 32));
+        mail_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/mail.ico"), new Dimension(32, 32));
+        mail_list_ico = IcoWrapperResizableIcon.getIcon(OfficeRibbonApplicationMenuButtonUI.class.getResource("icons/images/mail_list.ico"), new Dimension(32, 32));
     }
     
     public void setup() {
@@ -188,19 +196,19 @@ public class MainRibbon extends JRibbon {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "MAIL_BAND"),
                 new EmptyResizableIcon(16));
         
-        band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Dodaj nową skrzynkę", "Skrzynka mailowa", student_ico, null, new SettingsAction()),
-                RibbonElementPriority.TOP);
-        
-        band.addCommandButton(new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Lista skrzynek pocztowych", "Skrzynka mailowa", student_ico, null, new InboxListAction()),
+        band.addCommandButton(new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Lista skrzynek pocztowych", "Skrzynka mailowa", mail_list_ico, null, new InboxListAction()),
                 RibbonElementPriority.TOP);
         
         band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Skrzynka pocztowa", "Skrzynka pocztowa", student_ico, null, new InboxAction()),
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Dodaj nową skrzynkę", "Skrzynka mailowa", mail_plus_ico, null, new SettingsAction()),
                 RibbonElementPriority.TOP);
         
         band.addCommandButton(
-                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Nowa wiadomość", "Nowa wiadomość", student_ico, null, new NewMessageAction()),
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Skrzynka pocztowa", "Skrzynka pocztowa", mail_ico, null, new InboxAction()),
+                RibbonElementPriority.TOP);
+        
+        band.addCommandButton(
+                new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Nowa wiadomość", "Nowa wiadomość", new_mail_ico, null, new NewMessageAction()),
                 RibbonElementPriority.TOP);
         
         band.setResizePolicies(Arrays.<RibbonBandResizePolicy>asList(
