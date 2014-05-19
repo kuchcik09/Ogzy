@@ -2,7 +2,6 @@ package org.officelaf.ribbon;
 
 import java.awt.*;
 import java.util.Arrays;
-import org.gui.mailer.Settings;
 import org.jvnet.flamingo.common.AbstractCommandButton;
 import org.jvnet.flamingo.common.JCommandButton;
 import org.jvnet.flamingo.common.icon.EmptyResizableIcon;
@@ -381,8 +380,8 @@ public class MainRibbon extends JRibbon {
         JRibbonBand band = new JRibbonBand(NbBundle.getMessage(MainRibbon.class, "PRESENCE_BAND"),
                 new EmptyResizableIcon(16));
         
-        AbstractCommandButton showButton = new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Sprawdź ocebność", "Dodaje słupek obecności z dzisiejszą datą", presence_table_ico, null, new SprawdzObecnoscAction());
-        AbstractCommandButton removeButton = new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Usuń ocebność", "Usuwa zaznaczony słupek obecności", presence_minus_ico, null, new UsunObecnoscAction());
+        AbstractCommandButton showButton = new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Sprawdź obecność", "Dodaje słupek obecności z dzisiejszą datą", presence_table_ico, null, new SprawdzObecnoscAction());
+        AbstractCommandButton removeButton = new BoundCommandButton(JCommandButton.CommandButtonKind.ACTION_ONLY, "Usuń obecność", "Usuwa zaznaczony słupek obecności", presence_minus_ico, null, new UsunObecnoscAction());
         
         showButton.setEnabled(false);
         removeButton.setEnabled(false);

@@ -4,13 +4,10 @@
 	<property name="ireport.x" value="20"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[select * from student order by nazwisko]]>
+		<![CDATA[SELECT G.nazwa as nazwa_grupy, P.nazwa as nazwa_przedmiotu FROM grupa_cwiczeniowa as G join przedmioty as P on G.id_przedmiot=P.id]]>
 	</queryString>
-	<field name="id" class="java.lang.Object"/>
-	<field name="imie" class="java.lang.Object"/>
-	<field name="nazwisko" class="java.lang.Object"/>
-	<field name="email" class="java.lang.Object"/>
-	<field name="indeks" class="java.lang.Object"/>
+	<field name="nazwa_grupy" class="java.lang.Object"/>
+	<field name="nazwa_przedmiotu" class="java.lang.Object"/>
 	<title>
 		<band height="72" splitType="Stretch">
 			<staticText>
@@ -23,10 +20,52 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="20" splitType="Stretch"/>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="270" height="20" backcolor="#CCCCCC" uuid="463776f3-00bf-4553-b2ea-0a80433eae7f"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[nazwa_grupy]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="270" y="0" width="285" height="20" backcolor="#CCCCCC" uuid="8bd7bd46-4197-49db-9438-651011c691a1"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[nazwa_przedmiotu]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="20"/>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="0" width="270" height="20" uuid="8eb30e20-0317-4a72-a1a9-e78819ffcf7a"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[""+$F{nazwa_grupy}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="285" height="20" uuid="4b4fe391-4bf6-4990-b39e-3a01596dca23"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[""+$F{nazwa_przedmiotu}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<pageFooter>
 		<band height="20">

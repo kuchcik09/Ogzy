@@ -24,10 +24,10 @@ import static org.gui.przedmioty.UniversalFunctions.RokAkademicki;
  * @author Mariushrek
  */
 public class DodajPrzedmiotPanel extends javax.swing.JPanel implements KeyListener{
-    private boolean czy_dodawanie_grupy_ocen = false;
-    private JButton parent_OK_Button;
-    private JButton OK_Button = new JButton("Dodaj do bazy");
-    private JButton CANCEL_Button= new JButton("Anuluj");
+    private final boolean czy_dodawanie_grupy_ocen = false;
+    private final JButton parent_OK_Button;
+    private final JButton OK_Button = new JButton("Dodaj do bazy");
+    private final JButton CANCEL_Button= new JButton("Anuluj");
     /**
      * Creates new form DodajPrzedmiot
      */

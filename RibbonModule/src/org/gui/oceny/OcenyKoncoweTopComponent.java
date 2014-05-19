@@ -12,14 +12,12 @@ import org.database.models.Student;
 import org.database.models.TYP_OCENIANIA;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
-import org.openide.util.Pair;
 
 /**
  * Top component which displays something.

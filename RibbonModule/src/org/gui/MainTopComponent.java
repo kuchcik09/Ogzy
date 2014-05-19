@@ -24,7 +24,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import org.gui.grupy_cwiczeniowe.GrupaCwiczeniowaTopComponent;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.officelaf.listeners.TopComponentsManagerListener;
@@ -234,7 +233,7 @@ public final class MainTopComponent extends TopComponent {
         //teraz przechodząc po terminach dodaję odpowiednio grupy
         for(int i=0;i<allTerms.size();i++){
             Termin term = allTerms.get(i);
-            int rowIndex = (Integer.parseInt(term.getGodzina_start().toString().substring(0, 2))/2)-3; 
+            int rowIndex = (Integer.parseInt(term.getGodzina_start().substring(0, 2))/2)-3; 
             int columnIndex = term.getDzien_tygodnia().ordinal()+1;
             
             terms[rowIndex][columnIndex-1] = term;

@@ -10,10 +10,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 import org.database.installation.DatabaseInstaller;
-import org.gui.grupy_cwiczeniowe.DodajEdytujGrupeCwiczeniowaPanel;
-import org.gui.grupy_cwiczeniowe.GroupsListTopComponent;
 import org.gui.mailer.InboxListTopComponent;
-import org.gui.mailer.MailerTopComponent;
 import org.gui.mailer.Settings;
 import org.openide.windows.WindowManager;
 

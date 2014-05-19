@@ -5,8 +5,6 @@
  */
 package org.gui.eksport;
 
-import javax.swing.JRadioButton;
-
 public class WybierzEksportPanel extends javax.swing.JPanel {
 
     /**
@@ -54,7 +52,7 @@ public class WybierzEksportPanel extends javax.swing.JPanel {
                     .addComponent(allGroups)
                     .addComponent(allSchemas)
                     .addComponent(allSubjects))
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addContainerGap(295, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,7 +93,7 @@ public class WybierzEksportPanel extends javax.swing.JPanel {
         return allStudents.isSelected();
     }
 
-    public boolean isallSubjects() {
+    public boolean isAllSubjects() {
         return allSubjects.isSelected();
     }
 

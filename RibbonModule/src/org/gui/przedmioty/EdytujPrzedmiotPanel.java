@@ -22,8 +22,8 @@ import javax.swing.JOptionPane;
  * @author Mariushrek
  */
 public class EdytujPrzedmiotPanel extends javax.swing.JPanel {
-    private JButton OK_Button = new JButton("Dodaj do bazy");
-    private JButton CANCEL_Button= new JButton("Anuluj");
+    private final JButton OK_Button = new JButton("Dodaj do bazy");
+    private final JButton CANCEL_Button= new JButton("Anuluj");
     private Przedmiot przedmiot_edycja = null;
     
     /**

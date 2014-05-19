@@ -7,9 +7,7 @@
 package org.gui.obecnosci;
 
 import java.util.List;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 
 /**
  *

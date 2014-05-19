@@ -24,7 +24,7 @@ public class PDFAction extends AbstractAction {
             JasperPrinter.printAllStudents();
         } else if (panel.isAllGroups()) {
             JasperPrinter.printAllGroups();
-        } else if (panel.isallSubjects()) {
+        } else if (panel.isAllSubjects()) {
             JasperPrinter.printAllSubjects();
         } else if (panel.isAllSchemas()) {
             JasperPrinter.printAllSchemas();

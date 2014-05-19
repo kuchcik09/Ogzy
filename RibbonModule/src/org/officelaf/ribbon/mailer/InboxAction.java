@@ -8,7 +8,6 @@ package org.officelaf.ribbon.mailer;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
-import org.gui.mailer.InboxListTopComponent;
 import org.gui.mailer.MailerTopComponent;
 import org.openide.windows.WindowManager;
 

@@ -11,7 +11,6 @@ import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 import org.gui.mailer.MailerTopComponent;
 import org.gui.mailer.SendEmailPanel;
-import org.gui.mailer.Settings;
 import org.openide.windows.WindowManager;
 
 /**
