@@ -3,14 +3,11 @@ package org.gui.eksport;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import org.database.SqlConnection;
-import org.database.models.Termin;
 import org.openide.util.Exceptions;
 
 public class JasperPrinter {
