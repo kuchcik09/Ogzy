@@ -3,10 +3,14 @@ package org.officelaf.ribbon.eksport;
 import java.awt.event.ActionEvent;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.AbstractAction;
+import org.database.models.Obecnosc;
 import org.database.models.Przedmiot;
+import org.database.models.Student;
 import org.database.models.Termin;
 import org.gui.MainTopComponent;
 import org.gui.eksport.JasperPrinter;
@@ -26,11 +30,11 @@ import org.pojos.PlanZajecDTO;
 import org.pojos.PrzedmiotDTO;
 
 public class EksportAction extends AbstractAction {
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         TopComponent top = TopComponent.getRegistry().getActivated();
-
+        
         if (top instanceof StudentsListTopComponent) {
             JasperPrinter.printAllStudents();
         } else if (top instanceof GroupsListTopComponent) {
@@ -74,7 +78,7 @@ public class EksportAction extends AbstractAction {
                 Termin term = allTerms.get(i);
                 int rowIndex = (Integer.parseInt(term.getGodzina_start().substring(0, 2)) / 2) - 3;
                 String s = "<html><div style=\"margin:5px;\"><b>" + term.getGrupa().getNazwa() + "</b><br>" + term.getGrupa().getPrzedmiot().getNazwa() + "</div></html>";
-
+                
                 if (term.getDzien_tygodnia().equals(Termin.DZIEN_TYG.Poniedzialek)) {
                     list.get(rowIndex).setPn(s);
                 } else if (term.getDzien_tygodnia().equals(Termin.DZIEN_TYG.Wtorek)) {
@@ -93,10 +97,29 @@ public class EksportAction extends AbstractAction {
             }
             JasperPrinter.printMainTopComponent(list);
         } else if (top instanceof GrupaCwiczeniowaTopComponent) {
-            JasperPrinter.printGrupaCwiczeniowaTopComponent();
+            GrupaCwiczeniowaTopComponent grupaComponent = ((GrupaCwiczeniowaTopComponent) top);
+           Map<String, Object> params = new HashMap<String, Object>();
+            params.put("nazwaGrupy", grupaComponent.getGroupName());
+            params.put("przedmiot", grupaComponent.getSubjectName());
+            params.put("schematOceniania", grupaComponent.getSchematOceniania());
+            params.put("typOceniania", grupaComponent.getTypOceniania());
+            params.put("grupaId", grupaComponent.getGrupa().getId());
+            JasperPrinter.printGrupaCwiczeniowaTopComponent(params);
         } else if (top instanceof PresenceTableTopComponent) {
+            PresenceTableTopComponent ptComponent = ((PresenceTableTopComponent) top);
             List<ObecnoscDTO> list = new ArrayList<ObecnoscDTO>();
-            JasperPrinter.printPresenceTableTopComponent(list);
+            for (Student student : ptComponent.getStudents()) {
+                List<Boolean> listaObecnosci = new ArrayList<Boolean>();
+                for (int i = 0; i < ptComponent.getDates().size(); i++) {
+                    listaObecnosci.add(ptComponent.znajdzObecnosc(Obecnosc.getObecnosci(ptComponent.getTermin()), ptComponent.getDates().get(i), student));
+                }
+                list.add(new ObecnoscDTO(student.getImie() + " " + student.getNazwisko(), listaObecnosci));
+            }
+            HashMap<String, Object> params = new HashMap<String, Object>();
+            params.put("title", ptComponent.getTitle());
+            params.put("daty", ptComponent.getDates());
+            
+            JasperPrinter.printPresenceTableTopComponent(list, params);
         } else if (top instanceof NotesTableTopComponent) {
             JasperPrinter.printNotesTableTopComponent();
         } else if (top instanceof OcenyKoncoweTopComponent) {
@@ -104,7 +127,7 @@ public class EksportAction extends AbstractAction {
         } else if (top instanceof OcenyMainTopComponent) {
             JasperPrinter.printOcenyMainTopComponent();
         }
-
+        
     }
-
+    
 }

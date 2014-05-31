@@ -44,7 +44,6 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
         initComponents();
         setName(Bundle.CTL_GrupaCwiczeniowaTopComponent());
         setToolTipText(Bundle.HINT_GrupaCwiczeniowaTopComponent());
-
     }
 
     /**
@@ -55,10 +54,10 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        GroupName = new javax.swing.JLabel();
+        groupName = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        SubjectName = new javax.swing.JLabel();
+        subjectName = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         studentsTable = new javax.swing.JTable();
@@ -66,13 +65,13 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
         jScrollPane2 = new javax.swing.JScrollPane();
         termsTable = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        typ_oceniania = new javax.swing.JLabel();
+        typOceniania = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        schemat_oceniania = new javax.swing.JLabel();
+        schematOceniania = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        GroupName.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(GroupName, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.GroupName.text")); // NOI18N
+        groupName.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(groupName, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.groupName.text")); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.jLabel1.text")); // NOI18N
@@ -80,8 +79,8 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.jLabel2.text")); // NOI18N
 
-        SubjectName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(SubjectName, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.SubjectName.text")); // NOI18N
+        subjectName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(subjectName, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.subjectName.text")); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(jLabel3, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.jLabel3.text")); // NOI18N
@@ -157,12 +156,12 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.jLabel5.text")); // NOI18N
 
-        typ_oceniania.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(typ_oceniania, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.typ_oceniania.text")); // NOI18N
+        typOceniania.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(typOceniania, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.typOceniania.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel7, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.jLabel7.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(schemat_oceniania, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.schemat_oceniania.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(schematOceniania, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.schematOceniania.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jButton1, org.openide.util.NbBundle.getMessage(GrupaCwiczeniowaTopComponent.class, "GrupaCwiczeniowaTopComponent.jButton1.text")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -182,22 +181,22 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
                             .addGap(11, 11, 11)
                             .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(GroupName))
+                            .addComponent(groupName))
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(SubjectName))
+                            .addComponent(subjectName))
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(jLabel5)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(typ_oceniania, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(typOceniania, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(schemat_oceniania)))
+                        .addComponent(schematOceniania)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -224,20 +223,20 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(GroupName)
+                                    .addComponent(groupName)
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
-                                    .addComponent(SubjectName))
+                                    .addComponent(subjectName))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
-                                    .addComponent(typ_oceniania))
+                                    .addComponent(typOceniania))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel7)
-                                    .addComponent(schemat_oceniania))
+                                    .addComponent(schematOceniania))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,8 +256,7 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel GroupName;
-    private javax.swing.JLabel SubjectName;
+    private javax.swing.JLabel groupName;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -268,10 +266,11 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel schemat_oceniania;
+    private javax.swing.JLabel schematOceniania;
     private javax.swing.JTable studentsTable;
+    private javax.swing.JLabel subjectName;
     private javax.swing.JTable termsTable;
-    private javax.swing.JLabel typ_oceniania;
+    private javax.swing.JLabel typOceniania;
     // End of variables declaration//GEN-END:variables
 
     private GrupaCwiczeniowa grupa;
@@ -279,7 +278,7 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
     @Override
     public void componentOpened() {
         // TODO add custom code on component opening
-        if (this.GroupName.getText().equals("Nazwa grupy")) {
+        if (this.groupName.getText().equals("Nazwa grupy")) {
             this.close();
         }
     }
@@ -305,7 +304,19 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
     }
 
     public String getGroupName() {
-        return this.GroupName.getText();
+        return this.groupName.getText();
+    }
+
+    public String getSubjectName() {
+        return subjectName.getText();
+    }
+
+    public String getSchematOceniania() {
+        return schematOceniania.getText();
+    }
+
+    public String getTypOceniania() {
+        return typOceniania.getText();
     }
 
     public void setTermsTable(GrupaCwiczeniowa grupa) {
@@ -325,15 +336,15 @@ public final class GrupaCwiczeniowaTopComponent extends TopComponent {
 
     public void setGroup(GrupaCwiczeniowa grupa) {
         this.grupa = grupa;
-        this.GroupName.setText(grupa.getNazwa());
-        this.SubjectName.setText(grupa.getPrzedmiot().getNazwa());
-        this.typ_oceniania.setText(grupa.getPrzedmiot().getTypOceniania().toString());
+        this.groupName.setText(grupa.getNazwa());
+        this.subjectName.setText(grupa.getPrzedmiot().getNazwa());
+        this.typOceniania.setText(grupa.getPrzedmiot().getTypOceniania().toString());
         String schemat_oceniania = "<html>" + grupa.getPrzedmiot().getGrupaOcen().getNazwa() + "<br>";
         for (GrupaOcen g : GrupaOcen.getAllGrupaOcen(grupa.getPrzedmiot().getGrupaOcen().getId())) {
             schemat_oceniania += " &nbsp;&nbsp;&nbsp; - " + g.getNazwa() + "<br>";
         }
         schemat_oceniania += "</html>";
-        this.schemat_oceniania.setText(schemat_oceniania);
+        this.schematOceniania.setText(schemat_oceniania);
         setDisplayName(grupa.getNazwa() + " - " + grupa.getPrzedmiot().getNazwa() + " - Panel Główny");
         setStudentsTable(grupa);
         setTermsTable(grupa);

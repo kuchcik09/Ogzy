@@ -133,7 +133,7 @@ public final class NotesTableTopComponent extends TopComponent {
         return students_marks;
     }
     
-    public void DeleteMarksFromColumn(int column) {
+    public void deleteMarksFromColumn(int column) {
         for(int i = 0; i < podkategorie.size(); i++) {
             if(students_marks.getModel().getValueAt(i,column) !=null)
                 Oceny.deleteOceny(oceny_po_kategoriach.get(i).get(column-1).getId());
@@ -301,7 +301,7 @@ public final class NotesTableTopComponent extends TopComponent {
                 isEditingCell= false;
             } else {
                 if(add_or_edit) {
-                    //System.out.println("W komorce byla wrtosc i edytujr");
+                    //System.out.println("W komorce byla wartosc i edytujr");
                     if(students_marks.getModel().getValueAt(students_marks.getSelectedRow(), students_marks.getSelectedColumn()).toString().equals("")) {
                         Oceny.deleteOceny(oceny_po_kategoriach.get(students_marks.getSelectedRow()).get(students_marks.getSelectedColumn()-1).getId());
                     } else {

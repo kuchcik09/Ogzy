@@ -12,7 +12,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import org.database.SqlConnection;
-import org.database.models.Obecnosc;
 import org.openide.util.Exceptions;
 import org.pojos.ObecnoscDTO;
 import org.pojos.PlanZajecDTO;
@@ -45,11 +44,9 @@ public class JasperPrinter {
         }
     }
 
-    private static void print(String reportName, Collection c) {
+    private static void print(String reportName, Collection c, Map<String, Object> params) {
         String reportSource = "RibbonModule\\src\\org\\gui\\eksport\\" + reportName + ".jasper";
         //String reportDest = "RibbonModule\\src\\org\\gui\\eksport\\"+reportName+".html";
-
-        Map<String, Object> params = new HashMap<String, Object>();
 
         try {
 //            JasperReport jasperReport
@@ -70,6 +67,29 @@ public class JasperPrinter {
         }
     }
 
+    private static void print(String reportName, Map<String, Object> params) {
+        String reportSource = "RibbonModule\\src\\org\\gui\\eksport\\" + reportName + ".jasper";
+        //String reportDest = "RibbonModule\\src\\org\\gui\\eksport\\"+reportName+".html";
+
+        try {
+//            JasperReport jasperReport
+//                    = JasperCompileManager.compileReport(reportSource);
+            JasperPrint jasperPrint
+                    = JasperFillManager.fillReport(
+                            reportSource, params, SqlConnection.getInstance().getSqlConnection());
+
+//            JasperExportManager.exportReportToHtmlFile(
+//                    jasperPrint, reportDest);
+            boolean exitOnClose = false;
+
+            JasperViewer.viewReport(jasperPrint, exitOnClose);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (JRException ex) {
+            Exceptions.printStackTrace(ex);
+        }
+    }
+
     public static void printAllStudents() {
         print("AllStudents");
     }
@@ -80,7 +100,7 @@ public class JasperPrinter {
 
     public static void printAllSubjects(List<PrzedmiotDTO> przedmioty) {
         //with params
-        print("AllSubjects", przedmioty);
+        print("AllSubjects", przedmioty, new HashMap<String, Object>());
     }
 
     public static void printAllSchemas() {
@@ -88,17 +108,17 @@ public class JasperPrinter {
     }
 
     public static void printMainTopComponent(List<PlanZajecDTO> list) {
-        print("PlanZajec", list);
+        print("PlanZajec", list, new HashMap<String, Object>());
     }
 
-    public static void printGrupaCwiczeniowaTopComponent() {
+    public static void printGrupaCwiczeniowaTopComponent(Map<String, Object> params) {
         //with params
-        print("PanelGlowny");
+        print("PanelGlowny", params);
     }
 
-    public static void printPresenceTableTopComponent(List<ObecnoscDTO> list) {
+    public static void printPresenceTableTopComponent(List<ObecnoscDTO> list, HashMap<String, Object> params) {
         //with params
-        print("Obecnosc", list);
+        print("Obecnosc", list, params);
     }
 
     public static void printNotesTableTopComponent() {

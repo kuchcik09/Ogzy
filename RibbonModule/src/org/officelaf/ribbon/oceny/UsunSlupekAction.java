@@ -25,7 +25,7 @@ public class UsunSlupekAction extends AbstractAction {
             UsunSlupek panel = new UsunSlupek(students_marks);
             int n = JOptionPane.showOptionDialog(notestop, panel, "Usuwanie kolumny z ocenami", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, op, op[0]);
             if (n == 0) {
-                notestop.DeleteMarksFromColumn(panel.whichColumnToDelete());
+                notestop.deleteMarksFromColumn(panel.whichColumnToDelete());
             }
         } else {
             JOptionPane.showMessageDialog(notestop, "Przejdź do tabeli ocen korzystając z przycisku obok, aby móc usuwać oceny", "Usuwanie ocen - BŁĄD", JOptionPane.ERROR_MESSAGE);

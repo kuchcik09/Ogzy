@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PanelGlowny_terminy" pageWidth="180" pageHeight="802" columnWidth="180" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="90f7f7ab-9992-4a2a-a730-028c203add77">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="grupaId" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="$P{SUBREPORT_DIR}" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT (CASE WHEN dzien_tygodnia='0' THEN 'Poniedziałek' WHEN dzien_tygodnia='1' THEN 'Wtorek'  WHEN dzien_tygodnia='2' THEN 'Środa' WHEN dzien_tygodnia='3' THEN 'Czwartek'  WHEN dzien_tygodnia='4' THEN 'Piątek'  WHEN dzien_tygodnia='5' THEN 'Sobota'  WHEN dzien_tygodnia='6' THEN 'Niedziela' ELSE ' ' END) AS dzien_tygodnia, godzina_start, godzina_stop FROM (SELECT dzien_tygodnia, godzina_start, godzina_stop FROM terminy WHERE id_grupa_cwiczeniowa=$P{grupaId})]]>
+	</queryString>
+	<field name="dzien_tygodnia" class="java.lang.Object"/>
+	<field name="godzina_start" class="java.lang.Object"/>
+	<field name="godzina_stop" class="java.lang.Object"/>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="90" height="20" backcolor="#CCCCCC" uuid="7a23daa9-41c5-4879-861c-6de6c27027d3"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Dzień tygodnia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="90" y="0" width="90" height="20" backcolor="#CCCCCC" uuid="471e1e40-3242-425c-aae7-847a9706304c"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Czas]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="90" height="20" uuid="a340d573-049b-48ea-be3b-0b7ee83bb0ea"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[""+$F{dzien_tygodnia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="0" width="90" height="20" uuid="8a4eb621-150e-4f3f-b7d4-a6fb5a1bab60"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[""+$F{godzina_start} + " - " + $F{godzina_stop}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

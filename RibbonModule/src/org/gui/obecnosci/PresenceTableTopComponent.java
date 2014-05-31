@@ -56,6 +56,9 @@ public final class PresenceTableTopComponent extends TopComponent {
     private List<String> dates = new ArrayList<String>();
     private Termin termin;
 
+    private String groupName;
+    private String subjectName;
+
     public PresenceTableTopComponent() {
         initComponents();
         setName(Bundle.CTL_PresenceTableTopComponent());
@@ -175,7 +178,7 @@ public final class PresenceTableTopComponent extends TopComponent {
         // TODO add custom code on component closing
     }
 
-    private boolean znajdzObecnosc(List<Obecnosc> obecnosci, String data, Student s) {
+    public boolean znajdzObecnosc(List<Obecnosc> obecnosci, String data, Student s) {
         for (Obecnosc o : obecnosci) {
             if (o.getData().equals(data) && o.getStudent().getId() == s.getId()) {
                 return o.getObecnosc();
@@ -261,15 +264,20 @@ public final class PresenceTableTopComponent extends TopComponent {
         setTable(term);
     }
 
-    private String groupName;
-    private String subjectName;
-
     public String getGroupName() {
         return this.groupName;
     }
 
     public String getSubjectName() {
         return this.subjectName;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public Termin getTermin() {
+        return termin;
     }
 
     void writeProperties(java.util.Properties p) {

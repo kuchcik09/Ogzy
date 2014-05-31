@@ -3,21 +3,21 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="daty" class="java.util.List"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="tytul" class="java.lang.String"/>
 	<field name="student" class="java.lang.String"/>
-	<field name="daty" class="java.util.List"/>
 	<field name="obecnosci" class="java.util.List"/>
 	<title>
 		<band height="72" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="0" y="0" width="555" height="72" uuid="90688886-c159-48a5-8e67-89483035776f"/>
-				<textElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1250" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Tabela obecności dla" + $F{tytul}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -35,8 +35,8 @@
 				<text><![CDATA[Student]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="147" y="0" width="51" height="20" uuid="15e21b54-0854-4bf7-8d11-e8c895d9eb48">
-					<printWhenExpression><![CDATA[$F{daty}.size() > 0]]></printWhenExpression>
+				<reportElement mode="Opaque" x="453" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="c2fd4cc4-f6c6-4418-bb86-f0a494baa07e">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 6]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<topPen lineWidth="0.25"/>
@@ -45,11 +45,11 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{daty}.get( 0 )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{daty}.get( 6 )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="198" y="0" width="51" height="20" uuid="d474ab38-cd08-4cc3-bc95-94270a697198">
-					<printWhenExpression><![CDATA[$F{daty}.size() > 1]]></printWhenExpression>
+				<reportElement mode="Opaque" x="249" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="e42d5491-5150-4fb8-a013-85f717f6ba22">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 2]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<topPen lineWidth="0.25"/>
@@ -58,11 +58,11 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{daty}.get( 1 )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{daty}.get( 2 )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="249" y="0" width="51" height="20" uuid="8a4ee2d0-c2ac-449e-922e-ab36f068edf6">
-					<printWhenExpression><![CDATA[$F{daty}.size() > 2]]></printWhenExpression>
+				<reportElement mode="Opaque" x="300" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="837b9cc5-60d4-4c8e-8c71-cc3e69cf0722">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 3]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<topPen lineWidth="0.25"/>
@@ -71,11 +71,11 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{daty}.get( 2 )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{daty}.get( 3 )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="300" y="0" width="51" height="20" uuid="4678cda4-99fa-4a41-99a0-6c95cc01d106">
-					<printWhenExpression><![CDATA[$F{daty}.size() > 3]]></printWhenExpression>
+				<reportElement mode="Opaque" x="504" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="0287aad6-76a3-403d-8247-0c2207343d5e">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 7]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<topPen lineWidth="0.25"/>
@@ -84,11 +84,11 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{daty}.get( 3 )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{daty}.get( 7 )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="351" y="0" width="51" height="20" uuid="2a59dba9-9061-4944-8654-a0452e90f7bd">
-					<printWhenExpression><![CDATA[$F{daty}.size() > 4]]></printWhenExpression>
+				<reportElement mode="Opaque" x="402" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="c26115ed-9725-4e3c-af9e-d466f1e0afd5">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 5]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<topPen lineWidth="0.25"/>
@@ -97,11 +97,11 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{daty}.get( 4 )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{daty}.get( 5 )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="402" y="0" width="51" height="20" uuid="93ccbe1d-170f-40e6-a059-b400ad624710">
-					<printWhenExpression><![CDATA[$F{daty}.size() > 5]]></printWhenExpression>
+				<reportElement mode="Opaque" x="147" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="b68a71cb-262a-40d2-8954-07448ac12ba2">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 0]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<topPen lineWidth="0.25"/>
@@ -110,11 +110,11 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{daty}.get( 5 )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{daty}.get( 0 )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="453" y="0" width="51" height="20" uuid="ef9a4e8c-a24c-46b4-b124-245db67632a4">
-					<printWhenExpression><![CDATA[$F{daty}.size() > 6]]></printWhenExpression>
+				<reportElement mode="Opaque" x="351" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="8b24c37f-6c03-4be4-8919-63738e301101">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 4]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<topPen lineWidth="0.25"/>
@@ -123,11 +123,11 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{daty}.get( 6 )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{daty}.get( 4 )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="504" y="0" width="51" height="20" uuid="d2e33378-14df-46c1-814c-d35448d84fe2">
-					<printWhenExpression><![CDATA[$F{daty}.size() > 7]]></printWhenExpression>
+				<reportElement mode="Opaque" x="198" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="bbdd4d75-8e97-4310-89fe-eee891f95f7c">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 1]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<topPen lineWidth="0.25"/>
@@ -136,7 +136,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{daty}.get( 7 )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{daty}.get( 1 )]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>

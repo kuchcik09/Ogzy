@@ -1,30 +1,20 @@
 package org.pojos;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ObecnoscDTO {
 
-    private Object tytul;
     private Object student;
-    private final List<Date> daty = new ArrayList<Date>();
-    private final List<Boolean> obecnosci = new ArrayList();
+    private final List<Boolean> obecnosci;
 
-    public Object getTytul() {
-        return tytul;
-    }
-
-    public void setTytul(Object tytul) {
-        this.tytul = tytul;
+    public ObecnoscDTO(Object student, List<Boolean> obecnosci) {
+        this.student = student;
+        this.obecnosci = obecnosci;
     }
 
     public Object getStudent() {
         return student;
-    }
-
-    public List<Date> getDaty() {
-        return daty;
     }
 
     public List<Boolean> getObecnosci() {
