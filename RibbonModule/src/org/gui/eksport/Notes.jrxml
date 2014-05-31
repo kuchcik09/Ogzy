@@ -41,15 +41,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nazwaGrupy}]]></textFieldExpression>
 			</textField>
-			<subreport>
-				<reportElement x="0" y="80" width="180" height="46" isPrintWhenDetailOverflows="true" uuid="f400022a-41e4-4a69-81b6-6b8d64d95ccb"/>
-				<subreportParameter name="grupaId">
-					<subreportParameterExpression><![CDATA[$P{grupaId}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="$P{SUBREPORT_DIR}"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Oceny_studenci.jasper"]]></subreportExpression>
-			</subreport>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="0" y="60" width="180" height="20" uuid="d51e783b-af1e-4090-8e00-532cb3401398"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2"/>
@@ -79,6 +70,17 @@
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Notes_oceny.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="81" width="180" height="45" isPrintWhenDetailOverflows="true" uuid="280399a9-f775-4753-a9a5-9d8b567b5346"/>
+				<subreportParameter name="grupaId">
+					<subreportParameterExpression><![CDATA[$P{grupaId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="$P{SUBREPORT_DIR}">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Notes_studenci.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
