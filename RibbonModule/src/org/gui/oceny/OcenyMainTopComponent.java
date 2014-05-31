@@ -37,12 +37,14 @@ import org.openide.util.NbBundle.Messages;
     "HINT_OcenyMainTopComponent=This is a OcenyMain window"
 })
 public final class OcenyMainTopComponent extends TopComponent {
-    private GrupaCwiczeniowa grupa = null;
+
+    private GrupaCwiczeniowa grupa;
+
     public OcenyMainTopComponent() {
         initComponents();
         setName(Bundle.CTL_OcenyMainTopComponent());
         setToolTipText(Bundle.HINT_OcenyMainTopComponent());
-        
+
         //OpiszOkno();
         organizujTabeleStudent();
         nazwyRzedowOceny();
@@ -52,6 +54,7 @@ public final class OcenyMainTopComponent extends TopComponent {
     public void setGrupa(GrupaCwiczeniowa f_grupa) {
         //this.grupa = f_grupa;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -194,25 +197,26 @@ public final class OcenyMainTopComponent extends TopComponent {
         String version = p.getProperty("version");
         // TODO read your settings according to their version
     }
+
     private void opiszOkno() {
         przedmiot_nazwa.setText(grupa.getPrzedmiot().getNazwa());
         grupa_nazwa.setText(grupa.getNazwa() + " - " + " termin");
         schemat_nazwa.setText("Schemat oceniania: " + grupa.getPrzedmiot().getGrupaOcen().getNazwa());
     }
-    
+
     private void organizujTabeleStudent() {
         TableColumn column = students_list.getColumn("Id");
         column.setMinWidth(0);
         column.setMaxWidth(0);
         column.setPreferredWidth(0);
     }
-    
+
     private void nazwyRzedowOceny() {
         TableColumn column = students_marks.getColumn("Id");
         column.setMinWidth(0);
         column.setMaxWidth(0);
         column.setPreferredWidth(0);
-        
+
         column = students_marks.getColumn("");
         column.setMinWidth(120);
         column.setMaxWidth(120);
@@ -221,18 +225,24 @@ public final class OcenyMainTopComponent extends TopComponent {
         TableModel model = window.students_marks.getModel();
         clearTable((DefaultTableModel) window.students_marks.getModel());
         List<GrupaOcen> lista = GrupaOcen.getAllGrupaOcen(grupa.getPrzedmiot().getGrupaOcen().getId());
-                int rowId = 0;
+        int rowId = 0;
         for (GrupaOcen p : lista) {
             model.setValueAt(p.getId(), rowId, 0);
             model.setValueAt(p.getNazwa(), rowId, 1);
             rowId++;
         }
     }
+
     private void organizujTabeleOceny() {
-        
+
     }
 
     private void clearTable(DefaultTableModel defaultTableModel) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public GrupaCwiczeniowa getGrupa() {
+        return grupa;
+    }
+
 }

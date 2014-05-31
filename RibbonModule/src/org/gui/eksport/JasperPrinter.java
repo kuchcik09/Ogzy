@@ -121,9 +121,9 @@ public class JasperPrinter {
         print("Obecnosc", list, params);
     }
 
-    public static void printNotesTableTopComponent() {
+    public static void printNotesTableTopComponent(Map<String, Object> params) {
         //with params
-        print("Notes");
+        print("Notes", params);
     }
 
     public static void printOcenyKoncoweTopComponent() {
