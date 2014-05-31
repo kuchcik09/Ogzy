@@ -21,6 +21,7 @@ import org.gui.przedmioty.UniversalFunctions;
 import org.gui.schematy.SchemeTopComponent;
 import org.gui.studenci.StudentsListTopComponent;
 import org.openide.windows.TopComponent;
+import org.pojos.ObecnoscDTO;
 import org.pojos.PlanZajecDTO;
 import org.pojos.PrzedmiotDTO;
 
@@ -94,7 +95,8 @@ public class EksportAction extends AbstractAction {
         } else if (top instanceof GrupaCwiczeniowaTopComponent) {
             JasperPrinter.printGrupaCwiczeniowaTopComponent();
         } else if (top instanceof PresenceTableTopComponent) {
-            JasperPrinter.printPresenceTableTopComponent();
+            List<ObecnoscDTO> list = new ArrayList<ObecnoscDTO>();
+            JasperPrinter.printPresenceTableTopComponent(list);
         } else if (top instanceof NotesTableTopComponent) {
             JasperPrinter.printNotesTableTopComponent();
         } else if (top instanceof OcenyKoncoweTopComponent) {

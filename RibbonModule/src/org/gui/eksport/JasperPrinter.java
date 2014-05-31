@@ -12,7 +12,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import org.database.SqlConnection;
+import org.database.models.Obecnosc;
 import org.openide.util.Exceptions;
+import org.pojos.ObecnoscDTO;
 import org.pojos.PlanZajecDTO;
 import org.pojos.PrzedmiotDTO;
 
@@ -91,26 +93,26 @@ public class JasperPrinter {
 
     public static void printGrupaCwiczeniowaTopComponent() {
         //with params
-        print("GrupaCwiczeniowaTopComponent");
+        print("PanelGlowny");
     }
 
-    public static void printPresenceTableTopComponent() {
+    public static void printPresenceTableTopComponent(List<ObecnoscDTO> list) {
         //with params
-        print("PresenceTableTopComponent");
+        print("Obecnosc", list);
     }
 
     public static void printNotesTableTopComponent() {
         //with params
-        print("NotesTableTopComponent");
+        print("Notes");
     }
 
     public static void printOcenyKoncoweTopComponent() {
         //with params
-        print("OcenyKoncoweTopComponent");
+        print("OcenyKoncowe");
     }
 
     public static void printOcenyMainTopComponent() {
         //with params
-        print("OcenyMainTopComponent");
+        print("Oceny");
     }
 }
