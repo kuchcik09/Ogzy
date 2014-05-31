@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.gui.oceny;
 
 import java.util.Vector;
@@ -15,7 +9,7 @@ import org.gui.Row;
  * @author Mariushrek
  */
 public class OcenyModel extends DefaultTableModel {
- 
+
     public OcenyModel() {
         columnIdentifiers = new Vector<String>();
         columnIdentifiers.add(0, "Id"); // Ukryte ID
@@ -31,10 +25,10 @@ public class OcenyModel extends DefaultTableModel {
         columnIdentifiers.add(10, "9");
         columnIdentifiers.add(11, "10");
         /*
-        for(int i = 1; i < najwieksza_liczba_ocen; i++) {
-            columnIdentifiers.add(i,i+"");
-        }
-        */
+         for(int i = 1; i < najwieksza_liczba_ocen; i++) {
+         columnIdentifiers.add(i,i+"");
+         }
+         */
         dataVector = new Vector<Row>();
     }
 
@@ -62,5 +56,5 @@ public class OcenyModel extends DefaultTableModel {
     @Override
     public String getColumnName(int col) {
         return ((String) columnIdentifiers.get(col));
-    }   
+    }
 }

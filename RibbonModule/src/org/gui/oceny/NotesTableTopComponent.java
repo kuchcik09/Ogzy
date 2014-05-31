@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.gui.oceny;
 
 import org.database.models.GrupaCwiczeniowa;
@@ -62,7 +57,7 @@ public final class NotesTableTopComponent extends TopComponent {
         
     public void setGrupa(GrupaCwiczeniowa grupa) {
         this.grupa = grupa;
-        System.out.println(grupa.getNazwa() + " - " + grupa.getPrzedmiot().getNazwa());
+        //System.out.println(grupa.getNazwa() + " - " + grupa.getPrzedmiot().getNazwa());
         setDisplayName(grupa.getNazwa()+" - "+grupa.getPrzedmiot().getNazwa()+" - Oceny");
         //this.titleLabel.setText("Oceny dla: "+grupa.getNazwa()+ " - "+grupa.getPrzedmiot().getNazwa());
         //this.titleLabel.setHorizontalAlignment( SwingConstants.CENTER ); 

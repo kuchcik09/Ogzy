@@ -60,7 +60,7 @@ public class SprawdzObecnoscAction extends AbstractAction {
             // tu znajduje sie termin wypełniony
             openPresenceTableTopComponent(term);
         } else if (top instanceof PresenceTableTopComponent) {
-            JOptionPane.showMessageDialog(maintop, "Już jesteś we właściwym oknie głupku :D", "Obecności - BŁĄD", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(maintop, "Już jesteś we właściwym oknie", "Obecności - BŁĄD", JOptionPane.ERROR_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(maintop, "Wybierz termin na planie zajęć lub w bezpośrednio w grupie aby sprawdzić dla niego obecność", "Obecności - BŁĄD", JOptionPane.ERROR_MESSAGE);
         }

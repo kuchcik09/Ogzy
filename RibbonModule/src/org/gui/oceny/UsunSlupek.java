@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.gui.oceny;
 
 import java.util.ArrayList;
@@ -15,22 +9,24 @@ import javax.swing.JTable;
  * @author Mariushrek
  */
 public class UsunSlupek extends javax.swing.JPanel {
-    JTable students_marks = null;  
+
+    JTable students_marks = null;
+
     /**
      * Creates new form UsunSlupek
      */
-    public UsunSlupek(JTable students_marks ) {
+    public UsunSlupek(JTable students_marks) {
         this.students_marks = students_marks;
         initComponents();
         List<String> nazwy_kolumn = new ArrayList<String>();
-        for(int i = 0; i <students_marks.getModel().getColumnCount()-1; i++) {
-            nazwy_kolumn.add("Kolumna numer: " + (i+1));
+        for (int i = 0; i < students_marks.getModel().getColumnCount() - 1; i++) {
+            nazwy_kolumn.add("Kolumna numer: " + (i + 1));
             jComboBox1.addItem(nazwy_kolumn.get(i));
         }
     }
-    
-    public int WhatColumnToDelete() {
-        return jComboBox1.getSelectedIndex()+1;
+
+    public int whichColumnToDelete() {
+        return jComboBox1.getSelectedIndex() + 1;
     }
 
     /**

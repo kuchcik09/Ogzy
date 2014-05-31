@@ -30,7 +30,7 @@ public class DatabaseInstaller {
                 && createObecnoscTable()
                 && createOcenyTable()
                 && buildMailer();
-        System.out.println(result);
+        //System.out.println(result);
         return result;
     }
 
@@ -40,7 +40,7 @@ public class DatabaseInstaller {
             stat = conn.createStatement();
             stat.execute(query);
             stat.close();
-            System.out.println(successMessage);
+            //System.out.println(successMessage);
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInstaller.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,14 +133,13 @@ public class DatabaseInstaller {
                 + " email TEXT,"
                 + " indeks INTEGER)", "Tabela 'student' utworzona pomyslnie");
     }
-    
-    public boolean buildMailer()
-    {
+
+    public boolean buildMailer() {
         //createTable("DROP TABLE IF EXISTS mailer_mails", "");
         return createMailerConfigurationTable() && createRecivedMailsTable();
     }
-    private boolean createMailerConfigurationTable()
-    {
+
+    private boolean createMailerConfigurationTable() {
         return createTable("CREATE TABLE IF NOT EXISTS mailer_settings( "
                 + " id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + " name TEXT,"
@@ -151,10 +150,10 @@ public class DatabaseInstaller {
                 + " smptHostname TEXT,"
                 + " smptPort TEXT)", "Tabela 'mailer_settings' utworzona pomyslnie");
     }
-    private boolean createRecivedMailsTable()
-    {
+
+    private boolean createRecivedMailsTable() {
         return createTable("CREATE TABLE IF NOT EXISTS mailer_mails( "
-                + " id INTEGER PRIMARY KEY AUTOINCREMENT,"                    
+                + " id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + " folderName TEXT,"
                 + " recived_date TEXT,"
                 + " content TEXT,"
@@ -163,5 +162,5 @@ public class DatabaseInstaller {
                 + " isRead INTEGER,"
                 + " accountID INTEGER)", "Tabela 'mailer_mails' utworzona pomyslnie");
     }
-    
+
 }

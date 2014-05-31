@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.officelaf.ribbon.przedmioty;
 
 import org.database.models.Przedmiot;
@@ -17,7 +11,7 @@ import org.openide.windows.WindowManager;
  *
  * @author Mariushrek
  */
-public class UsunPrzedmiotAction extends AbstractAction{
+public class UsunPrzedmiotAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -39,11 +33,11 @@ public class UsunPrzedmiotAction extends AbstractAction{
                     Przedmiot.delPrzedmiot(id);
                     window.componentOpened();
                     window.open();
-                    window.Aktualizuj();
+                    window.aktualizuj();
                     window.requestActive();
                 }
             }
         }
     }
-    
+
 }

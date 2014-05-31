@@ -335,7 +335,7 @@ public class Przedmiot {
                  lista.add(resultSet.getInt("id"));
             }
             for(int i = 0; i < lista.size(); i++) {
-                System.out.println("usuwam grupy cwiczeniowe przedmiotu " + id);
+                //System.out.println("usuwam grupy cwiczeniowe przedmiotu " + id);
                 GrupaCwiczeniowa.delete(lista.get(i));
             }
             

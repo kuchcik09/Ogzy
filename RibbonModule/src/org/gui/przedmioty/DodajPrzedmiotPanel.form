@@ -167,7 +167,7 @@
     <Component class="javax.swing.JComboBox" name="rok_akademicki">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel(RokAkademicki().toArray())" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel(rokAkademicki().toArray())" type="code"/>
         </Property>
       </Properties>
     </Component>

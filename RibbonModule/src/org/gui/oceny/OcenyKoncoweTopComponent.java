@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.gui.oceny;
 
 import org.database.models.GrupaCwiczeniowa;
@@ -108,21 +103,21 @@ public final class OcenyKoncoweTopComponent extends TopComponent {
             List<Float> lista_ocen = new ArrayList<Float>();
             for(int i = 0; i < podkategorie.size(); i++) {
                 oceny_po_kategoriach.add(new ArrayList<Oceny>());
-                List<Oceny> temp = oceny_po_kategoriach.get(i);
+                List<Oceny> ocenyList = oceny_po_kategoriach.get(i);
                 for(Oceny o : oceny_studenta) {
                     if(o.getGrupaOcen().getId() == podkategorie.get(i).getId()) {
-                        temp.add(o);
+                        ocenyList.add(o);
                     }
                 }
-                if(temp.size()==0) {
+                if(ocenyList.isEmpty()) {
                     lista_ocen.add((float)0);
                 } else {
                     if(grupa.getPrzedmiot().getTypOceniania() == TYP_OCENIANIA.OCENA) {
-                        lista_ocen.add(srednia_arytmetyczna(temp)); 
+                        lista_ocen.add(srednia_arytmetyczna(ocenyList)); 
                     } else {
                         float suma_punktow = 0;
-                        for(int o = 0; o < temp.size(); o++) {
-                            suma_punktow += temp.get(o).getWartoscOceny();
+                        for(int o = 0; o < ocenyList.size(); o++) {
+                            suma_punktow += ocenyList.get(o).getWartoscOceny();
                         }
                         if(suma_punktow > 100) suma_punktow = 100;
                         lista_ocen.add(suma_punktow);

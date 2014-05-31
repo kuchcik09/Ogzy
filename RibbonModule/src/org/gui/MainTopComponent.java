@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.gui;
 
 import java.awt.Color;
@@ -229,13 +224,13 @@ public final class MainTopComponent extends TopComponent {
         while (model.getRowCount() > 0) {
             model.removeRow(0); //czyszcze całą tabele
         }
-        int StartScaleTime = 6; //od jakiej godziny zaczynam liczyć
+        int startScaleTime = 6; //od jakiej godziny zaczynam liczyć
         //tu jest 6-ta bo w pętli będę dodwać po 2 godziny
 
-        Time tempToTable = new Time(StartScaleTime, 0, 0); //ustalam startowy czas
+        Time tempToTable = new Time(startScaleTime, 0, 0); //ustalam startowy czas
         /*
          Pętla idzie 6-króków to daje od 8 do 20 składając w każdym kroku stringa do wyświetlania i dodając
-         puste narazie wartości null do dabeli ustawając czas o 2godziny wiecej
+         puste narazie wartości null do tabeli ustawając czas o 2godziny wiecej
          czyli poprostu inicjalizuje się tu pusta tabela
          */
         for (int i = 0; i <= 6; i++) {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.gui.oceny;
 
 import org.database.models.GrupaCwiczeniowa;
@@ -49,9 +44,9 @@ public final class OcenyMainTopComponent extends TopComponent {
         setToolTipText(Bundle.HINT_OcenyMainTopComponent());
         
         //OpiszOkno();
-        OrganizujTabele_Student();
-        NazwyRzedow_Oceny();
-        OrganizujTabele_Oceny();
+        organizujTabeleStudent();
+        nazwyRzedowOceny();
+        organizujTabeleOceny();
     }
 
     public void setGrupa(GrupaCwiczeniowa f_grupa) {
@@ -199,20 +194,20 @@ public final class OcenyMainTopComponent extends TopComponent {
         String version = p.getProperty("version");
         // TODO read your settings according to their version
     }
-    private void OpiszOkno() {
+    private void opiszOkno() {
         przedmiot_nazwa.setText(grupa.getPrzedmiot().getNazwa());
         grupa_nazwa.setText(grupa.getNazwa() + " - " + " termin");
         schemat_nazwa.setText("Schemat oceniania: " + grupa.getPrzedmiot().getGrupaOcen().getNazwa());
     }
     
-    private void OrganizujTabele_Student() {
+    private void organizujTabeleStudent() {
         TableColumn column = students_list.getColumn("Id");
         column.setMinWidth(0);
         column.setMaxWidth(0);
         column.setPreferredWidth(0);
     }
     
-    private void NazwyRzedow_Oceny() {
+    private void nazwyRzedowOceny() {
         TableColumn column = students_marks.getColumn("Id");
         column.setMinWidth(0);
         column.setMaxWidth(0);
@@ -233,7 +228,7 @@ public final class OcenyMainTopComponent extends TopComponent {
             rowId++;
         }
     }
-    private void OrganizujTabele_Oceny() {
+    private void organizujTabeleOceny() {
         
     }
 

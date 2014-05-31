@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.gui.przedmioty;
 
 import org.database.models.GrupaOcen;
@@ -657,17 +651,17 @@ public class GrupaOcenDodajPanel extends javax.swing.JPanel implements KeyListen
         DocumentListener wagi_aktualizacja = new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent de) {
-                ZliczanieWagi();
+                zliczanieWagi();
             }
 
             @Override
             public void removeUpdate(DocumentEvent de) {
-                ZliczanieWagi();
+                zliczanieWagi();
             }
 
             @Override
             public void changedUpdate(DocumentEvent de) {
-                ZliczanieWagi();
+                zliczanieWagi();
             }
         };
                 
@@ -692,7 +686,7 @@ public class GrupaOcenDodajPanel extends javax.swing.JPanel implements KeyListen
         }      
     }
     
-    private void ZliczanieWagi() {
+    private void zliczanieWagi() {
         double suma = 0.;
         for (int i=0; i<ilosc_podkategorii_aktywnych; i++) {
             String teraz = wagi[i].getText();
@@ -719,7 +713,7 @@ public class GrupaOcenDodajPanel extends javax.swing.JPanel implements KeyListen
             evt.consume();
         }
     }
-    public int SaveAll() {
+    public int saveAll() {
         int id_kategorii;
         // Sprawdzenie, czy podkategorie i wagi sa wypelnione
         boolean czy_wypelnione_podkategorie = true;

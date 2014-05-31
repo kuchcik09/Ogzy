@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.gui.przedmioty;
 
 import org.database.models.GrupaOcen;
@@ -18,7 +12,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import static org.gui.przedmioty.UniversalFunctions.RokAkademicki;
+import static org.gui.przedmioty.UniversalFunctions.rokAkademicki;
 /**
  *
  * @author Mariushrek
@@ -91,7 +85,7 @@ public class DodajPrzedmiotPanel extends javax.swing.JPanel implements KeyListen
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(DodajPrzedmiotPanel.class, "DodajPrzedmiotPanel.jLabel5.text")); // NOI18N
 
-        rok_akademicki.setModel(new javax.swing.DefaultComboBoxModel(RokAkademicki().toArray()));
+        rok_akademicki.setModel(new javax.swing.DefaultComboBoxModel(rokAkademicki().toArray()));
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(DodajPrzedmiotPanel.class, "DodajPrzedmiotPanel.jLabel1.text")); // NOI18N
 
@@ -185,7 +179,7 @@ public class DodajPrzedmiotPanel extends javax.swing.JPanel implements KeyListen
         if(OK_Button.isSelected()) zwrot = 0;
         if(CANCEL_Button.isSelected()) zwrot = 1;
         if(zwrot == 0) {
-            panel.SaveAll();
+            panel.saveAll();
             grupa_ocen.setModel(new javax.swing.DefaultComboBoxModel(GrupaOcen.getAllGrupaOcen(0).toArray()));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -215,7 +209,7 @@ public class DodajPrzedmiotPanel extends javax.swing.JPanel implements KeyListen
     // End of variables declaration//GEN-END:variables
        
    
-    public boolean SaveAll() {
+    public boolean saveAll() {
         String nazwa = nazwa_przedmiotu.getText();
         TYP_OCENIANIA typ = TYP_OCENIANIA.valueOf(typ_oceniania.getSelectedItem().toString());
         int grupa = ((GrupaOcen) grupa_ocen.getSelectedItem()).getId();

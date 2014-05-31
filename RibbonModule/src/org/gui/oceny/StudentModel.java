@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.gui.oceny;
 
 import java.util.Vector;
@@ -14,9 +8,9 @@ import org.gui.Row;
  *
  * @author Mariushrek
  */
-public class StudentModel extends DefaultTableModel{
-    
-  public StudentModel() {
+public class StudentModel extends DefaultTableModel {
+
+    public StudentModel() {
         columnIdentifiers = new Vector<String>();
         columnIdentifiers.add(0, "Id");
         columnIdentifiers.add(1, "Imie");
@@ -24,7 +18,7 @@ public class StudentModel extends DefaultTableModel{
         dataVector = new Vector<Row>();
     }
 
-  @Override
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         return ((Row) dataVector.get(rowIndex)).getRow(columnIndex);
     }
@@ -48,5 +42,5 @@ public class StudentModel extends DefaultTableModel{
     @Override
     public String getColumnName(int col) {
         return ((String) columnIdentifiers.get(col));
-    }   
+    }
 }

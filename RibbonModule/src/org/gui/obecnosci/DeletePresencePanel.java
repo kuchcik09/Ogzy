@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.gui.obecnosci;
 
 import java.util.List;
@@ -21,16 +15,16 @@ public class DeletePresencePanel extends javax.swing.JPanel {
     public DeletePresencePanel(List<String> dates) {
         initComponents();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
-        for(String s: dates){
+        for (String s : dates) {
             model.addElement(s);
         }
         termsList.setModel(model);
     }
-    
-    public String getSelectedValue(){
-        return (String)termsList.getSelectedItem();
+
+    public String getSelectedValue() {
+        return (String) termsList.getSelectedItem();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
