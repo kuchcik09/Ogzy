@@ -1,23 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.gui.oceny;
 
 import org.database.models.GrupaCwiczeniowa;
 import org.database.models.GrupaOcen;
 import org.database.models.Oceny;
 import org.database.models.Student;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.officelaf.listeners.TopComponentsManagerListener;
-import org.officelaf.ribbon.BandsButtons;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.windows.TopComponent;
@@ -48,25 +40,26 @@ import org.openide.util.NbBundle.Messages;
     "HINT_NotesTableTopComponent=This is a NotesTable window"
 })
 public final class NotesTableTopComponent extends TopComponent {
+
     private GrupaCwiczeniowa grupa = null;
     private List<Student> lista_studentow = null;
     private List<GrupaOcen> podkategorie = null;
     private List<List<Oceny>> oceny_po_kategoriach = null;
     private boolean isEditingCell = true;
     private boolean add_or_edit = false;
-    
-    public JTable getStudentsTable(){
+
+    public JTable getStudentsTable() {
         return this.students_table;
     }
-    
-    public void setTable(GrupaCwiczeniowa grupa){
+
+    public void setTable(GrupaCwiczeniowa grupa) {
         //tu należy uzupełnić o wypełnianie tabeli ocenami
     }
-        
+
     public void setGrupa(GrupaCwiczeniowa grupa) {
         this.grupa = grupa;
-        System.out.println(grupa.getNazwa() + " - " + grupa.getPrzedmiot().getNazwa());
-        setDisplayName(grupa.getNazwa()+" - "+grupa.getPrzedmiot().getNazwa()+" - Oceny");
+        //System.out.println(grupa.getNazwa() + " - " + grupa.getPrzedmiot().getNazwa());
+        setDisplayName(grupa.getNazwa() + " - " + grupa.getPrzedmiot().getNazwa() + " - Oceny");
         //this.titleLabel.setText("Oceny dla: "+grupa.getNazwa()+ " - "+grupa.getPrzedmiot().getNazwa());
         //this.titleLabel.setHorizontalAlignment( SwingConstants.CENTER ); 
         lista_studentow = Student.getByGroup(grupa.getId());
@@ -83,20 +76,19 @@ public final class NotesTableTopComponent extends TopComponent {
         initComponents();
         setName(Bundle.CTL_NotesTableTopComponent());
         setToolTipText(Bundle.HINT_NotesTableTopComponent());
-
     }
 
     private void setStudentsTable() {
         DefaultTableModel model = (DefaultTableModel) students_table.getModel();
-        while(model.getRowCount()>0) {
+        while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
-        for(Student s : lista_studentow) {
+        for (Student s : lista_studentow) {
             model.addRow(new Object[]{s.getImie(), s.getNazwisko()});
         }
         students_table.setModel(model);
     }
-    
+
     private void setStudentsMarks() {
         Student student = lista_studentow.get(students_table.getSelectedRow());
         GrupaOcen schemat = grupa.getPrzedmiot().getGrupaOcen();
@@ -105,28 +97,30 @@ public final class NotesTableTopComponent extends TopComponent {
         model.addColumn("Kategoria");
         podkategorie = GrupaOcen.getAllGrupaOcen(schemat.getId());
         oceny_po_kategoriach = new ArrayList<List<Oceny>>();
-        for(int i = 0; i < podkategorie.size(); i++) {
+        for (int i = 0; i < podkategorie.size(); i++) {
             oceny_po_kategoriach.add(new ArrayList<Oceny>());
             List<Oceny> temp = oceny_po_kategoriach.get(i);
-            for(Oceny o : oceny_studenta) {
-                if(o.getGrupaOcen().getId() == podkategorie.get(i).getId()) {
+            for (Oceny o : oceny_studenta) {
+                if (o.getGrupaOcen().getId() == podkategorie.get(i).getId()) {
                     temp.add(o);
                 }
             }
         }
         int maksymalny_size = 1;
-        for(List<Oceny> l : oceny_po_kategoriach) {
-            if(maksymalny_size < l.size()) maksymalny_size = l.size();
+        for (List<Oceny> l : oceny_po_kategoriach) {
+            if (maksymalny_size < l.size()) {
+                maksymalny_size = l.size();
+            }
         }
-        for(GrupaOcen g: podkategorie){
+        for (GrupaOcen g : podkategorie) {
             model.addRow(new Object[]{g.getNazwa()});
         }
-        for(int i=1;i<=maksymalny_size;i++){
-            model.addColumn(i+"");
+        for (int i = 1; i <= maksymalny_size; i++) {
+            model.addColumn(i + "");
         }
-        for(int i = 0; i < oceny_po_kategoriach.size(); i++) {
-            for(int j = 0; j < oceny_po_kategoriach.get(i).size(); j++ ) {
-                model.setValueAt(oceny_po_kategoriach.get(i).get(j).getWartoscOceny(), i, j+1);
+        for (int i = 0; i < oceny_po_kategoriach.size(); i++) {
+            for (int j = 0; j < oceny_po_kategoriach.get(i).size(); j++) {
+                model.setValueAt(oceny_po_kategoriach.get(i).get(j).getWartoscOceny(), i, j + 1);
             }
         }
         this.students_marks.setModel(model);
@@ -136,18 +130,20 @@ public final class NotesTableTopComponent extends TopComponent {
         students_marks.getColumnModel().getColumn(0).setWidth(250);
         students_marks.getColumnModel().getColumn(1).setResizable(false);
     }
- 
+
     public JTable getMarksTable() {
         return students_marks;
     }
-    
-    public void DeleteMarksFromColumn(int column) {
-        for(int i = 0; i < podkategorie.size(); i++) {
-            if(students_marks.getModel().getValueAt(i,column) !=null)
-                Oceny.deleteOceny(oceny_po_kategoriach.get(i).get(column-1).getId());
+
+    public void deleteMarksFromColumn(int column) {
+        for (int i = 0; i < podkategorie.size(); i++) {
+            if (students_marks.getModel().getValueAt(i, column) != null) {
+                Oceny.deleteOceny(oceny_po_kategoriach.get(i).get(column - 1).getId());
+            }
         }
         setStudentsMarks();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -290,40 +286,40 @@ public final class NotesTableTopComponent extends TopComponent {
     }// </editor-fold>//GEN-END:initComponents
 
     private void students_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_students_tableMouseClicked
-       TopComponentsManagerListener.EnableDisableManageColumsButtons(this);
-        if(students_table.getSelectedRow()!=-1) {   
-           setStudentsMarks();
-       }
+        TopComponentsManagerListener.EnableDisableManageColumsButtons(this);
+        if (students_table.getSelectedRow() != -1) {
+            setStudentsMarks();
+        }
     }//GEN-LAST:event_students_tableMouseClicked
 
     private void students_marksPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_students_marksPropertyChange
         if ("tableCellEditor".equals(evt.getPropertyName())) {
-            if(isEditingCell) {
-                if(students_marks.getModel().getValueAt(students_marks.getSelectedRow(), students_marks.getSelectedColumn()) == null){
+            if (isEditingCell) {
+                if (students_marks.getModel().getValueAt(students_marks.getSelectedRow(), students_marks.getSelectedColumn()) == null) {
                     add_or_edit = false;
                     //System.out.println("Wchodze i komorka jest pusta");
                 } else {
                     add_or_edit = true;
-                   // System.out.println("Wchodze ale edytuje komorke");
+                    // System.out.println("Wchodze ale edytuje komorke");
                 }
-                isEditingCell= false;
+                isEditingCell = false;
             } else {
-                if(add_or_edit) {
-                    //System.out.println("W komorce byla wrtosc i edytujr");
-                    if(students_marks.getModel().getValueAt(students_marks.getSelectedRow(), students_marks.getSelectedColumn()).toString().equals("")) {
-                        Oceny.deleteOceny(oceny_po_kategoriach.get(students_marks.getSelectedRow()).get(students_marks.getSelectedColumn()-1).getId());
+                if (add_or_edit) {
+                    //System.out.println("W komorce byla wartosc i edytujr");
+                    if (students_marks.getModel().getValueAt(students_marks.getSelectedRow(), students_marks.getSelectedColumn()).toString().equals("")) {
+                        Oceny.deleteOceny(oceny_po_kategoriach.get(students_marks.getSelectedRow()).get(students_marks.getSelectedColumn() - 1).getId());
                     } else {
-                        Oceny.editOceny(oceny_po_kategoriach.get(students_marks.getSelectedRow()).get(students_marks.getSelectedColumn()-1).getId(),Float.parseFloat(students_marks.getModel().getValueAt(students_marks.getSelectedRow(), students_marks.getSelectedColumn()).toString()));
+                        Oceny.editOceny(oceny_po_kategoriach.get(students_marks.getSelectedRow()).get(students_marks.getSelectedColumn() - 1).getId(), Float.parseFloat(students_marks.getModel().getValueAt(students_marks.getSelectedRow(), students_marks.getSelectedColumn()).toString()));
                     }
                 } else {
-                   // System.out.println("Komorka byla pusta i nowa wartosc");
+                    // System.out.println("Komorka byla pusta i nowa wartosc");
                     Oceny.addOceny(podkategorie.get(students_marks.getSelectedRow()), grupa, lista_studentow.get(students_table.getSelectedRow()), Float.parseFloat(students_marks.getModel().getValueAt(students_marks.getSelectedRow(), students_marks.getSelectedColumn()).toString()));
                 }
                 isEditingCell = true;
                 setStudentsMarks();
-            }            
+            }
         }
-         // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_students_marksPropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -340,7 +336,9 @@ public final class NotesTableTopComponent extends TopComponent {
     // End of variables declaration//GEN-END:variables
     @Override
     public void componentOpened() {
-        if(this.titleLabel.getText().equals("Nazwa przedmiotu")) this.close();
+        if (this.titleLabel.getText().equals("Nazwa przedmiotu")) {
+            this.close();
+        }
         // TODO add custom code on component opening
     }
 
@@ -360,11 +358,25 @@ public final class NotesTableTopComponent extends TopComponent {
         String version = p.getProperty("version");
         // TODO read your settings according to their version
     }
-    
+
     public GrupaCwiczeniowa getGrupaCwiczeniowa() {
         return this.grupa;
     }
+
     public List<Student> getStudentsList() {
         return this.lista_studentow;
     }
+
+    public List<GrupaOcen> getPodkategorie() {
+        return podkategorie;
+    }
+
+    public List<List<Oceny>> getOceny_po_kategoriach() {
+        return oceny_po_kategoriach;
+    }
+
+    public List<Student> getLista_studentow() {
+        return lista_studentow;
+    }
+
 }

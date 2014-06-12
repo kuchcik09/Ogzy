@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.gui.przedmioty;
 
 import org.database.models.Przedmiot;
@@ -55,7 +50,7 @@ public final class PokazPrzedmiotyTopComponent extends TopComponent {
         setName(Bundle.CTL_PokazPrzedmiotyTopComponent());
         setToolTipText(Bundle.HINT_PokazPrzedmiotyTopComponent());
         tabela_przedmiotow.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        setListener();  
+        setListener();
     }
 
     private void setListener() {
@@ -73,14 +68,14 @@ public final class PokazPrzedmiotyTopComponent extends TopComponent {
                     };
                     int input = JOptionPane.showOptionDialog(window, panel, "Edytuj przedmiot", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
                     if (input == JOptionPane.OK_OPTION) {
-                        panel.SaveAll();
-                        Aktualizuj();
+                        panel.saveAll();
+                        aktualizuj();
                     }
                 }
             }
         });
     }
-        
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,8 +143,8 @@ public final class PokazPrzedmiotyTopComponent extends TopComponent {
         TableModel model = window.getTabelaPrzedmiotow().getModel();
         clearTable((DefaultTableModel) window.getTabelaPrzedmiotow().getModel());
         List<Przedmiot> list = null;
-        if(!archiwalne_przedmioty.isSelected()) {
-            list = Przedmiot.getPrzedmioty(UniversalFunctions.StartRokuAkademickiego());
+        if (!archiwalne_przedmioty.isSelected()) {
+            list = Przedmiot.getPrzedmioty(UniversalFunctions.startRokuAkademickiego());
         } else {
             list = Przedmiot.getPrzedmioty(0);
         }
@@ -181,9 +176,9 @@ public final class PokazPrzedmiotyTopComponent extends TopComponent {
         PokazPrzedmiotyTopComponent window = this;
         TableModel model = window.getTabelaPrzedmiotow().getModel();
         clearTable((DefaultTableModel) window.getTabelaPrzedmiotow().getModel());
-        List<Przedmiot> list = null;
-        if(!archiwalne_przedmioty.isSelected()) {
-            list = Przedmiot.getPrzedmioty(UniversalFunctions.StartRokuAkademickiego());
+        List<Przedmiot> list;
+        if (!archiwalne_przedmioty.isSelected()) {
+            list = Przedmiot.getPrzedmioty(UniversalFunctions.startRokuAkademickiego());
         } else {
             list = Przedmiot.getPrzedmioty(0);
         }
@@ -211,6 +206,7 @@ public final class PokazPrzedmiotyTopComponent extends TopComponent {
             model.removeRow(0);
         }
     }
+
     @Override
     public void componentClosed() {
         // TODO add custom code on component closing
@@ -227,17 +223,18 @@ public final class PokazPrzedmiotyTopComponent extends TopComponent {
         String version = p.getProperty("version");
         // TODO read your settings according to their version
     }
+
     public JTable getTabelaPrzedmiotow() {
         return tabela_przedmiotow;
     }
-    
-    public void Aktualizuj() {
+
+    public void aktualizuj() {
         PokazPrzedmiotyTopComponent window = this;
         TableModel model = window.getTabelaPrzedmiotow().getModel();
         clearTable((DefaultTableModel) window.getTabelaPrzedmiotow().getModel());
         List<Przedmiot> list = null;
-        if(!archiwalne_przedmioty.isSelected()) {
-            list = Przedmiot.getPrzedmioty(UniversalFunctions.StartRokuAkademickiego());
+        if (!archiwalne_przedmioty.isSelected()) {
+            list = Przedmiot.getPrzedmioty(UniversalFunctions.startRokuAkademickiego());
         } else {
             list = Przedmiot.getPrzedmioty(0);
         }
@@ -249,6 +246,11 @@ public final class PokazPrzedmiotyTopComponent extends TopComponent {
             model.setValueAt(p.getRokAkademicki(), rowId, 3);
             rowId++;
         }
-        hideIdColumn();  
+        hideIdColumn();
     }
+
+    public boolean isArchiwalne_przedmioty() {
+        return archiwalne_przedmioty.isSelected();
+    }
+
 }

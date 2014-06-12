@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.gui.przedmioty;
 
 import org.database.models.GrupaOcen;
@@ -22,8 +16,8 @@ import javax.swing.JOptionPane;
  * @author Mariushrek
  */
 public class EdytujPrzedmiotPanel extends javax.swing.JPanel {
-    private JButton OK_Button = new JButton("Dodaj do bazy");
-    private JButton CANCEL_Button= new JButton("Anuluj");
+    private final JButton OK_Button = new JButton("Dodaj do bazy");
+    private final JButton CANCEL_Button= new JButton("Anuluj");
     private Przedmiot przedmiot_edycja = null;
     
     /**
@@ -46,7 +40,7 @@ public class EdytujPrzedmiotPanel extends javax.swing.JPanel {
         } else {
             sem_letni.setSelected(false); sem_zimowy.setSelected(true);
         }
-        for(String s : UniversalFunctions.RokAkademicki()) {
+        for(String s : UniversalFunctions.rokAkademicki()) {
             rok_akademicki.addItem(s);
             if(s.split("/")[0].equals(przedmiot_edycja.getRokAkademicki()+"")) rok_akademicki.setSelectedItem(s);
         }
@@ -194,7 +188,7 @@ public class EdytujPrzedmiotPanel extends javax.swing.JPanel {
         if(OK_Button.isSelected()) zwrot = 0;
         if(CANCEL_Button.isSelected()) zwrot = 1;
         if(zwrot == 0) {
-            panel.SaveAll();
+            panel.saveAll();
             grupa_ocen.setModel(new javax.swing.DefaultComboBoxModel(GrupaOcen.getAllGrupaOcen(0).toArray()));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -215,7 +209,7 @@ public class EdytujPrzedmiotPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox typ_oceniania;
     // End of variables declaration//GEN-END:variables
 
-    public void SaveAll() {
+    public void saveAll() {
         przedmiot_edycja.setNazwa(nazwa_przedmiotu.getText());
         przedmiot_edycja.setTypOceniania(TYP_OCENIANIA.valueOf(typ_oceniania.getSelectedItem().toString()));
         przedmiot_edycja.setGrupaOcen(((GrupaOcen) grupa_ocen.getSelectedItem()));

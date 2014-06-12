@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.gui.schematy;
 
 import org.database.models.GrupaOcen;
@@ -16,27 +10,25 @@ import javax.swing.DefaultListModel;
  */
 public class UsunSchematPanel extends javax.swing.JPanel {
 
+    private List<GrupaOcen> listagrupocen = null;
+
     /**
      * Creates new form UsunSchematPanel
      */
-    
-    private List<GrupaOcen> listagrupocen = null;
-    
     public UsunSchematPanel() {
         initComponents();
         DefaultListModel model = new DefaultListModel();
         listagrupocen = GrupaOcen.getAllGrupaOcen(0);
-        for(GrupaOcen g: listagrupocen){
+        for (GrupaOcen g : listagrupocen) {
             model.addElement(g.getNazwa());
         }
         schemeList.setModel(model);
     }
-    
-    public GrupaOcen getSelectedGrupa(){
+
+    public GrupaOcen getSelectedGrupa() {
         return listagrupocen.get(schemeList.getSelectedIndex());
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

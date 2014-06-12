@@ -227,8 +227,8 @@ public class Termin {
             PreparedStatement prepStmt = conn.prepareStatement("SELECT T.id,T.id_grupa_cwiczeniowa,T.dzien_tygodnia,T.godzina_start,"
                     + "T.godzina_stop,G.id_przedmiot,G.nazwa, G.color FROM terminy AS T JOIN grupa_cwiczeniowa AS G JOIN przedmioty AS PRZ ON "
                     + "T.id_grupa_cwiczeniowa=G.id AND PRZ.id=G.id_przedmiot WHERE PRZ.rok_akademicki_start = ? AND PRZ.semestr = ?");
-            prepStmt.setInt(1, AktualnyRokAkademicki());
-            prepStmt.setInt(2, AktualnySemestr());
+            prepStmt.setInt(1, getAktualnyRokAkademicki());
+            prepStmt.setInt(2, getAktualnySemestr());
             ResultSet rs = prepStmt.executeQuery();
             LinkedList<Termin> terminy = new LinkedList<Termin>();
             while (rs.next()) {
@@ -256,7 +256,7 @@ public class Termin {
 
         return null;
     }
-    private static int AktualnyRokAkademicki() {
+    private static int getAktualnyRokAkademicki() {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH);
         if (month < 9) {
@@ -264,7 +264,7 @@ public class Termin {
         }
         return year;
     }
-    private static int AktualnySemestr() {
+    private static int getAktualnySemestr() {
         // 0 - letni
         // 1 - zimowy
         int month = Calendar.getInstance().get(Calendar.MONTH);

@@ -21,6 +21,14 @@
                 <package>org.database.models</package>
             </public-packages>
             <class-path-extension>
+                <runtime-relative-path>ext/jsoup-1.7.3.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/jsoup-1.7.3.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/javax.mail.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/javax.mail.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
                 <runtime-relative-path>ext/sqlite-jdbc-3.7.2.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/sqlite-jdbc-3.7.2.jar</binary-origin>
             </class-path-extension>

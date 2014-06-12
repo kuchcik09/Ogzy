@@ -4,13 +4,9 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[select * from student order by nazwisko]]>
+		<![CDATA[SELECT nazwa FROM grupa_ocen where sub_id = 0]]>
 	</queryString>
-	<field name="id" class="java.lang.Object"/>
-	<field name="imie" class="java.lang.Object"/>
-	<field name="nazwisko" class="java.lang.Object"/>
-	<field name="email" class="java.lang.Object"/>
-	<field name="indeks" class="java.lang.Object"/>
+	<field name="nazwa" class="java.lang.Object"/>
 	<title>
 		<band height="72" splitType="Stretch">
 			<staticText>
@@ -23,10 +19,34 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="20" splitType="Stretch"/>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="e4d0c198-64ad-4adc-9a26-35c84fd6bd7b"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[nazwa]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="20"/>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="20" uuid="e79a8783-c8ed-4792-8873-57d171b447a9"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[""+$F{nazwa}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<pageFooter>
 		<band height="20">

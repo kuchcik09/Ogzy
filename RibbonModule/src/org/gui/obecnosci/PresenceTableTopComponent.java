@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.gui.obecnosci;
 
 import java.awt.event.MouseAdapter;
@@ -17,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -57,12 +50,15 @@ import org.openide.util.NbBundle.Messages;
     "HINT_PresenceTableTopComponent=This is a PresenceTable window"
 })
 public final class PresenceTableTopComponent extends TopComponent {
-    
+
     private List<Student> students = new ArrayList<Student>();
     private int idTerminu = 0;
     private List<String> dates = new ArrayList<String>();
     private Termin termin;
-    
+
+    private String groupName;
+    private String subjectName;
+
     public PresenceTableTopComponent() {
         initComponents();
         setName(Bundle.CTL_PresenceTableTopComponent());
@@ -72,7 +68,7 @@ public final class PresenceTableTopComponent extends TopComponent {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(e.getClickCount() == 2){
+                if (e.getClickCount() == 2) {
                     int column = presenceTable.columnAtPoint(e.getPoint());
                     String[] values = {"Zmień", "Anuluj"};
                     JPanel panel = new JPanel();
@@ -80,7 +76,7 @@ public final class PresenceTableTopComponent extends TopComponent {
                     JTextField field = new JTextField(10);
                     panel.add(field);
                     int result = JOptionPane.showOptionDialog(me, panel, "Zmiana daty", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, values, values[0]);
-                    if(result == JOptionPane.YES_OPTION){
+                    if (result == JOptionPane.YES_OPTION) {
                         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
                         Date date = null;
                         try {
@@ -89,16 +85,16 @@ public final class PresenceTableTopComponent extends TopComponent {
                             JOptionPane.showMessageDialog(me, "Niepoprawny format daty!", "Błąd zaminy daty", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
-                        
-                        for(String d: dates){
-                            if(d.equals(field.getText())){
+
+                        for (String d : dates) {
+                            if (d.equals(field.getText())) {
                                 JOptionPane.showMessageDialog(me, "Data już istnieje!", "Błąd zaminy daty", JOptionPane.ERROR_MESSAGE);
                                 return;
                             }
                         }
-                        
-                        List<Obecnosc> presence_to_change = Obecnosc.getObecnosci(termin, dates.get(column-1));
-                        for(Obecnosc o: presence_to_change){
+
+                        List<Obecnosc> presence_to_change = Obecnosc.getObecnosci(termin, dates.get(column - 1));
+                        for (Obecnosc o : presence_to_change) {
                             Obecnosc.editObecnosc(o.getId(), sdf.format(date));
                         }
                         setTable(termin);
@@ -153,9 +149,9 @@ public final class PresenceTableTopComponent extends TopComponent {
 
     private void presenceTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_presenceTableMouseClicked
         // TODO add your handling code here:
-        if(presenceTable.getSelectedColumn() > 0){
+        if (presenceTable.getSelectedColumn() > 0) {
             String data = presenceTable.getColumnName(presenceTable.getSelectedColumn());
-            Obecnosc.check(students.get(presenceTable.getSelectedRow()),idTerminu,data,(Boolean)presenceTable.getModel().getValueAt(presenceTable.getSelectedRow(), presenceTable.getSelectedColumn()));
+            Obecnosc.check(students.get(presenceTable.getSelectedRow()), idTerminu, data, (Boolean) presenceTable.getModel().getValueAt(presenceTable.getSelectedRow(), presenceTable.getSelectedColumn()));
         }
     }//GEN-LAST:event_presenceTableMouseClicked
 
@@ -164,14 +160,16 @@ public final class PresenceTableTopComponent extends TopComponent {
     private javax.swing.JTable presenceTable;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
-    
-    public String getTitle(){
+
+    public String getTitle() {
         return titleLabel.getText();
     }
-    
+
     @Override
     public void componentOpened() {
-        if(titleLabel.getText().equals("jLabel1")) this.close();
+        if (titleLabel.getText().equals("jLabel1")) {
+            this.close();
+        }
         // TODO add custom code on component opening
     }
 
@@ -179,100 +177,109 @@ public final class PresenceTableTopComponent extends TopComponent {
     public void componentClosed() {
         // TODO add custom code on component closing
     }
-    
-    private boolean znajdzObecnosc(List<Obecnosc> obecnosci, String data, Student s){
-        for(Obecnosc o: obecnosci){
-            if(o.getData().equals(data) && o.getStudent().getId()==s.getId()) return o.getObecnosc();
+
+    public boolean znajdzObecnosc(List<Obecnosc> obecnosci, String data, Student s) {
+        for (Obecnosc o : obecnosci) {
+            if (o.getData().equals(data) && o.getStudent().getId() == s.getId()) {
+                return o.getObecnosc();
+            }
         }
         return false;
     }
-    
-    public List<String> getDates(){
+
+    public List<String> getDates() {
         return dates;
     }
-    
-    private void setTable(Termin term){
+
+    private void setTable(Termin term) {
         termin = term;
         idTerminu = term.getId();
         students = Student.getByGroup(term.getGrupa().getId());
-        
+
         DateFormat format = new SimpleDateFormat("dd.MM.yy");
         Calendar cal = Calendar.getInstance();
         String today = format.format(cal.getTime()); // dzisiejsza data
         //sprawdz czy juz są daty dzisiejsze w bazie
-        if(isDatesOnDatabase(today,term) == false){
-            for(Student s: students){
+        if (isDatesOnDatabase(today, term) == false) {
+            for (Student s : students) {
                 Obecnosc.addObecnosc(term, s, today, false);
             }
         }
         //tu tworzenie modelu
-        DefaultTableModel model = new DefaultTableModel(){
+        DefaultTableModel model = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-               if (columnIndex != 0) {
-                  return Boolean.class;
-               }
-               return super.getColumnClass(columnIndex);
+                if (columnIndex != 0) {
+                    return Boolean.class;
+                }
+                return super.getColumnClass(columnIndex);
             }
         };// to sie robi zeby byly checkboxy 
-        
-        while(model.getRowCount() > 0) model.removeRow(0);
-        
+
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+
         model.addColumn("Student");
         List<Obecnosc> obecnosci = Obecnosc.getObecnosci(term);
         dates = new ArrayList<String>();
         String first_date = null;
-        if(!obecnosci.isEmpty()){
+        if (!obecnosci.isEmpty()) {
             first_date = obecnosci.get(0).getData();
             dates.add(first_date);
         }
-        for(Obecnosc o: obecnosci){
-            if(!o.getData().equals(first_date)){
+        for (Obecnosc o : obecnosci) {
+            if (!o.getData().equals(first_date)) {
                 first_date = o.getData();
                 dates.add(first_date);
             }
         }
         sort(dates);
         //w dates mamy kolejne daty dla terminu, czyli kolejne kolumny
-        for(String d: dates){
+        for (String d : dates) {
             model.addColumn(d);
         }
 
         jScrollPane1.setViewportView(presenceTable);
         //teraz uzupełnianie tabeli
-        for(Student s: students){
-            Object[] values = new Object[dates.size()+1];
-            values[0] = s.getImie()+ " " + s.getNazwisko();
-            
-            for(int i=1;i<dates.size()+1;i++){
-                values[i] = znajdzObecnosc(obecnosci,dates.get(i-1),s);
+        for (Student s : students) {
+            Object[] values = new Object[dates.size() + 1];
+            values[0] = s.getImie() + " " + s.getNazwisko();
+
+            for (int i = 1; i < dates.size() + 1; i++) {
+                values[i] = znajdzObecnosc(obecnosci, dates.get(i - 1), s);
             }
             model.addRow(values);
         }
-        
+
         presenceTable.setModel(model);
     }
-    
-    public void setTerm(Termin term){
-        setDisplayName(term.getGrupa().getNazwa()+" - "+term.getGrupa().getPrzedmiot().getNazwa()+" - Obecności");
-        this.titleLabel.setHorizontalAlignment( SwingConstants.CENTER ); 
-        this.titleLabel.setText("Tabela obecności dla: "+term.getGrupa().getNazwa()+" - "+term.getGrupa().getPrzedmiot().getNazwa()+" - "+term.getGodzina_start()+"-"+term.getGodzina_stop());
+
+    public void setTerm(Termin term) {
+        setDisplayName(term.getGrupa().getNazwa() + " - " + term.getGrupa().getPrzedmiot().getNazwa() + " - Obecności");
+        this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        this.titleLabel.setText("Tabela obecności dla: " + term.getGrupa().getNazwa() + " - " + term.getGrupa().getPrzedmiot().getNazwa() + " - " + term.getGodzina_start() + "-" + term.getGodzina_stop());
         this.groupName = term.getGrupa().getNazwa();
         this.subjectName = term.getGrupa().getPrzedmiot().getNazwa();
         setTable(term);
     }
-    
-    private String groupName;
-    private String subjectName;
-    
-    public String getGroupName(){
+
+    public String getGroupName() {
         return this.groupName;
     }
-    
-    public String getSubjectName(){
+
+    public String getSubjectName() {
         return this.subjectName;
     }
-    
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public Termin getTermin() {
+        return termin;
+    }
+
     void writeProperties(java.util.Properties p) {
         // better to version settings since initial version as advocated at
         // http://wiki.apidesign.org/wiki/PropertyFiles
@@ -286,24 +293,24 @@ public final class PresenceTableTopComponent extends TopComponent {
     }
 
     private boolean isDatesOnDatabase(String today, Termin termin) {
-        return Obecnosc.isThisDateOnDB(today,termin);
+        return Obecnosc.isThisDateOnDB(today, termin);
     }
 
     private void sort(List<String> dates) {
-        for(String i:dates){
-            for(String j:dates){
+        for (String i : dates) {
+            for (String j : dates) {
                 int iD = Integer.parseInt(i.substring(0, 2));
                 int iM = Integer.parseInt(i.substring(3, 5));
                 int iY = Integer.parseInt(i.substring(6, 8));
                 int jD = Integer.parseInt(j.substring(0, 2));
                 int jM = Integer.parseInt(j.substring(3, 5));
                 int jY = Integer.parseInt(j.substring(6, 8));
-                if(iY < jY || (iY == jY && iM < jM) || (iY == jY && iM==jM && iD < jD)){
+                if (iY < jY || (iY == jY && iM < jM) || (iY == jY && iM == jM && iD < jD)) {
                     //zamieniamy i z j
                     String temp = i;
                     i = j;
                     j = temp;
-                }               
+                }
             }
         }
     }
@@ -313,4 +320,5 @@ public final class PresenceTableTopComponent extends TopComponent {
     }
 }
 
-class TestCellRenderer extends DefaultTableCellRenderer{ }
+class TestCellRenderer extends DefaultTableCellRenderer {
+}

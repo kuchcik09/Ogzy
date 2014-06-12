@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.gui;
 
 import java.io.File;
@@ -25,16 +19,16 @@ public class AboutPanel extends javax.swing.JPanel {
         File licence_file = new File("licence.txt");
         try {
             Scanner sc = new Scanner(licence_file);
-            
+
             String text = "";
-            
-            while(sc.hasNextLine()){
-                text += sc.nextLine()+"\n";
+
+            while (sc.hasNextLine()) {
+                text += sc.nextLine() + "\n";
             }
-            
+
             this.licence_area.setText(text);
             this.licence_area.setCaretPosition(0);
-            
+
         } catch (FileNotFoundException ex) {
             Exceptions.printStackTrace(ex);
         }

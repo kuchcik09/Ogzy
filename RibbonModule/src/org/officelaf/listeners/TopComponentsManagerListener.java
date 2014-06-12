@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.officelaf.listeners;
 
 import java.beans.PropertyChangeEvent;
@@ -17,12 +11,8 @@ import org.gui.obecnosci.PresenceTableTopComponent;
 import org.gui.oceny.NotesTableTopComponent;
 import org.gui.oceny.OcenyKoncoweTopComponent;
 import org.gui.przedmioty.PokazPrzedmiotyTopComponent;
-import org.gui.schematy.SchemeTopComponent;
 import org.gui.studenci.StudentsListTopComponent;
-import org.jvnet.flamingo.common.AbstractCommandButton;
-import org.jvnet.flamingo.ribbon.RibbonElementPriority;
 import org.officelaf.ribbon.BandsButtons;
-import org.officelaf.ribbon.MainRibbon;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 

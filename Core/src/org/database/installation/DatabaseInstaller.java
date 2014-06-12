@@ -19,7 +19,7 @@ public class DatabaseInstaller {
     private Statement stat = null;
     private Connection conn = null;
 
-    private boolean execute() {
+    public boolean execute() {
         boolean result = createStudentTable()
                 && createStudentTable()
                 && createGrupaOcenTable()
@@ -28,8 +28,9 @@ public class DatabaseInstaller {
                 && createGrupaStudentTable()
                 && createTerminyTable()
                 && createObecnoscTable()
-                && createOcenyTable();
-        System.out.println(result);
+                && createOcenyTable()
+                && buildMailer();
+        //System.out.println(result);
         return result;
     }
 
@@ -39,7 +40,7 @@ public class DatabaseInstaller {
             stat = conn.createStatement();
             stat.execute(query);
             stat.close();
-            System.out.println(successMessage);
+            //System.out.println(successMessage);
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInstaller.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,7 +74,7 @@ public class DatabaseInstaller {
                 + " id_termin INTEGER,"
                 + " id_student INTEGER,"
                 + " data TEXT,"
-                + " obecnosc INTEGER"
+                + " obecnosc INTEGER,"
                 + " FOREIGN KEY(id_termin ) REFERENCES grupa_terminy(id),"
                 + " FOREIGN KEY(id_student ) REFERENCES student(id))", "Tabela 'obecnosc' utworzona pomyslnie");
     }
@@ -132,4 +133,34 @@ public class DatabaseInstaller {
                 + " email TEXT,"
                 + " indeks INTEGER)", "Tabela 'student' utworzona pomyslnie");
     }
+
+    public boolean buildMailer() {
+        //createTable("DROP TABLE IF EXISTS mailer_mails", "");
+        return createMailerConfigurationTable() && createRecivedMailsTable();
+    }
+
+    private boolean createMailerConfigurationTable() {
+        return createTable("CREATE TABLE IF NOT EXISTS mailer_settings( "
+                + " id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + " name TEXT,"
+                + " login TEXT,"
+                + " password TEXT,"
+                + " pop3Hostname TEXT,"
+                + " pop3Port TEXT,"
+                + " smptHostname TEXT,"
+                + " smptPort TEXT)", "Tabela 'mailer_settings' utworzona pomyslnie");
+    }
+
+    private boolean createRecivedMailsTable() {
+        return createTable("CREATE TABLE IF NOT EXISTS mailer_mails( "
+                + " id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + " folderName TEXT,"
+                + " recived_date TEXT,"
+                + " content TEXT,"
+                + " [from] TEXT,"
+                + " subject TEXT,"
+                + " isRead INTEGER,"
+                + " accountID INTEGER)", "Tabela 'mailer_mails' utworzona pomyslnie");
+    }
+
 }

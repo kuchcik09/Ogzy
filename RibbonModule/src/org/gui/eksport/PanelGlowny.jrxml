@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PanelGlowny" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="186a722e-4870-42ce-a87e-c229b7962ede">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="115"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Studia\\Projekt zespołowy 2\\kod\\Ogzy\\RibbonModule\\src\\org\\gui\\eksport\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nazwaGrupy" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="przedmiot" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="typOceniania" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="schematOceniania" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="grupaId" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[select count(*) from student]]>
+	</queryString>
+	<detail>
+		<band height="80">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="afca4b90-56ad-4fa2-bb41-ce0d841de992"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[grupa:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="0" width="127" height="20" uuid="6db4404e-353b-4aae-96cc-2f00dee412bb"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nazwaGrupy}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20" uuid="d206e943-be9a-4f42-8b5b-12dcc0245fd4"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[przedmiot:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="20" width="127" height="20" uuid="01962a95-c319-419c-bab6-e7a3067b244b"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{przedmiot}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="20" uuid="708e23fa-5e94-44ae-9280-91f881ee531b"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[typ oceniania:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="40" width="127" height="20" uuid="d8384bcc-ec73-402c-9b23-854c77e771c0"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="true" pdfFontName="Helvetica-Oblique" pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{typOceniania}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="60" width="100" height="20" uuid="93d02b39-f5f6-422e-8d6c-2547277566d4"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[schemat oceniania:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="100" y="60" width="127" height="20" uuid="49ac76b6-bdd7-47fc-85a3-53276b7c9d4e"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{schematOceniania}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="432" y="0" width="370" height="20" isPrintWhenDetailOverflows="true" uuid="ed0c764a-c0ee-4c80-814e-b44b31a73bf2"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Studenci należący do tej grupy:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="0" width="180" height="20" isPrintWhenDetailOverflows="true" uuid="589ee934-03d4-46ee-ac1c-a669b769056e"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Terminy spotkań:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="243" y="20" width="180" height="60" isPrintWhenDetailOverflows="true" uuid="ae99523b-2b08-49ab-84ee-4d38834997cf"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="grupaId">
+					<subreportParameterExpression><![CDATA[$P{grupaId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "PanelGlowny_terminy.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="432" y="20" width="370" height="60" isPrintWhenDetailOverflows="true" uuid="96bf65c6-d371-40d3-93f4-8bfbf5e6263e"/>
+				<subreportParameter name="grupaId">
+					<subreportParameterExpression><![CDATA[$P{grupaId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="$P{SUBREPORT_DIR}">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "PanelGlowny_studenci.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<textField>
+				<reportElement x="435" y="0" width="327" height="20" uuid="ea3c3f84-69db-406c-92fa-1051320e0b67"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="762" y="0" width="40" height="20" uuid="b13c9d01-614a-4177-84ab-f2c2491ebb34"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="20">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="79" height="20" uuid="944ee270-b625-447f-ac5f-2ccc6670c99b"/>
+				<textFieldExpression><![CDATA["Wydrukowano: "]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="79" y="0" width="121" height="20" uuid="a0f9d75d-73d2-4767-a74a-40637efee99d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

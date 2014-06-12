@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.gui;
 
 import java.awt.Color;
@@ -24,7 +19,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import org.gui.grupy_cwiczeniowe.GrupaCwiczeniowaTopComponent;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.officelaf.listeners.TopComponentsManagerListener;
@@ -32,6 +26,7 @@ import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
+import org.openide.windows.Mode;
 import org.openide.windows.WindowManager;
 
 /**
@@ -59,14 +54,14 @@ import org.openide.windows.WindowManager;
     "HINT_MainTopComponent=To okno ukazuje plan zajęć"
 })
 public final class MainTopComponent extends TopComponent {
-    
+
     private LinkedList<Termin> allTerms;
     private Termin[][] terms = new Termin[7][7];
-    
-    public Termin getTerms(int r, int c){
+
+    public Termin getTerms(int r, int c) {
         return terms[r][c];
     }
-    
+
     public MainTopComponent() {
         this.allTerms = new LinkedList<Termin>();
         initComponents();
@@ -92,23 +87,23 @@ public final class MainTopComponent extends TopComponent {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 DefaultTableModel model = (DefaultTableModel) termsTable.getModel();
-                String value = (String)model.getValueAt(termsTable.getSelectedRow(), termsTable.getSelectedColumn());
+                String value = (String) model.getValueAt(termsTable.getSelectedRow(), termsTable.getSelectedColumn());
 
-                if(value != null && termsTable.getSelectedColumn() >0){
-                    openGroupTopComponent(terms[termsTable.getSelectedRow()][termsTable.getSelectedColumn()-1]);
+                if (value != null && termsTable.getSelectedColumn() > 0) {
+                    openGroupTopComponent(terms[termsTable.getSelectedRow()][termsTable.getSelectedColumn() - 1]);
                 }
             }
         });
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-    centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-    this.termsTable.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
-    this.termsTable.getColumnModel().getColumn(1).setCellRenderer( new CustomRenderer() );
-    this.termsTable.getColumnModel().getColumn(2).setCellRenderer( new CustomRenderer() );
-    this.termsTable.getColumnModel().getColumn(3).setCellRenderer( new CustomRenderer() );
-    this.termsTable.getColumnModel().getColumn(4).setCellRenderer( new CustomRenderer() );
-    this.termsTable.getColumnModel().getColumn(5).setCellRenderer( new CustomRenderer() );
-    this.termsTable.getColumnModel().getColumn(6).setCellRenderer( new CustomRenderer() );
-    
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        this.termsTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        this.termsTable.getColumnModel().getColumn(1).setCellRenderer(new CustomRenderer());
+        this.termsTable.getColumnModel().getColumn(2).setCellRenderer(new CustomRenderer());
+        this.termsTable.getColumnModel().getColumn(3).setCellRenderer(new CustomRenderer());
+        this.termsTable.getColumnModel().getColumn(4).setCellRenderer(new CustomRenderer());
+        this.termsTable.getColumnModel().getColumn(5).setCellRenderer(new CustomRenderer());
+        this.termsTable.getColumnModel().getColumn(6).setCellRenderer(new CustomRenderer());
+
     }
 
     /**
@@ -171,34 +166,47 @@ public final class MainTopComponent extends TopComponent {
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void openGroupTopComponent(Termin term){
+
+    private void openGroupTopComponent(Termin term) {
         List<GrupaCwiczeniowa> groups = GrupaCwiczeniowa.getAll();
-            GrupaCwiczeniowa grupa = null;
+        GrupaCwiczeniowa grupa = null;
 
-            String grupa_name = term.getGrupa().getNazwa();
-            String przedmiot_name = term.getGrupa().getPrzedmiot().getNazwa();
+        String grupa_name = term.getGrupa().getNazwa();
+        String przedmiot_name = term.getGrupa().getPrzedmiot().getNazwa();
 
-            for(int i=0;i<groups.size();i++){
-                if(groups.get(i).getNazwa().equals(grupa_name) && groups.get(i).getPrzedmiot().getNazwa().equals(przedmiot_name)){
-                    grupa = groups.get(i);
-                    break;
+        for (int i = 0; i < groups.size(); i++) {
+            if (groups.get(i).getNazwa().equals(grupa_name) && groups.get(i).getPrzedmiot().getNazwa().equals(przedmiot_name)) {
+                grupa = groups.get(i);
+                break;
+            }
+        }
+
+        //GrupaCwiczeniowaTopComponent top = (GrupaCwiczeniowaTopComponent) WindowManager.getDefault().findTopComponent("GrupaCwiczeniowaTopComponent");
+        Mode mode = WindowManager.getDefault().findMode("editor");
+        for (TopComponent tc : WindowManager.getDefault().getOpenedTopComponents(mode)) {
+            if (tc instanceof GrupaCwiczeniowaTopComponent) {
+                if (((GrupaCwiczeniowaTopComponent) tc).getGrupa().getId() == grupa.getId()) {
+                    if (!tc.isOpened()) {
+                        tc.open();
+                    }
+                    tc.requestActive();
+                    return;
                 }
             }
+        }
+        GrupaCwiczeniowaTopComponent top = new GrupaCwiczeniowaTopComponent();
+        top.setGroup(grupa);
+        top.open();
+        top.requestActive();
 
-            GrupaCwiczeniowaTopComponent top = (GrupaCwiczeniowaTopComponent) WindowManager.getDefault().findTopComponent("GrupaCwiczeniowaTopComponent");
-            top.setGroup(grupa);
-            if(top.isOpened() == false)
-                top.open();
-            top.requestActive();
     }
-    
+
     private void termsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_termsTableMouseClicked
         DefaultTableModel model = (DefaultTableModel) this.termsTable.getModel();
-        String value = (String)model.getValueAt(this.termsTable.getSelectedRow(), this.termsTable.getSelectedColumn());
+        String value = (String) model.getValueAt(this.termsTable.getSelectedRow(), this.termsTable.getSelectedColumn());
 
-        if(value != null && this.termsTable.getSelectedColumn() >0 && evt.getClickCount() == 2){
-            openGroupTopComponent(terms[termsTable.getSelectedRow()][termsTable.getSelectedColumn()-1]);
+        if (value != null && this.termsTable.getSelectedColumn() > 0 && evt.getClickCount() == 2) {
+            openGroupTopComponent(terms[termsTable.getSelectedRow()][termsTable.getSelectedColumn() - 1]);
         }
     }//GEN-LAST:event_termsTableMouseClicked
 
@@ -208,49 +216,50 @@ public final class MainTopComponent extends TopComponent {
     // End of variables declaration//GEN-END:variables
     @Override
     public void componentOpened() {
-        
+
         allTerms = Termin.getAllTermsForYearAndSemester(); //pobieram wszystkie terminy
-        
+
         DefaultTableModel model = (DefaultTableModel) this.termsTable.getModel(); //pobieram model tabeli
-        
-        while(model.getRowCount()>0) model.removeRow(0); //czyszcze całą tabele
-        
-        int StartScaleTime = 6; //od jakiej godziny zaczynam liczyć
+
+        while (model.getRowCount() > 0) {
+            model.removeRow(0); //czyszcze całą tabele
+        }
+        int startScaleTime = 6; //od jakiej godziny zaczynam liczyć
         //tu jest 6-ta bo w pętli będę dodwać po 2 godziny
-        
-        Time tempToTable = new Time(StartScaleTime, 0, 0); //ustalam startowy czas
+
+        Time tempToTable = new Time(startScaleTime, 0, 0); //ustalam startowy czas
         /*
-            Pętla idzie 6-króków to daje od 8 do 20 składając w każdym kroku stringa do wyświetlania i dodając
-            puste narazie wartości null do dabeli ustawając czas o 2godziny wiecej
-            czyli poprostu inicjalizuje się tu pusta tabela
-        */
-        for(int i=0;i<=6;i++){
-            String temp = tempToTable.toString().substring(0, tempToTable.toString().length()-3)+" - ";
-            tempToTable.setTime(tempToTable.getTime()+ 7200000); // 7200000 milisec = 1h
-            model.addRow(new Object[]{temp+tempToTable.toString().substring(0, tempToTable.toString().length()-3),null,null,null,null,null,null,null});
-            
+         Pętla idzie 6-króków to daje od 8 do 20 składając w każdym kroku stringa do wyświetlania i dodając
+         puste narazie wartości null do tabeli ustawając czas o 2godziny wiecej
+         czyli poprostu inicjalizuje się tu pusta tabela
+         */
+        for (int i = 0; i <= 6; i++) {
+            String temp = tempToTable.toString().substring(0, tempToTable.toString().length() - 3) + " - ";
+            tempToTable.setTime(tempToTable.getTime() + 7200000); // 7200000 milisec = 1h
+            model.addRow(new Object[]{temp + tempToTable.toString().substring(0, tempToTable.toString().length() - 3), null, null, null, null, null, null, null});
+
         }
-        
+
         //teraz przechodząc po terminach dodaję odpowiednio grupy
-        for(int i=0;i<allTerms.size();i++){
+        for (int i = 0; i < allTerms.size(); i++) {
             Termin term = allTerms.get(i);
-            int rowIndex = (Integer.parseInt(term.getGodzina_start().toString().substring(0, 2))/2)-3; 
-            int columnIndex = term.getDzien_tygodnia().ordinal()+1;
-            
-            terms[rowIndex][columnIndex-1] = term;
-            model.setValueAt("<html><div style=\"margin:5px;\"><b>"+term.getGrupa().getNazwa()+ "</b><br>"+term.getGrupa().getPrzedmiot().getNazwa()+"</div></html>", rowIndex, columnIndex);
-            
+            int rowIndex = (Integer.parseInt(term.getGodzina_start().substring(0, 2)) / 2) - 3;
+            int columnIndex = term.getDzien_tygodnia().ordinal() + 1;
+
+            terms[rowIndex][columnIndex - 1] = term;
+            model.setValueAt("<html><div style=\"margin:5px;\"><b>" + term.getGrupa().getNazwa() + "</b><br>" + term.getGrupa().getPrzedmiot().getNazwa() + "</div></html>", rowIndex, columnIndex);
+
         }
-        
+
         termsTable.setModel(model);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         termsTable.setDefaultRenderer(String.class, centerRenderer);
     }
 
     @Override
     public void componentClosed() {
-    
+
     }
 
     void writeProperties(java.util.Properties p) {
@@ -266,24 +275,24 @@ public final class MainTopComponent extends TopComponent {
     }
 
     public DefaultTableModel getTableModel() {
-        return (DefaultTableModel)this.termsTable.getModel();
+        return (DefaultTableModel) this.termsTable.getModel();
     }
 
     public JTable getTable() {
         return this.termsTable;
     }
-    
+
     class CustomRenderer extends DefaultTableCellRenderer {
+
         @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
-        {
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            
-            if(terms[row][column-1] != null){
-                if(!isSelected){
-                    cellComponent.setBackground(Color.decode(terms[row][column-1].getGrupa().getColor()));
+
+            if (terms[row][column - 1] != null) {
+                if (!isSelected) {
+                    cellComponent.setBackground(Color.decode(terms[row][column - 1].getGrupa().getColor()));
                 }
-            }else{
+            } else {
                 cellComponent.setBackground(null);
             }
             return cellComponent;

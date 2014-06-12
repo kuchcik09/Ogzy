@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Obecnosc" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="186a722e-4870-42ce-a87e-c229b7962ede">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="daty" class="java.util.List"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="student" class="java.lang.String"/>
+	<field name="obecnosci" class="java.util.List"/>
+	<title>
+		<band height="72" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="555" height="72" uuid="90688886-c159-48a5-8e67-89483035776f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="147" height="20" backcolor="#CCCCCC" uuid="9ebc6c45-0505-44d8-99c6-0b6fef7e95a3"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Student]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="453" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="c2fd4cc4-f6c6-4418-bb86-f0a494baa07e">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 6]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{daty}.get( 6 )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="249" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="e42d5491-5150-4fb8-a013-85f717f6ba22">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 2]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{daty}.get( 2 )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="837b9cc5-60d4-4c8e-8c71-cc3e69cf0722">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 3]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{daty}.get( 3 )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="504" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="0287aad6-76a3-403d-8247-0c2207343d5e">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 7]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{daty}.get( 7 )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="402" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="c26115ed-9725-4e3c-af9e-d466f1e0afd5">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 5]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{daty}.get( 5 )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="147" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="b68a71cb-262a-40d2-8954-07448ac12ba2">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 0]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{daty}.get( 0 )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="351" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="8b24c37f-6c03-4be4-8919-63738e301101">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 4]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{daty}.get( 4 )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="198" y="0" width="51" height="20" backcolor="#CCCCCC" uuid="bbdd4d75-8e97-4310-89fe-eee891f95f7c">
+					<printWhenExpression><![CDATA[$P{daty}.size() > 1]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{daty}.get( 1 )]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField>
+				<reportElement x="198" y="0" width="51" height="20" uuid="ea71d7d6-248b-4e45-bc67-1d8bbdd6b9a4">
+					<printWhenExpression><![CDATA[$F{obecnosci}.size() > 1]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( (Boolean) $F{obecnosci}.get( 1 ) ? "+" : "" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="249" y="0" width="51" height="20" uuid="553e7adb-7960-4da1-8eea-ee5e92eb4097">
+					<printWhenExpression><![CDATA[$F{obecnosci}.size() > 2]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( (Boolean) $F{obecnosci}.get( 2 ) ? "+" : "" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="51" height="20" uuid="187d9250-b9be-4c41-8b1e-256002dfe0c8">
+					<printWhenExpression><![CDATA[$F{obecnosci}.size() > 3]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( (Boolean) $F{obecnosci}.get( 3 ) ? "+" : "" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="351" y="0" width="51" height="20" uuid="5b6773cf-3273-4ea8-915a-579a0d96d2b4">
+					<printWhenExpression><![CDATA[$F{obecnosci}.size() > 4]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( (Boolean) $F{obecnosci}.get( 4 ) ? "+" : "" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="0" width="51" height="20" uuid="30ebec33-35d7-4c9b-9f6f-8068b65e7fd6">
+					<printWhenExpression><![CDATA[$F{obecnosci}.size() > 5]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( (Boolean) $F{obecnosci}.get( 5 ) ? "+" : "" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="453" y="0" width="51" height="20" uuid="461e9a6c-e4a7-4940-beeb-f6337621a13f">
+					<printWhenExpression><![CDATA[$F{obecnosci}.size() > 6]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( (Boolean) $F{obecnosci}.get( 6 ) ? "+" : "" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="504" y="0" width="51" height="20" uuid="d5b45a52-6536-4247-9028-6102807abfa0">
+					<printWhenExpression><![CDATA[$F{obecnosci}.size() > 7]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( (Boolean) $F{obecnosci}.get( 7 ) ? "+" : "" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="147" y="0" width="51" height="20" uuid="28207c40-51ca-4c46-a028-869a592a63ad">
+					<printWhenExpression><![CDATA[$F{obecnosci}.size() > 0]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( (Boolean) $F{obecnosci}.get( 0 ) ? "+" : "" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="147" height="20" uuid="832ca395-2694-4f70-bd33-c78a5208272c"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{student}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20" uuid="ea3c3f84-69db-406c-92fa-1051320e0b67"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="b13c9d01-614a-4177-84ab-f2c2491ebb34"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="20">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="79" height="20" uuid="944ee270-b625-447f-ac5f-2ccc6670c99b"/>
+				<textFieldExpression><![CDATA["Wydrukowano: "]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="79" y="0" width="121" height="20" uuid="a0f9d75d-73d2-4767-a74a-40637efee99d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>
